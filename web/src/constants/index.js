@@ -1,0 +1,2 @@
+export const USER_COOKIE_KEY = 'CERT_CHAIN_USER_TYPE'
+export const LOGIN_KEY = 'CERT_CHAIN_IS_LOGIN'
