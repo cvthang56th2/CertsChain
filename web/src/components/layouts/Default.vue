@@ -11,7 +11,7 @@
           </button>
         </div>
       </div>
-      <div class="mt-20">
+      <div class="mt-5">
         <template v-if="['Issuer', 'Holder'].includes(userType)">
           <component v-if="isLogin" :is="userType" />
           <Login v-else />
