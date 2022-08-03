@@ -1,2 +1,4 @@
 api/node_modules
+be/node_modules
+be/.env
 web/node_modules
