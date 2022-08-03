@@ -43,7 +43,7 @@ Certi.find()
 
 /* GET users listing. */
 router.get('/', function (req, res) {
-  res.send('respond with a resource')
+  res.send({foo: 'bar'})
 })
 
 router.post('/signup', (req, res) => {
@@ -52,7 +52,7 @@ router.post('/signup', (req, res) => {
   User.findOne({ username })
     .then(async (user) => {
       if (user) {
-        return res.render('output', {
+        return res.send({
           certificateNumber: 0,
           status: 'User Already Exists',
         })
@@ -83,13 +83,13 @@ router.post('/signup', (req, res) => {
             .save()
             .then((user) => {
               if (user) {
-                return res.render('output', {
+                return res.send({
                   certificateNumber: 0,
                   status: 'created',
                 })
               } else {
                 account.chain.pop()
-                return res.render('output', {
+                return res.send({
                   certificateNumber: 0,
                   status: 'no user created try again',
                 })
@@ -98,23 +98,25 @@ router.post('/signup', (req, res) => {
             .catch((err) => {
               account.chain.pop()
               console.log(err)
-              return res.render('output', {
+              res.status(500)
+              return res.send({
                 certificateNumber: 0,
-                status: 'try again1!!!',
+                status: 'try again!!!',
               })
             })
         } catch (err) {
           console.log(err)
-          return res.render('output', {
+          return res.send({
             certificateNumber: 0,
-            status: 'error try again2!!!',
+            status: 'error try again!!!',
           })
         }
       }
     })
     .catch((err) => {
       console.log(err)
-      return res.render('output', {
+      res.status(500)
+      return res.send({
         certificateNumber: 0,
         status: 'server down',
       })
@@ -131,12 +133,12 @@ router.post('/login', (req, res) => {
           .hashBlock(user.nonce, user.prehash, { username, password })
           .then((hash) => {
             if (user.hash === hash)
-              return res.render('output', {
+              return res.send({
                 certificateNumber: 0,
                 status: 'logged in',
               })
             else {
-              return res.render('output', {
+              return res.send({
                 certificateNumber: 0,
                 status: 'Check username or password',
               })
@@ -144,21 +146,23 @@ router.post('/login', (req, res) => {
           })
           .catch((err) => {
             console.log(err)
-            return res.render('output', {
+            res.status(500)
+            return res.send({
               certificateNumber: 0,
               status: 'server down',
             })
           })
       } else {
-        return res.render('output', {
+        return res.send({
           certificateNumber: 0,
           status: 'no user',
         })
       }
     })
     .catch((err) => {
+      res.status(500)
       console.log(err)
-      return res.render('output', {
+      return res.send({
         certificateNumber: 0,
         status: 'server down',
       })
@@ -178,7 +182,7 @@ router.post(
     Certi.findOne({ details: certiData })
       .then(async (certifound) => {
         if (certifound) {
-          return res.render('output', {
+          return res.send({
             certificateNumber: certifound.certinumber,
             status: 'Certificate Number Has been generated Already',
           })
@@ -211,13 +215,13 @@ router.post(
               .save()
               .then((certi) => {
                 if (certi) {
-                  return res.render('output', {
+                  return res.send({
                     certificateNumber: certi.certinumber,
                     status: 'Generated Successfully',
                   })
                 } else {
                   certificate.chain.pop()
-                  return res.render('output', {
+                  return res.send({
                     certificateNumber: 0,
                     status:
                       'Certificate Number generation unsuccessful created try again',
@@ -225,25 +229,27 @@ router.post(
                 }
               })
               .catch((err) => {
+                res.status(500)
                 certificate.chain.pop()
                 console.log('err', err)
-                return res.render('output', {
+                return res.send({
                   certificateNumber: 0,
-                  status: 'try again3!!!',
+                  status: 'try again!!!',
                 })
               })
           } catch (err) {
             console.log(err)
-            return res.render('output', {
+            return res.send({
               certificateNumber: 0,
-              status: 'error try again3!!!',
+              status: 'error try again!!!',
             })
           }
         }
       })
       .catch((err) => {
         console.log(err)
-        return res.render('output', {
+        res.status(500)
+        return res.send({
           certificateNumber: 0,
           status: 'server down',
         })
@@ -258,18 +264,18 @@ router.post('/verifycertificate', upload.single('certificate'), (req, res) => {
     .then(async (certifound) => {
       if (certifound) {
         if (certifound.details === certiData) {
-          return res.render('output', {
+          return res.send({
             certificateNumber: 0,
             status: 'Certificate is Geniune',
           })
         } else {
-          return res.render('output', {
+          return res.send({
             certificateNumber: 0,
             status: 'Certificate is tempered',
           })
         }
       } else {
-        return res.render('output', {
+        return res.send({
           certificateNumber: 0,
           status: 'Certificate is not generated from us',
         })
@@ -277,7 +283,7 @@ router.post('/verifycertificate', upload.single('certificate'), (req, res) => {
     })
     .catch((err) => {
       console.log(err)
-      return res.render('output', {
+      return res.send({
         certificateNumber: 0,
         status: 'server down',
       })
