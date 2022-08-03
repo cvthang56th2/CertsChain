@@ -55,6 +55,7 @@ import Holder from '../holder/Holder.vue'
 import Verifier from '../verifier/Verifier.vue'
 import { mapGetters } from 'vuex'
 import Login from '../auth/Login.vue'
+import Axios from 'axios'
 
 export default {
   components: {
@@ -80,7 +81,7 @@ export default {
       this.$store.commit('auth/SET_IS_LOGIN', false)
     }
   },
-  mounted () {
+  async mounted () {
     this.$store.commit('auth/SET_IS_LOGIN', this.$cookies.get(LOGIN_KEY) === 'true')
     const cookieUserType = this.$cookies.get(USER_COOKIE_KEY)
     if (['Issuer', 'Holder', 'Verifier'].includes(cookieUserType)) {
@@ -88,6 +89,8 @@ export default {
     } else {
       this.$cookies.set(USER_COOKIE_KEY, null)
     }
+    const res = await Axios.get(`${import.meta.env.VITE_API_URL}/user/62ea9ab1de37ca11e081e2ee`)
+    console.log('res', res)
   }
 }
 </script>

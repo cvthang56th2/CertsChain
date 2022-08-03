@@ -42,8 +42,14 @@ Certi.find()
   })
 
 /* GET users listing. */
-router.get('/', function (req, res) {
-  res.send({foo: 'bar'})
+router.get('/:_id', async function (req, res, next) {
+  try {
+    const { _id } = req.params
+    const user = await User.findOne({ _id })
+    res.send(user)
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.post('/signup', (req, res) => {
