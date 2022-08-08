@@ -85,7 +85,14 @@
                 </div>
                 <div class="grid grid-cols-2">
                   <div class="px-4 py-2 font-semibold">Gender</div>
-                  <input v-if="isEditting" v-model="formData.gender" class="px-4 py-2 border-b-2" type="text" placeholder="Gender">
+                  <div v-if="isEditting" class="flex items-center px-4">
+                    <div class="cursor-pointer" @click="$refs.genderMale.click()">
+                      <input ref="genderMale" type="radio" class="mr-2" v-model="formData.gender" value="male" /> Male
+                    </div>
+                    <div class="cursor-pointer ml-5" @click="$refs.genderFemale.click()">
+                      <input ref="genderFemale" type="radio" class="mr-2" v-model="formData.gender" value="female" /> Female
+                    </div>
+                  </div>
                   <div v-else class="px-4 py-2">{{ user.gender }}</div>
                 </div>
                 <div class="grid grid-cols-2">
@@ -105,7 +112,7 @@
                 </div>
                 <div class="grid grid-cols-2">
                   <div class="px-4 py-2 font-semibold">Email.</div>
-                  <input v-if="isEditting" v-model="formData.email" class="px-4 py-2 border-b-2" type="text" placeholder="Email.">
+                  <input v-if="isEditting" v-model="formData.email" class="px-4 py-2 border-b-2" type="email" placeholder="Email.">
                   <div v-else class="px-4 py-2">
                     <a class="text-blue-800" :href="`mailto:${user.email}`"
                       >{{ user.email }}</a
@@ -114,7 +121,7 @@
                 </div>
                 <div class="grid grid-cols-2">
                   <div class="px-4 py-2 font-semibold">Birthday</div>
-                  <input v-if="isEditting" v-model="formData.birthday" class="px-4 py-2 border-b-2" type="text" placeholder="Birthday">
+                  <input v-if="isEditting" v-model="formData.birthday" class="px-4 py-2 border-b-2" type="date" placeholder="Birthday">
                   <div v-else class="px-4 py-2">{{ user.birthday }}</div>
                 </div>
               </div>

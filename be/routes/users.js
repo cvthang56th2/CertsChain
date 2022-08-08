@@ -42,6 +42,15 @@ Certi.find()
   })
 
 /* GET users listing. */
+router.get('/list', async function (req, res, next) {
+  try {
+    const users = await User.find({}).select('-password').lean()
+    res.send(users)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:_id', async function (req, res, next) {
   try {
     const { _id } = req.params
@@ -52,8 +61,19 @@ router.get('/:_id', async function (req, res, next) {
   }
 })
 
-router.post('/signup', (req, res) => {
-  const { username, password } = req.body
+router.post('/signup', (req, res, next) => {
+  const {
+    username,
+    password,
+    firstName,
+    lastName,
+    gender,
+    contactNo,
+    currentAddress,
+    permanantAddress,
+    email,
+    birthday,
+  } = req.body
   console.log(username, password, ' : signup')
   User.findOne({ username })
     .then(async (user) => {
@@ -82,6 +102,14 @@ router.post('/signup', (req, res) => {
             nonce: block.nonce,
             prehash: block.prehash,
             blockindex: block.index,
+            firstName,
+            lastName,
+            gender,
+            contactNo,
+            currentAddress,
+            permanantAddress,
+            email,
+            birthday,
           })
 
           console.log(account)
@@ -127,6 +155,64 @@ router.post('/signup', (req, res) => {
         status: 'server down',
       })
     })
+})
+
+router.post('/:_id/change-status', async (req, res) => {
+  try {
+    const { _id } = req.params
+    const user = await User.findByIdAndUpdate({ _id })
+    await User.findByIdAndUpdate(_id, {
+      status: user.status === 'archived' ? 'active' : 'archived'
+    })
+    return res.send({
+      success: true
+    })
+  } catch (error) {
+    res.status(500)
+    return res.send({
+      status: 'server down',
+    })
+  }
+})
+
+router.post('/update', async (req, res, next) => {
+  try {
+    const {
+      _id,
+      firstName,
+      lastName,
+      gender,
+      contactNo,
+      currentAddress,
+      permanantAddress,
+      email,
+      birthday,
+    } = req.body
+    const user = await User.findOne({ _id })
+    if (!user) {
+      return res.send({
+        status: 'User not found',
+      })
+    }
+    await User.findByIdAndUpdate(_id, {
+      firstName,
+      lastName,
+      gender,
+      contactNo,
+      currentAddress,
+      permanantAddress,
+      email,
+      birthday,
+    })
+    return res.send({
+      success: true
+    })
+  } catch (error) {
+    res.status(500)
+    return res.send({
+      status: 'server down',
+    })
+  }
 })
 
 router.post('/login', (req, res) => {

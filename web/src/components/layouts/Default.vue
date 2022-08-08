@@ -55,7 +55,6 @@ import Holder from '../holder/Holder.vue'
 import Verifier from '../verifier/Verifier.vue'
 import { mapGetters } from 'vuex'
 import Login from '../auth/Login.vue'
-import Axios from 'axios'
 
 export default {
   components: {
@@ -89,8 +88,6 @@ export default {
     } else {
       this.$cookies.set(USER_COOKIE_KEY, null)
     }
-    const res = await Axios.get(`${import.meta.env.VITE_API_URL}/user/62ea9ab1de37ca11e081e2ee`)
-    console.log('res', res)
   }
 }
 </script>
