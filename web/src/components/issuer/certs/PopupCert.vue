@@ -1,17 +1,11 @@
 <template>
   <Popup v-model="modelValue" @hide="hide" :title="certObj._id ? 'Edit Cert' : 'Add Cert'">
-    <p class="my-4 text-slate-500 text-lg leading-relaxed">
-      I always felt like I could do anything. That’s the main
-      thing people are controlled by! Thoughts- their perception
-      of themselves! They're slowed down by their perception of
-      themselves. If you're taught you can’t do anything, you
-      won’t do anything. I was taught I could do everything.
-    </p>
   </Popup>
 </template>
 
 <script>
 import Popup from '../../Popup.vue'
+import Axios from 'axios'
 
 export default {
   props: {
@@ -27,10 +21,38 @@ export default {
   components: {
     Popup
   },
+  watch: {
+    modelValue (v) {
+      if (v) {
+        this.getSchools()
+        this.getUsers()
+      }
+    }
+  },
+  data: () => ({
+    users: [],
+    schools: [],
+  }),
   methods: {
     hide() {
       this.$emit('update:modelValue', false)
-    }
+    },
+    async getSchools() {
+      try {
+        const { data } = await Axios.get(`${import.meta.env.VITE_API_URL}/school/list`)
+        this.schools = (data || []).filter(e => e.status !== 'archived')
+      } catch (error) {
+        console.log('error', error)        
+      }
+    },
+    async getUsers() {
+      try {
+        const { data } = await Axios.get(`${import.meta.env.VITE_API_URL}/user/list`)
+        this.users = (data || []).filter(e => e.status !== 'archived')
+      } catch (error) {
+        console.log('error', error)        
+      }
+    },
   }
 }
 </script>

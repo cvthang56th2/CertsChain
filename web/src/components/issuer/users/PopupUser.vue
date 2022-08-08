@@ -57,7 +57,7 @@
             <input ref="statusActive" type="radio" class="mr-2" v-model="formData.status" value="active" /> Active
           </div>
           <div class="cursor-pointer ml-5" @click="$refs.statusArchived.click()">
-            <input ref="statusArchived" type="radio" class="mr-2" v-model="formData.status" value="archive" /> Archived
+            <input ref="statusArchived" type="radio" class="mr-2" v-model="formData.status" value="archived" /> Archived
           </div>
         </div>
       </div>
