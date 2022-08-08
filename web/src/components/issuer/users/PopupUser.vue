@@ -54,9 +54,9 @@
         <div class="px-4 py-2 font-semibold w-1/3">Status</div>
         <div class="flex items-center px-4">
           <div class="cursor-pointer" @click="$refs.statusActive.click()">
-            <input ref="statusActive" type="radio" class="mr-2" v-model="formData.status" value="active" checked /> Active
+            <input ref="statusActive" type="radio" class="mr-2" v-model="formData.status" value="active" /> Active
           </div>
-          <div class="cursor-pointer ml-5" @click="$refs.statusArchive.click()">
+          <div class="cursor-pointer ml-5" @click="$refs.statusArchived.click()">
             <input ref="statusArchived" type="radio" class="mr-2" v-model="formData.status" value="archive" /> Archived
           </div>
         </div>
