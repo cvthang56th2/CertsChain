@@ -5,7 +5,7 @@ const qrCode = require('qrcode')
 const certsPath = 'public/certs'
 
 // https://github.com/eduqg/pdfkit-node-certificate-template
-const generateCert = async () => {
+const generateCertPdf = async () => {
   const doc = new PDFDocument({
     layout: 'landscape',
     size: 'A4',
@@ -255,5 +255,5 @@ const generateCert = async () => {
 }
 
 module.exports ={
-  generateCert
+  generateCertPdf
 }
