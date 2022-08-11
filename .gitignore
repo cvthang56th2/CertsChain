@@ -1,5 +1,6 @@
 api/node_modules
 be/node_modules
 be/.env
+be/public/certs
 web/node_modules
 web/.env
