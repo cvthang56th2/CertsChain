@@ -1,0 +1,34 @@
+import moment from 'moment'
+
+function formatDate (date, options = {}) {
+  const { format = 'DD/MM/YYYY - hh:mm:ss', isGetFromNow = true } = options
+  if (
+    ['boolean', 'undefined'].indexOf(typeof date) === -1 &&
+    (!Number(date) || Number(date) > 24339600000)
+  ) {
+    const tmpDate = moment(date)
+    if (date && String(tmpDate) !== 'Invalid Date') {
+      if (isGetFromNow && moment().isSame(tmpDate, 'day')) {
+        return tmpDate.fromNow()
+      }
+      return tmpDate.format(format)
+    }
+  }
+
+  return date
+}
+export default {
+  install: (app, options) => {
+    app.mixin({
+      filters: {
+        formatDate
+      },
+      data: () =>  ({
+        test: '111'
+      }),
+      methods: {
+        formatDate
+      }
+    });
+  },
+};

@@ -1,15 +1,27 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const { ObjectId } = mongoose.Types
 
 const Certischema = new Schema({
   certinumber: {
     type: String,
     required: true,
   },
-  details: {
+  userId: {
+    type: ObjectId,
+    required: true
+  },
+  schoolId: {
+    type: ObjectId,
+    required: true
+  },
+  courceId: {
+    type: ObjectId,
+    required: true
+  },
+  certSrc: {
     type: String,
-    required: true,
-    unique: true,
+    required: true
   },
   hash: {
     type: String,

@@ -8,5 +8,12 @@ import DefaultLayout from './components/layouts/Default.vue'
 </template>
 
 <style>
-#app {}
+#app {
+}
+.toggle {
+  width: 80px;
+}
+.toggle-label {
+  width: 60px;
+}
 </style>

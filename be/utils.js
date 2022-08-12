@@ -5,7 +5,8 @@ const qrCode = require('qrcode')
 const certsPath = 'public/certs'
 
 // https://github.com/eduqg/pdfkit-node-certificate-template
-const generateCertPdf = async () => {
+const generateCertPdf = async (certiData = {}) => {
+  const { user, school, cource} = certiData
   const doc = new PDFDocument({
     layout: 'landscape',
     size: 'A4',
@@ -22,7 +23,9 @@ const generateCertPdf = async () => {
     fs.mkdirSync(certsPath);
   }
 
-  doc.pipe(fs.createWriteStream(`${certsPath}/cert-${new Date().getTime()}.pdf`));
+  const certFileName = `certificate-${[user.firstName, user.lastName].filter(Boolean).join('_')}-${school.name}-${cource.name}-${cource.time}-${new Date().getTime()}.pdf`.trim().replace(/ /g, '_')
+
+  doc.pipe(fs.createWriteStream(`${certsPath}/${certFileName}`));
 
   doc.rect(0, 0, doc.page.width, doc.page.height).fill('#fff');
 
@@ -210,8 +213,7 @@ const generateCertPdf = async () => {
   jumpLine(doc, 4);
 
   // Validation link
-  const link =
-    'https://validate-your-certificate.hello/validation-code-here';
+  const link = `http://localhost:4000/certs/${certFileName}`;
 
   const linkWidth = doc.widthOfString(link);
   const linkHeight = doc.currentLineHeight();
@@ -252,6 +254,7 @@ const generateCertPdf = async () => {
   });
 
   doc.end();
+  return link
 }
 
 module.exports ={

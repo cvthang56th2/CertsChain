@@ -1,5 +1,5 @@
 <template>
-  <div class="p-20">
+  <div class="p-10 h-screen overflow-auto">
     <template v-if="userType">
       <div class="relative">
         <button @click="changeUserType(null)" class="absolute top-2 underline text-blue-700">&#8592; Select other user type</button>

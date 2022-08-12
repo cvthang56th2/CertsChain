@@ -6,6 +6,10 @@ const Schoolschema = new Schema({
     type: String,
     required: true,
   },
+  directorName: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: false,
@@ -20,6 +24,7 @@ const Schoolschema = new Schema({
   },
   cources: [{
     name: String,
+    teacherName: String,
     description: String,
     time: String
   }],
