@@ -326,6 +326,11 @@ router.get('/certificate/list', async function (req, res, next) {
   try {
     const certs = await Certi
       .find({})
+      .populate([{
+        path: 'userId'
+      }, {
+        path: 'schoolId'
+      }])
       .lean()
     res.send(certs)
   } catch (error) {
@@ -465,7 +470,7 @@ router.post('/certificate/update', async (req, res, next) => {
 router.post('/certificate/:_id/change-status', async (req, res) => {
   try {
     const { _id } = req.params
-    const certi = await Certi.findByIdAndUpdate({ _id })
+    const certi = await Certi.findById(_id)
     await Certi.findByIdAndUpdate(_id, {
       status: certi.status === 'archived' ? 'active' : 'archived'
     })

@@ -10,10 +10,11 @@ import DefaultLayout from './components/layouts/Default.vue'
 <style>
 #app {
 }
-.toggle {
-  width: 80px;
-}
 .toggle-label {
-  width: 60px;
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  color: black;
+  font-weight: bold;
 }
 </style>

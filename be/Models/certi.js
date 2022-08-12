@@ -9,11 +9,13 @@ const Certischema = new Schema({
   },
   userId: {
     type: ObjectId,
-    required: true
+    required: true,
+    ref: 'User'
   },
   schoolId: {
     type: ObjectId,
-    required: true
+    required: true,
+    ref: 'School'
   },
   courceId: {
     type: ObjectId,
@@ -38,6 +40,11 @@ const Certischema = new Schema({
   prehash: {
     type: String,
     required: true,
+  },
+  status: {
+    type: String,
+    required: false,
+    default: 'active'
   },
 })
 // Compile model from schema

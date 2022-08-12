@@ -3,7 +3,7 @@
     <h2 class="text-center text-2xl font-extrabold mb-4">List Certs</h2>
     <div class="flex">
       <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="isShowPopupCert = true">Add Cert</button>
-      <input type="text" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
+      <input v-model="keyword" type="text" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
       <div class="flex border-b-2 py-2 font-bold">
@@ -12,12 +12,14 @@
         <div class="w-1/4 px-2">Link</div>
         <div class="w-1/4 px-2">Status</div>
       </div>
-      <div v-for="i in [1,2,3,4,5]" :key="i" class="flex border-b-2 last:border-b-0 py-2">
-        <div class="w-1/4 px-2">User</div>
-        <div class="w-1/4 px-2">School and Cource</div>
-        <div class="w-1/4 px-2">Link</div>
+      <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="flex border-b-2 last:border-b-0 py-2">
+        <div class="w-1/4 px-2">{{ certObj.userName }}</div>
+        <div class="w-1/4 px-2">{{ certObj.schoolAndCource }}</div>
         <div class="w-1/4 px-2">
-          Status
+          <a :href="certObj.certSrc" target="_blank" class="underline text-blue-600 hover:text-blue-400">{{ certObj.certSrc }}</a>
+        </div>
+        <div class="w-1/4 px-2">
+          <toggle v-model="certObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(certObj._id)" />
         </div>
       </div>
     </div>
@@ -25,16 +27,60 @@
     <PopupCert v-model="isShowPopupCert" />
   </div>
 </template>
+<style src="@vueform/toggle/themes/default.css"></style>
 
 <script>
 import PopupCert from './PopupCert.vue'
+import Axios from 'axios'
+import Toggle from '@vueform/toggle'
+
 export default {
   components: {
-    PopupCert
+    PopupCert,
+    Toggle
   },
   data: () => ({
-    isShowPopupCert: false
-  })
+    isShowPopupCert: false,
+    certs: [],
+    keyword: null
+  }),
+  computed: {
+    computedCerts () {
+      let result = JSON.parse(JSON.stringify(this.certs)).map(certObj => {
+        const courceObj = (certObj.schoolId?.cources || []).find(e => e._id === certObj.courceId) || {}
+        return {
+          ...certObj,
+          userName: [certObj.userId?.firstName, certObj.userId?.lastName].filter(Boolean).join(' '),
+          schoolAndCource: [certObj.school?.name, courceObj.name, courceObj.time].filter(Boolean).join(' '),
+        }
+      })
+      if (this.keyword) {
+        let reg = new RegExp(this.keyword, 'gi')
+        result = result.filter(item => (
+          (item.userName && item.userName.match(reg)) ||
+          (item.schoolAndCource && item.schoolAndCource.match(reg))
+        ))
+      }
+      return result
+    },
+  },
+  mounted () {
+    this.getCerts()
+  },
+  methods: {
+    async getCerts() {
+      try {
+        const { data } = await Axios.get(`${import.meta.env.VITE_API_URL}/certificate/list`)
+        this.certs = data || []
+      } catch (error) {
+        console.log('error', error)        
+      }
+    },
+    async changeStatus(certId) {
+      await Axios.post(`${import.meta.env.VITE_API_URL}/certificate/${certId}/change-status`)
+      this.getCerts()
+    },
+  }
 }
 </script>
 
