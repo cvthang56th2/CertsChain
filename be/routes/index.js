@@ -324,7 +324,9 @@ router.post('/school/:_id/change-status', async (req, res) => {
 // certicifates
 router.get('/certificate/list', async function (req, res, next) {
   try {
-    const certs = await Certi.find({}).lean()
+    const certs = await Certi
+      .find({})
+      .lean()
     res.send(certs)
   } catch (error) {
     next(error)
@@ -344,24 +346,24 @@ router.post('/certificate/create', async (req, res) => {
       courceId
     } = req.body
 
-    const userObj = await User.findById(userId)
-    if (!userObj) {
+    const user = await User.findById(userId).lean()
+    if (!user) {
       res.status(404)
       return res.send({
         certificateNumber: 0,
         status: 'User not found',
       })
     }
-    const schoolObj = await School.findById(schoolId)
-    if (!schoolObj) {
+    const school = await School.findById(schoolId).lean()
+    if (!school) {
       res.status(404)
       return res.send({
         certificateNumber: 0,
         status: 'School not found',
       })
     }
-    const courceObj = (schoolObj.cources || []).find(e => e._id === courceId)
-    if (!courceObj) {
+    const cource = (school.cources || []).find(e => String(e._id) === String(courceId))
+    if (!cource) {
       res.status(404)
       return res.send({
         certificateNumber: 0,
@@ -381,7 +383,7 @@ router.post('/certificate/create', async (req, res) => {
         status: 'Certificate Number Has been generated Already',
       })
     }
-    const certSrc = await generateCertPdf(certiData)
+    const certSrc = await generateCertPdf({ user, school, cource })
     certiData.certSrc = certSrc
     certificate.createNewcertificate(certiNo, certiData)
     const blockdata = certificate.pendingcertificate[0].block
@@ -419,6 +421,7 @@ router.post('/certificate/create', async (req, res) => {
       status: 'Generated Successfully',
     })
   } catch (error) {
+    console.log('error', error)
     res.status(500)
     return res.send({
       certificateNumber: 0,

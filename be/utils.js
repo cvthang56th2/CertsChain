@@ -22,8 +22,9 @@ const generateCertPdf = async (certiData = {}) => {
   if (!fs.existsSync(certsPath)){
     fs.mkdirSync(certsPath);
   }
+  const userName = [user.firstName, user.lastName].filter(Boolean).join(' ')
 
-  const certFileName = `certificate-${[user.firstName, user.lastName].filter(Boolean).join('_')}-${school.name}-${cource.name}-${cource.time}-${new Date().getTime()}.pdf`.trim().replace(/ /g, '_')
+  const certFileName = `certificate-${userName}-${school.name}-${cource.name}-${cource.time}-${new Date().getTime()}.pdf`.trim().replace(/ /g, '_')
 
   doc.pipe(fs.createWriteStream(`${certsPath}/${certFileName}`));
 
@@ -92,7 +93,7 @@ const generateCertPdf = async (certiData = {}) => {
     .font('./public/fonts/NotoSansJP-Bold.otf')
     .fontSize(24)
     .fill('#021c27')
-    .text('STUDENT NAME', {
+    .text(`${user.gender === 'female' ? 'Mrs' : 'Mr'}. ${userName}`, {
       align: 'center',
     });
 
@@ -102,7 +103,7 @@ const generateCertPdf = async (certiData = {}) => {
     .font('./public/fonts/NotoSansJP-Light.otf')
     .fontSize(10)
     .fill('#021c27')
-    .text('Successfully completed the Super Course for Awesomes.', {
+    .text(`Has been successfully completed the Course: ${cource.name} - ${cource.time}`, {
       align: 'center',
     });
 
@@ -142,7 +143,7 @@ const generateCertPdf = async (certiData = {}) => {
     .font('./public/fonts/NotoSansJP-Bold.otf')
     .fontSize(10)
     .fill('#021c27')
-    .text('John Doe', startLine1, signatureHeight + 10, {
+    .text(cource.teacherName, startLine1, signatureHeight + 10, {
       columns: 1,
       columnGap: 0,
       height: 40,
@@ -154,7 +155,7 @@ const generateCertPdf = async (certiData = {}) => {
     .font('./public/fonts/NotoSansJP-Light.otf')
     .fontSize(10)
     .fill('#021c27')
-    .text('Associate Professor', startLine1, signatureHeight + 25, {
+    .text('Teacher', startLine1, signatureHeight + 25, {
       columns: 1,
       columnGap: 0,
       height: 40,
@@ -166,7 +167,7 @@ const generateCertPdf = async (certiData = {}) => {
     .font('./public/fonts/NotoSansJP-Bold.otf')
     .fontSize(10)
     .fill('#021c27')
-    .text('Student Name', startLine2, signatureHeight + 10, {
+    .text(userName, startLine2, signatureHeight + 10, {
       columns: 1,
       columnGap: 0,
       height: 40,
@@ -190,7 +191,7 @@ const generateCertPdf = async (certiData = {}) => {
     .font('./public/fonts/NotoSansJP-Bold.otf')
     .fontSize(10)
     .fill('#021c27')
-    .text('Jane Doe', startLine3, signatureHeight + 10, {
+    .text(school.directorName, startLine3, signatureHeight + 10, {
       columns: 1,
       columnGap: 0,
       height: 40,

@@ -7,24 +7,17 @@
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
       <div class="flex border-b-2 py-2 font-bold">
-        <div class="w-1/4 px-2 text-center">Head 1</div>
-        <div class="w-1/4 px-2 text-center">Head 2</div>
-        <div class="w-1/4 px-2 text-center">Head 3</div>
-        <div class="w-1/4 px-2 text-center">Actions</div>
+        <div class="w-1/4 px-2">User</div>
+        <div class="w-1/4 px-2">School and Cource</div>
+        <div class="w-1/4 px-2">Link</div>
+        <div class="w-1/4 px-2">Status</div>
       </div>
       <div v-for="i in [1,2,3,4,5]" :key="i" class="flex border-b-2 last:border-b-0 py-2">
-        <div class="w-1/4 px-2">Field 1</div>
-        <div class="w-1/4 px-2">Field 2</div>
-        <div class="w-1/4 px-2">Field 3</div>
+        <div class="w-1/4 px-2">User</div>
+        <div class="w-1/4 px-2">School and Cource</div>
+        <div class="w-1/4 px-2">Link</div>
         <div class="w-1/4 px-2">
-          <div class="flex justify-center">
-            <div>
-              <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400">Edit</button>
-            </div>
-            <div class="ml-2">
-              <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-red-400">Remove</button>
-            </div>
-          </div>
+          Status
         </div>
       </div>
     </div>
