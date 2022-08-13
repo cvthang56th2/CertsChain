@@ -7,6 +7,10 @@ const Userschema = new Schema({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   hash: {
     type: String,
     required: true,
@@ -55,6 +59,18 @@ const Userschema = new Schema({
     type: String,
     required: false,
   },
+  description: {
+    type: String,
+    required: false,
+  },
+  experiences: [{
+    title: String,
+    time: String
+  }],
+  educations: [{
+    title: String,
+    time: String
+  }],
   status: {
     type: String,
     required: false,

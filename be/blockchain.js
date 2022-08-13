@@ -27,10 +27,9 @@ Blockchain.prototype.getLastBlock = function () {
   return this.chain[this.chain.length - 1]
 }
 
-Blockchain.prototype.createNewAccount = function (username, password) {
+Blockchain.prototype.createNewAccount = function (username) {
   const newAccount = {
     username,
-    password,
   }
   this.pendingaccount.push(newAccount)
   return this.getLastBlock()['index'] + 1

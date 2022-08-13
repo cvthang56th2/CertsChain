@@ -8,6 +8,7 @@ const certificatechain = require('../certificatechain')
 const User = require('../Models/userSchema')
 const School = require('../Models/schoolSchema')
 const Certi = require('../Models/certi')
+const sha256 = require('sha256')
 
 const upload = multer({ storage: multer.memoryStorage() })
 
@@ -47,6 +48,9 @@ Certi.find()
 router.get('/user/list', async function (req, res, next) {
   try {
     const users = await User.find({}).select('-password').lean()
+    // for (const user of users) {
+    //   await User.findByIdAndRemove(user._id)
+    // }
     res.send(users)
   } catch (error) {
     next(error)
@@ -76,16 +80,14 @@ router.post('/user/signup', (req, res, next) => {
     email,
     birthday,
   } = req.body
-  console.log(username, password, ' : signup')
   User.findOne({ username })
     .then(async (user) => {
       if (user) {
         return res.send({
-          certificateNumber: 0,
           status: 'User Already Exists',
         })
       } else {
-        account.createNewAccount(username, password)
+        account.createNewAccount(username)
 
         const blockdata = account.pendingaccount[0]
 
@@ -97,6 +99,8 @@ router.post('/user/signup', (req, res, next) => {
           const hash = await account.hashBlock(nonce, prehash, blockdata)
 
           const block = await account.createNewBlock(nonce, prehash, hash)
+
+          const passwordEncypted = sha256(password)
 
           const newUser = new User({
             username: block.username,
@@ -112,6 +116,7 @@ router.post('/user/signup', (req, res, next) => {
             permanantAddress,
             email,
             birthday,
+            password: passwordEncypted
           })
 
           console.log(account)
@@ -120,13 +125,11 @@ router.post('/user/signup', (req, res, next) => {
             .then((user) => {
               if (user) {
                 return res.send({
-                  certificateNumber: 0,
                   status: 'created',
                 })
               } else {
                 account.chain.pop()
                 return res.send({
-                  certificateNumber: 0,
                   status: 'no user created try again',
                 })
               }
@@ -136,14 +139,12 @@ router.post('/user/signup', (req, res, next) => {
               console.log(err)
               res.status(500)
               return res.send({
-                certificateNumber: 0,
                 status: 'try again!!!',
               })
             })
         } catch (err) {
           console.log(err)
           return res.send({
-            certificateNumber: 0,
             status: 'error try again!!!',
           })
         }
@@ -153,7 +154,6 @@ router.post('/user/signup', (req, res, next) => {
       console.log(err)
       res.status(500)
       return res.send({
-        certificateNumber: 0,
         status: 'server down',
       })
     })
@@ -189,6 +189,9 @@ router.post('/user/update', async (req, res, next) => {
       permanantAddress,
       email,
       birthday,
+      description,
+      experiences,
+      educations,
       status,
     } = req.body
     const user = await User.findOne({ _id })
@@ -206,6 +209,9 @@ router.post('/user/update', async (req, res, next) => {
       permanantAddress,
       email,
       birthday,
+      description,
+      experiences,
+      educations,
       status,
     })
     return res.send({
@@ -221,21 +227,30 @@ router.post('/user/update', async (req, res, next) => {
 
 router.post('/user/login', (req, res) => {
   const { username, password } = req.body
-  console.log(username, password)
   User.findOne({ username })
     .then((user) => {
       if (user) {
         account
-          .hashBlock(user.nonce, user.prehash, { username, password })
+          .hashBlock(user.nonce, user.prehash, { username })
           .then((hash) => {
-            if (user.hash === hash)
+            if (user.hash === hash) {
+              const passwordEncypted = sha256(password)
+              if (passwordEncypted === user.password) {
+                for (const key of ['password','hash','blockindex','nonce','prehash']) {
+                  delete user[key]
+                }
+                return res.send({
+                  success: true,
+                  status: 'logged in',
+                  userData: user
+                })
+              } else {
+                return res.send({
+                  status: 'Check username or password',
+                })
+              }
+            } else {
               return res.send({
-                certificateNumber: 0,
-                status: 'logged in',
-              })
-            else {
-              return res.send({
-                certificateNumber: 0,
                 status: 'Check username or password',
               })
             }
@@ -244,13 +259,11 @@ router.post('/user/login', (req, res) => {
             console.log(err)
             res.status(500)
             return res.send({
-              certificateNumber: 0,
               status: 'server down',
             })
           })
       } else {
         return res.send({
-          certificateNumber: 0,
           status: 'no user',
         })
       }
@@ -259,7 +272,6 @@ router.post('/user/login', (req, res) => {
       res.status(500)
       console.log(err)
       return res.send({
-        certificateNumber: 0,
         status: 'server down',
       })
     })
@@ -355,7 +367,6 @@ router.post('/certificate/create', async (req, res) => {
     if (!user) {
       res.status(404)
       return res.send({
-        certificateNumber: 0,
         status: 'User not found',
       })
     }
@@ -363,7 +374,6 @@ router.post('/certificate/create', async (req, res) => {
     if (!school) {
       res.status(404)
       return res.send({
-        certificateNumber: 0,
         status: 'School not found',
       })
     }
@@ -371,7 +381,6 @@ router.post('/certificate/create', async (req, res) => {
     if (!cource) {
       res.status(404)
       return res.send({
-        certificateNumber: 0,
         status: 'Cource not found',
       })
     }
@@ -416,7 +425,6 @@ router.post('/certificate/create', async (req, res) => {
     if (!certi) {
       certificate.chain.pop()
       return res.send({
-        certificateNumber: 0,
         status:
           'Certificate Number generation unsuccessful created try again',
       })
@@ -429,7 +437,6 @@ router.post('/certificate/create', async (req, res) => {
     console.log('error', error)
     res.status(500)
     return res.send({
-      certificateNumber: 0,
       status: 'server down',
     })
   }
@@ -493,18 +500,15 @@ router.post('/certificate/verify', upload.single('certificate'), (req, res) => {
       if (certifound) {
         if (certifound.details === certiData) {
           return res.send({
-            certificateNumber: 0,
             status: 'Certificate is Geniune',
           })
         } else {
           return res.send({
-            certificateNumber: 0,
             status: 'Certificate is tempered',
           })
         }
       } else {
         return res.send({
-          certificateNumber: 0,
           status: 'Certificate is not generated from us',
         })
       }
@@ -512,7 +516,6 @@ router.post('/certificate/verify', upload.single('certificate'), (req, res) => {
     .catch((err) => {
       console.log(err)
       return res.send({
-        certificateNumber: 0,
         status: 'server down',
       })
     })

@@ -6,9 +6,9 @@
         <input v-model="formData.username" :disabled="!!formData._id" class="px-4 py-2 border-b-2 w-2/3" type="text" name="username" placeholder="Username">
       </div>
 
-      <div v-if="!formData._id" class="flex mb-4">
+      <div class="flex mb-4">
         <div class="px-4 py-2 font-semibold w-1/3">Password</div>
-        <input v-model="formData.password" :disabled="!!formData._id" class="px-4 py-2 border-b-2 w-2/3" type="password" placeholder="Password">
+        <input v-model="formData.password" class="px-4 py-2 border-b-2 w-2/3" type="password" placeholder="Password">
       </div>
 
       <div class="flex">

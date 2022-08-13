@@ -14,18 +14,20 @@
       </div>
       <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
         <form>
-          <!-- Email input -->
+          <!-- Username input -->
           <div class="mb-6">
             <input
+              v-model="formData.username"
               type="text"
               class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              placeholder="Email address"
+              placeholder="Username"
             />
           </div>
 
           <!-- Password input -->
           <div class="mb-6">
             <input
+              v-model="formData.password"
               type="password"
               class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               placeholder="Password"
@@ -73,14 +75,29 @@
 import {
   LOGIN_KEY
 } from '../constants'
+import Axios from 'axios'
 
 export default {
+  data: () => ({
+    formData: {}
+  }),
   methods: {
-    login () {
-      // TODO
-      this.$store.commit('auth/SET_IS_LOGIN', true)
-      this.$cookies.set(LOGIN_KEY, true)
-      this.goTo('/')
+    async login () {
+      try {
+        const { data } = await Axios.post(`${this.apiUrl}/user/login`, this.formData)
+        if (data.success) {
+          this.$store.commit('auth/SET_IS_LOGIN', true)
+          this.$cookies.set(LOGIN_KEY, true)
+          this.goTo('/')
+        } else {
+          alert(data.status)
+        }
+        // this.$store.commit('auth/SET_IS_LOGIN', true)
+        // this.$cookies.set(LOGIN_KEY, true)
+        // this.goTo('/')
+      } catch (error) {
+        alert(error)
+      }
     }
   }
 }
