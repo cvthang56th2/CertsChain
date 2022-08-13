@@ -68,6 +68,10 @@ const Userschema = new Schema({
     type: String,
     required: false,
   },
+  avatar: {
+    type: String,
+    required: false,
+  },
   experiences: [{
     title: String,
     time: String

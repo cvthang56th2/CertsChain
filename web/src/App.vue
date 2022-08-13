@@ -5,12 +5,15 @@
 </template>
 
 <script>
-import { USER_INFO_KEY } from './constants'
+import { LOGIN_USER_ID_KEY } from './constants'
+import Axios from 'axios'
+
 export default {
   async mounted () {
-    const userInfo = this.$cookies.get(USER_INFO_KEY)
-    if (userInfo) {
-      this.$store.commit('auth/SET_USER_INFO', userInfo)
+    const userId = this.$cookies.get(LOGIN_USER_ID_KEY)
+    if (userId) {
+      const { data } = await Axios.get(`${this.apiUrl}/user/${userId}`)
+      this.$store.commit('auth/SET_USER_INFO', data)
       this.$store.commit('auth/SET_IS_LOGIN', true)
     }
   }

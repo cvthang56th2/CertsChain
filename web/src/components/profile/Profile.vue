@@ -13,9 +13,9 @@
                 :src="avatarUrl(user)"
                 alt=""
               />
-              <div class="mt-2 text-center">
+              <div class="mt-2 text-center" v-if="editable && user._id">
                 <button @click="$refs.avatarFile.click()" class="border-2 px-3 py-1 rounded-md">Change Avatar</button>
-                <input ref="avatarFile" type="file" class="hidden">
+                <input ref="avatarFile" type="file" class="hidden" @input="changeAvatar" accept="image/jpg,image/png,image/jpeg">
               </div>
             </div>
             <h1 class="text-gray-900 font-bold text-xl leading-8 my-1 text-center">
@@ -264,7 +264,7 @@
 
 <script>
 import Axios from 'axios'
-import { USER_INFO_KEY } from '../../constants'
+import { LOGIN_USER_ID_KEY } from '../../constants'
 
 export default {
   props: {
@@ -301,6 +301,34 @@ export default {
     }
   },
   methods: {
+    async changeAvatar (e) {
+      try {
+        if (!e.target.files.length) {
+          return
+        }
+        const file = e.target.files[0]
+        const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+        if(!allowedTypes.includes(file.type)){
+          alert('Filetype is wrong!!')
+          return
+        }
+        if(file.size>500000){
+          alert('Too large, max size allowed is 500kb')
+          return
+        }
+        const formData = new FormData();
+        formData.append('userId', this.user._id)
+        formData.append('avatarFile', file)
+        const { data } = await Axios.post(`${this.apiUrl}/user/upload-avatar`, formData);
+        if (!data.success) {
+          throw new Error('upload failed')
+        }
+        this.user.avatar = data.avatar
+      } catch (error) {
+        alert(error)
+      }
+      this.$refs.avatarFile.value = null
+    },
     editUser () {
       this.formData = JSON.parse(JSON.stringify(this.user))
       this.isEditting = true
@@ -310,7 +338,6 @@ export default {
         const { data } = await Axios.post(`${this.apiUrl}/user/update`, this.formData)
         if (data.success) {
           this.user = JSON.parse(JSON.stringify(this.formData))
-          this.$cookies.set(USER_INFO_KEY, JSON.parse(JSON.stringify(this.formData)))
           this.isEditting = false
         } else {
           alert('Update Failed')

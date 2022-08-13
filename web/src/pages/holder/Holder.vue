@@ -40,7 +40,7 @@ export default {
     DefaultLayout
   },
   data: () => ({
-    currentTab: 'Dashboard',
+    currentTab: 'Profile',
     tabs: [
       {
         label: 'Dashboard',

@@ -73,7 +73,7 @@
 
 <script>
 import {
-  USER_INFO_KEY
+  LOGIN_USER_ID_KEY
 } from '../constants'
 import Axios from 'axios'
 
@@ -86,7 +86,7 @@ export default {
       try {
         const { data } = await Axios.post(`${this.apiUrl}/user/login`, this.formData)
         if (data.success) {
-          this.$cookies.set(USER_INFO_KEY, data.userInfo)
+          this.$cookies.set(LOGIN_USER_ID_KEY, data.userInfo._id)
           this.$store.commit('auth/SET_USER_INFO', data.userInfo)
           this.$store.commit('auth/SET_IS_LOGIN', true)
           this.goTo('/')

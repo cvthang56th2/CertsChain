@@ -9,8 +9,40 @@ const User = require('../Models/userSchema')
 const School = require('../Models/schoolSchema')
 const Certi = require('../Models/certi')
 const sha256 = require('sha256')
+const fs = require('fs')
 
-const upload = multer({ storage: multer.memoryStorage() })
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (!allowedTypes.includes(file.mimetype)) {
+    const error = new Error("Incorrect file");
+    error.code = "INCORRECT_FILETYPE";
+    return cb(error, false)
+  }
+  cb(null, true);
+}
+
+const avatarDirPath = './public/avatar'
+
+if (!fs.existsSync(avatarDirPath)){
+  fs.mkdirSync(avatarDirPath);
+}
+
+const uploadAvatar = multer({
+  storage: multer.diskStorage({
+    fileFilter,
+    destination: (req, file, callback) => {
+      callback(null, avatarDirPath);
+    },
+    filename: (req, file, callback) => {
+      callback(null, `${new Date().getTime()}-${file.originalname.split(' ').join('_')}`);
+    },
+    limits: {
+      fileSize: 5000000
+    }
+  })
+});
+
+const uploadPdf = multer({ storage: multer.memoryStorage() })
 
 const account = new Blockchain()
 const certificate = new certificatechain()
@@ -60,7 +92,7 @@ router.get('/user/list', async function (req, res, next) {
 router.get('/user/:_id', async function (req, res, next) {
   try {
     const { _id } = req.params
-    const user = await User.findOne({ _id })
+    const user = await User.findOne({ _id }).select('-password').lean()
     res.send(user)
   } catch (error) {
     next(error)
@@ -224,6 +256,35 @@ router.post('/user/update', async (req, res, next) => {
     return res.send({
       status: 'server down',
     })
+  }
+})
+
+
+router.post('/user/upload-avatar', uploadAvatar.single('avatarFile'), async (req, res, next) => {
+  try {
+    const userId = req.body.userId
+    const avatarFile = req.file
+    if (!avatarFile) {
+      const error = new Error('Please upload a file')
+      error.httpStatusCode = 400
+      return next(error)
+    }
+    const user = await User.findById(userId)
+    if (!user) {
+      const error = new Error('User not found')
+      error.httpStatusCode = 400
+      return next(error)
+    }
+    await User.findByIdAndUpdate(userId, {
+      avatar: req.file.filename
+    })
+
+    return res.send({
+      success: true,
+      avatar: req.file.filename
+    })
+  } catch (error) {
+    next(error)
   }
 })
 
@@ -494,7 +555,7 @@ router.post('/certificate/:_id/change-status', async (req, res) => {
   }
 })
 
-router.post('/certificate/verify', upload.single('certificate'), (req, res) => {
+router.post('/certificate/verify', uploadPdf.single('certificate'), (req, res) => {
   const certinumber = req.body.certinumber
   const certiData = String(req.file.buffer)
   Certi.findOne({ certinumber })

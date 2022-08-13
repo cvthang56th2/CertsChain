@@ -10,7 +10,7 @@ import appPlugin from './plugins/appPlugin'
 import routes from './pages/routes'
 
 import {
-  USER_INFO_KEY
+  LOGIN_USER_ID_KEY
 } from './constants/index'
 
 function getCookie(cname) {
@@ -36,7 +36,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const userType = to.meta.userType
   if (['Issuer', 'Holder'].includes(userType)) {
-    const userInfo = getCookie(USER_INFO_KEY)
+    const userInfo = getCookie(LOGIN_USER_ID_KEY)
     if (!userInfo) {
       next({ path: '/login' })
     }

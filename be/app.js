@@ -44,6 +44,14 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
+  if (err.code === "INCORRECT_FILETYPE") {
+    res.status(422).json({ error: 'Only images are allowed' });
+    return;
+  }
+  if (err.code === "LIMIT_FILE_SIZE") {
+    res.status(422).json({ error: 'Allow file size is 500KB' });
+    return;
+  }
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
