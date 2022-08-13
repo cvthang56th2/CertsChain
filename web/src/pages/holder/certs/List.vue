@@ -9,6 +9,9 @@
             <a class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-green-600 rounded">Success</a>
           </div> 
           <div class="mt-2">
+            <div class="font-semibold">
+              #{{ certObj.certinumber }}              
+            </div>
             <h4 class="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200">
             {{ certObj.schoolId?.name }}
             </h4>
@@ -24,6 +27,7 @@
           </div> 
           <div class="flex items-center justify-between mt-4">
             <a :href="certObj.certSrc" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">View certificate ⟶</a> 
+            <button @click.prevent="shareCertificate(certObj)" target="_blank" class="bg-blue-500 hover:bg-blue-400 text-white py-2 px-5 rounded-md">Share</button> 
             <a :href="certObj.certSrc" @click.prevent="downloadItem(certObj.certSrc)" target="_blank" class="bg-pink-500 hover:bg-pink-400 text-white p-2 rounded-md">Download ↓</a> 
           </div>
         </div>
@@ -60,6 +64,18 @@ export default {
     this.getCerts()
   },
   methods: {
+    shareCertificate (certObj) {
+      navigator.clipboard.writeText(`Certificate Number: ${certObj.certinumber}\nCertificate file: ${certObj.certSrc}\nVerify Certificate at this link: http://localhost:3000/#/verify-certificate`);
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        icon: 'success',
+        title: 'Share info has been copied to clipboard!',
+      })
+    },
     async getCerts() {
       try {
         const { data } = await Axios.get(`${this.apiUrl}/certificate/list?userId=${this.userInfo._id}`)
