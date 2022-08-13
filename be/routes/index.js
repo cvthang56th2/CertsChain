@@ -79,6 +79,21 @@ Certi.find()
     console.log('Error in updating Certificate chain', err)
   })
 
+router.get('/account-chain', async function (req, res, next) {
+  try {
+    res.send(account.chain)
+  } catch (error) {
+    next(error)
+  }
+})
+router.get('/certificate-chain', async function (req, res, next) {
+  try {
+    res.send(certificate.chain)
+  } catch (error) {
+    next(error)
+  }
+})
+
 /* GET users listing. */
 router.get('/user/list', async function (req, res, next) {
   try {
