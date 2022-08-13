@@ -5,7 +5,7 @@
       <template v-if="$route.path !== '/login'">
         <h1 class="text-center text-3xl font-extrabold uppercase">{{ userType }}</h1>
         <div v-if="['Issuer', 'Holder'].includes(userType) && isLogin" class="absolute top-2 right-0">
-          Hello, World!
+          Hello, {{userInfo && userInfo.username}}!
           <button class="ml-4 underline" @click="logout">
             Logout
           </button>
@@ -29,7 +29,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLogin: 'auth/isLogin'
+      isLogin: 'auth/isLogin',
+      userInfo: 'auth/userInfo'
     }),
     userType () {
       return this.$route.meta.userType
