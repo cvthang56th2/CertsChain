@@ -27,7 +27,17 @@ export default {
         test: '111'
       }),
       methods: {
-        formatDate
+        formatDate,
+        goBack (n = -1) {
+          this.$router.go(n)
+        },
+        goTo (route, newTab) {
+          if (newTab === true || (newTab instanceof MouseEvent && newTab.ctrlKey) || (newTab instanceof MouseEvent && newTab.type === 'mouseup' && newTab.which === 2)) {
+            const routeData = this.$router.resolve(route)
+            return window.open(routeData.href, '_blank')
+          }
+          this.$router.push(route)
+        }
       }
     });
   },
