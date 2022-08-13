@@ -100,6 +100,15 @@ export default {
     },
     async changeStatus(schoolId) {
       await Axios.post(`${this.apiUrl}/school/${schoolId}/change-status`)
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        icon: 'success',
+        title: 'Change Status Successfully!',
+      })
       this.getSchools()
     },
     editSchool(schoolObj) {

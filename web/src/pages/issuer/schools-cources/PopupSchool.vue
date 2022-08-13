@@ -136,6 +136,15 @@ export default {
         }
         await Axios.post(`${this.apiUrl}/school/save`, payload)
         this.$emit('saved')
+        this.$swal({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: 'success',
+          title: 'Save Successfully!',
+        })
       } catch (error) {
         this.$swal(
           'Error',

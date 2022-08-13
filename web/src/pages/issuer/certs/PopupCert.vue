@@ -108,6 +108,15 @@ export default {
           return
         }
         this.$emit('saved')
+        this.$swal({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: 'success',
+          title: `${payload._id ? 'Update' : 'Generate'} Certificate Successfully!`,
+        })
       } catch (error) {
         this.$swal(
           'Error',

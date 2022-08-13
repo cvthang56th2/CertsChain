@@ -110,6 +110,15 @@ export default {
         const payload = this.formData
         const { data } = await Axios.post(`${this.apiUrl}/user/${api}`, payload)
         this.$emit('saved')
+        this.$swal({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: 'success',
+          title: 'Save Successfully!',
+        })
       } catch (error) {
         this.$swal(
           'Error',

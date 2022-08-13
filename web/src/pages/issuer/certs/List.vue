@@ -85,6 +85,15 @@ export default {
     },
     async changeStatus(certId) {
       await Axios.post(`${this.apiUrl}/certificate/${certId}/change-status`)
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        icon: 'success',
+        title: 'Change Status Successfully!',
+      })
       this.getCerts()
     },
   }

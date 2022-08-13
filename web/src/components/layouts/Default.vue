@@ -38,11 +38,28 @@ export default {
   },
   methods: {
     logout () {
-      // TODO
-      this.$cookies.set(LOGIN_USER_ID_KEY, '')
-      this.$store.commit('auth/SET_USER_INFO', {})
-      this.$store.commit('auth/SET_IS_LOGIN', false)
-      this.goTo('/login')
+      this.$swal({
+        title: 'Do you want to Logout?',
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+      }).then(({ isConfirmed }) => {
+        if (isConfirmed) {
+          this.$cookies.set(LOGIN_USER_ID_KEY, '')
+          this.$store.commit('auth/SET_USER_INFO', {})
+          this.$store.commit('auth/SET_IS_LOGIN', false)
+          this.goTo('/login')
+          this.$swal({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            icon: 'success',
+            title: 'Logout Successfully!',
+          })
+        }
+      })
     }
   },
   async mounted () {

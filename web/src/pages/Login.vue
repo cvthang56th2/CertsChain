@@ -90,6 +90,15 @@ export default {
           this.$store.commit('auth/SET_USER_INFO', data.userInfo)
           this.$store.commit('auth/SET_IS_LOGIN', true)
           this.goTo('/')
+          this.$swal({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            icon: 'success',
+            title: 'Login Successfully!',
+          })
         } else {
           this.$swal(
             'Error',
