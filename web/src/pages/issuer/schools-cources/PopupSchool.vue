@@ -134,7 +134,7 @@ export default {
           _id: this.formData._id,
           data: this.formData
         }
-        await Axios.post(`${import.meta.env.VITE_API_URL}/school/save`, payload)
+        await Axios.post(`${this.apiUrl}/school/save`, payload)
         this.$emit('saved')
       } catch (error) {
         console.log('error', error)        

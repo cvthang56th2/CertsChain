@@ -70,14 +70,14 @@ export default {
   methods: {
     async getCerts() {
       try {
-        const { data } = await Axios.get(`${import.meta.env.VITE_API_URL}/certificate/list`)
+        const { data } = await Axios.get(`${this.apiUrl}/certificate/list`)
         this.certs = data || []
       } catch (error) {
         console.log('error', error)        
       }
     },
     async changeStatus(certId) {
-      await Axios.post(`${import.meta.env.VITE_API_URL}/certificate/${certId}/change-status`)
+      await Axios.post(`${this.apiUrl}/certificate/${certId}/change-status`)
       this.getCerts()
     },
   }

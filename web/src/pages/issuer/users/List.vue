@@ -81,14 +81,14 @@ export default {
   methods: {
     async getUsers() {
       try {
-        const { data } = await Axios.get(`${import.meta.env.VITE_API_URL}/user/list`)
+        const { data } = await Axios.get(`${this.apiUrl}/user/list`)
         this.users = data || []
       } catch (error) {
         console.log('error', error)        
       }
     },
     async changeStatus(userId) {
-      await Axios.post(`${import.meta.env.VITE_API_URL}/user/${userId}/change-status`)
+      await Axios.post(`${this.apiUrl}/user/${userId}/change-status`)
       this.getUsers()
     },
     editUser(userObj) {

@@ -99,7 +99,7 @@ export default {
       const api = this.formData._id ? 'update' : 'signup'
       try {
         const payload = this.formData
-        const { data } = await Axios.post(`${import.meta.env.VITE_API_URL}/user/${api}`, payload)
+        const { data } = await Axios.post(`${this.apiUrl}/user/${api}`, payload)
         this.$emit('saved')
       } catch (error) {
         console.log('error', error)        

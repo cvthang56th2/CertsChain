@@ -73,7 +73,7 @@ export default {
     },
     async getSchools() {
       try {
-        const { data } = await Axios.get(`${import.meta.env.VITE_API_URL}/school/list`)
+        const { data } = await Axios.get(`${this.apiUrl}/school/list`)
         this.schools = (data || []).filter(e => e.status !== 'archived')
       } catch (error) {
         console.log('error', error)        
@@ -81,7 +81,7 @@ export default {
     },
     async getUsers() {
       try {
-        const { data } = await Axios.get(`${import.meta.env.VITE_API_URL}/user/list`)
+        const { data } = await Axios.get(`${this.apiUrl}/user/list`)
         this.users = (data || []).filter(e => e.status !== 'archived')
       } catch (error) {
         console.log('error', error)        
@@ -90,7 +90,7 @@ export default {
     async saveCertificate () {
       try {
         const payload = this.formData
-        await Axios.post(`${import.meta.env.VITE_API_URL}/certificate/${payload._id ? 'update' : 'create'}`, payload)
+        await Axios.post(`${this.apiUrl}/certificate/${payload._id ? 'update' : 'create'}`, payload)
         this.$emit('saved')
       } catch (error) {
         console.log('error', error)        

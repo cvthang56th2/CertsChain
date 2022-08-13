@@ -92,14 +92,14 @@ export default {
   methods: {
     async getSchools() {
       try {
-        const { data } = await Axios.get(`${import.meta.env.VITE_API_URL}/school/list`)
+        const { data } = await Axios.get(`${this.apiUrl}/school/list`)
         this.schools = data || []
       } catch (error) {
         console.log('error', error)        
       }
     },
     async changeStatus(schoolId) {
-      await Axios.post(`${import.meta.env.VITE_API_URL}/school/${schoolId}/change-status`)
+      await Axios.post(`${this.apiUrl}/school/${schoolId}/change-status`)
       this.getSchools()
     },
     editSchool(schoolObj) {

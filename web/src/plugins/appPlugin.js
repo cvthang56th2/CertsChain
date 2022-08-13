@@ -30,7 +30,7 @@ export default {
         formatDate
       },
       data: () =>  ({
-        test: '111'
+        apiUrl: import.meta.env.VITE_API_URL
       }),
       methods: {
         formatDate,
