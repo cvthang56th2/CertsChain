@@ -3,7 +3,7 @@
     <h2 class="text-center text-2xl font-extrabold mb-4">List Certs</h2>
     <div class="flex">
       <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="isShowPopupCert = true">Add Cert</button>
-      <input v-model="keyword" type="text" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
+      <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
       <div class="flex border-b-2 py-2 font-bold">

@@ -242,7 +242,7 @@ router.post('/user/login', (req, res) => {
                 return res.send({
                   success: true,
                   status: 'logged in',
-                  userData: user
+                  userInfo: user
                 })
               } else {
                 return res.send({

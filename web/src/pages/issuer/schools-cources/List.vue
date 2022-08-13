@@ -3,7 +3,7 @@
     <h2 class="text-center text-2xl font-extrabold mb-4">List Schools</h2>
     <div class="flex">
       <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="isShowPopupSchool = true">Add School</button>
-      <input v-model="keyword" type="text" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
+      <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
       <div class="flex border-b-2 py-2 font-bold">
@@ -29,11 +29,7 @@
           <toggle v-model="schoolObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(schoolObj._id)" />
         </div>
         <div class="w-1/12 whitespace-pre-wrap px-2">
-          <div class="flex justify-center">
-            <div>
-              <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
-            </div>
-          </div>
+          <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
         </div>
       </div>
     </div>

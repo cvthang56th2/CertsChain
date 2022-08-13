@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    <div class="flex">
+    <div v-if="(userInfo && userInfo.userType === 'Issuer')" class="flex">
       <aside class="w-[170px]" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
           <ul class="space-y-2">
@@ -19,6 +19,9 @@
         <component :is="currentTab" />
       </div>
     </div>
+    <div v-else class="text-center mt-20">
+      User are Holder, <span class="underline text-blue-600 hover:text-blue-400 cursor-pointer" @click="goTo('/holder')">Go to Holder Page</span>
+    </div>
   </DefaultLayout>
 </template>
 
@@ -29,6 +32,7 @@ import UserList from './users/List.vue'
 import SchoolList from './schools-cources/List.vue'
 import Profile from '../../components/profile/Profile.vue'
 import DefaultLayout from '../../components/layouts/Default.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -195,7 +199,12 @@ export default {
         </svg>`
       },
     ]
-  })
+  }),
+  computed: {
+    ...mapGetters({
+      userInfo: 'auth/userInfo'
+    })
+  }
 }
 </script>
 

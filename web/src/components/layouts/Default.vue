@@ -20,7 +20,7 @@
 
 <script>
 import {
-  LOGIN_KEY
+  USER_INFO_KEY
 } from '../../constants'
 import { mapGetters } from 'vuex'
 
@@ -38,13 +38,13 @@ export default {
   methods: {
     logout () {
       // TODO
-      this.$cookies.set(LOGIN_KEY, false)
+      this.$cookies.set(USER_INFO_KEY, '')
+      this.$store.commit('auth/SET_USER_INFO', {})
       this.$store.commit('auth/SET_IS_LOGIN', false)
       this.goTo('/login')
     }
   },
   async mounted () {
-    this.$store.commit('auth/SET_IS_LOGIN', this.$cookies.get(LOGIN_KEY) === 'true')
   }
 }
 </script>

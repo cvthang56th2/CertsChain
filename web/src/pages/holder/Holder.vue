@@ -1,6 +1,9 @@
 <template>
   <DefaultLayout>
-    <div class="flex">
+    <div v-if="(userInfo && userInfo.userType === 'Issuer')" class="text-center mt-20">
+      User are Issuer, <span class="underline text-blue-600 hover:text-blue-400 cursor-pointer" @click="goTo('/issuer')">Go to Issuer Page</span>
+    </div>
+    <div v-else  class="flex">
       <aside class="w-[170px]" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
           <ul class="space-y-2">

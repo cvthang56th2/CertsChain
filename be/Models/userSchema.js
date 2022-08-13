@@ -7,6 +7,11 @@ const Userschema = new Schema({
     required: true,
     unique: true,
   },
+  userType: {
+    type: String,
+    enum: ['Issuer', 'Holder'],
+    default: 'Holder'
+  },
   password: {
     type: String,
     required: true,

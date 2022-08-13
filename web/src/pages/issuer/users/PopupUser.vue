@@ -12,6 +12,14 @@
       </div>
 
       <div class="flex">
+        <div class="px-4 py-2 font-semibold w-1/3">User Type</div>
+        <select v-model="formData.userType" class="border-2 p-2 m w-[200px]">
+          <option value="Issuer">Issuer</option>
+          <option value="Holder">Holder</option>
+        </select>
+      </div>
+
+      <div class="flex">
         <div class="px-4 py-2 font-semibold w-1/3">First Name</div>
         <input v-model="formData.firstName" class="px-4 py-2 border-b-2 w-2/3" type="text" placeholder="First Name" name="first-name">
       </div>
