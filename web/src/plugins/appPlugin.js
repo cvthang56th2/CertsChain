@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 function formatDate (date, options = {}) {
-  const { format = 'DD/MM/YYYY - hh:mm:ss', isGetFromNow = true } = options
+  const { format = 'DD/MM/YYYY - hh:mm:ss', isGetFromNow = false } = options
   if (
     ['boolean', 'undefined'].indexOf(typeof date) === -1 &&
     (!Number(date) || Number(date) > 24339600000)
