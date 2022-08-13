@@ -19,7 +19,7 @@
         </div>
       </aside>
       <div class="flex-1 py-4 px-3">
-        <component :is="currentTab" />
+        <component :is="currentTab" :userData="userInfo" />
       </div>
     </div>
   </DefaultLayout>
@@ -30,6 +30,7 @@ import Dashboard from './dashboard/Dashboard.vue'
 import CertificateList from './certs/List.vue'
 import Profile from '../../components/profile/Profile.vue'
 import DefaultLayout from '../../components/layouts/Default.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -120,7 +121,12 @@ export default {
         </svg>`
       },
     ]
-  })
+  }),
+  computed: {
+    ...mapGetters({
+      userInfo: 'auth/userInfo'
+    })
+  }
 }
 </script>
 

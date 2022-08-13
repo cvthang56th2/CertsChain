@@ -181,6 +181,7 @@ router.post('/user/update', async (req, res, next) => {
   try {
     const {
       _id,
+      userType,
       firstName,
       lastName,
       gender,
@@ -201,6 +202,7 @@ router.post('/user/update', async (req, res, next) => {
       })
     }
     await User.findByIdAndUpdate(_id, {
+      userType,
       firstName,
       lastName,
       gender,

@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    <div v-if="(userInfo && userInfo.userType === 'Issuer')" class="flex">
+    <div v-if="(userInfo && ['Admin', 'Issuer'].includes(userInfo.userType))" class="flex">
       <aside class="w-[170px]" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
           <ul class="space-y-2">
@@ -16,7 +16,7 @@
         </div>
       </aside>
       <div class="flex-1 py-4 px-3">
-        <component :is="currentTab" />
+        <component :is="currentTab" :userData="userInfo" />
       </div>
     </div>
     <div v-else class="text-center mt-20">

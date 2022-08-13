@@ -9,7 +9,7 @@ const Userschema = new Schema({
   },
   userType: {
     type: String,
-    enum: ['Issuer', 'Holder'],
+    enum: ['Issuer', 'Holder', 'Admin'],
     default: 'Holder'
   },
   password: {

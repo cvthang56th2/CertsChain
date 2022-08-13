@@ -16,6 +16,7 @@
         <select v-model="formData.userType" class="border-2 p-2 m w-[200px]">
           <option value="Issuer">Issuer</option>
           <option value="Holder">Holder</option>
+          <option value="Admin">Admin</option>
         </select>
       </div>
 

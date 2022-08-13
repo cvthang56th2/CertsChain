@@ -13,15 +13,19 @@
                 :src="avatarUrl(user)"
                 alt=""
               />
+              <div class="mt-2 text-center">
+                <button @click="$refs.avatarFile.click()" class="border-2 px-3 py-1 rounded-md">Change Avatar</button>
+                <input ref="avatarFile" type="file" class="hidden">
+              </div>
             </div>
-            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">
+            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1 text-center">
               {{ [user.firstName, user.lastName].filter(Boolean).join(' ') }}
             </h1>
-            <h3 class="text-gray-600 font-lg text-semibold leading-6">
+            <h3 class="text-gray-600 font-lg text-semibold leading-6 text-center">
               {{ user.experiences[user.experiences.length - 1].title }}
             </h3>
             <textarea v-if="isEditting" v-model="formData.description" placeholder="Description" class="text-sm text-gray-500 hover:text-gray-600 leading-6 w-full border-b-2" rows="4"></textarea>
-            <p v-else class="text-sm text-gray-500 hover:text-gray-600 leading-6">
+            <p v-else class="text-sm text-gray-500 hover:text-gray-600 leading-6 min-h-[40px]">
               {{ user.description }}
             </p>
             <ul
@@ -93,7 +97,7 @@
                       <input ref="genderFemale" type="radio" class="mr-2" v-model="formData.gender" value="female" /> Female
                     </div>
                   </div>
-                  <div v-else class="px-4 py-2">{{ user.gender }}</div>
+                  <div v-else class="px-4 py-2 capitalize">{{ user.gender }}</div>
                 </div>
                 <div class="grid grid-cols-2">
                   <div class="px-4 py-2 font-semibold">Contact No.</div>
@@ -257,58 +261,57 @@
 </template>
 
 <script>
+import Axios from 'axios'
+import { USER_INFO_KEY } from '../../constants'
+
 export default {
+  props: {
+    userData: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data: () => ({
     user: {
-      firstName: 'Jane',
-      lastName: 'Doe',
-      gender: 'Female',
-      contactNo: '+11 998001001',
-      currentAddress: 'Beech Creek, PA, Pennsylvania',
-      permanantAddress: 'Arlington Heights, IL, Illinois',
-      email: 'jane@example.com',
-      birthday: 'Feb 06, 1998',
-      description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore, eos laboriosam dignissimos quibusdam iure quisquam.',
-      experiences: [
-        {
-          title: 'Owner at Her Company Inc.',
-          time: 'March 2020 - Now'
-        },
-        {
-          title: 'Owner at Her Company Inc.',
-          time: 'March 2020 - Now'
-        },
-        {
-          title: 'Owner at Her Company Inc.',
-          time: 'March 2020 - Now'
-        },
-        {
-          title: 'Owner at Her Company Inc.',
-          time: 'March 2020 - Now'
-        },
-      ],
-      educations: [
-        {
-          title: 'Bachelors Degreen in LPU.',
-          time: 'March 2020 - Now'
-        },
-        {
-          title: 'Bachelors Degreen in LPU.',
-          time: 'March 2020 - Now'
-        },
-      ]
+      experiences: [{}],
+      educations: [{}]
     },
     formData: {},
     isEditting: false
   }),
+  watch: {
+    userData: {
+      immediate: true,
+      handler () {
+        const cloneUser = JSON.parse(JSON.stringify(this.userData))
+        if (!cloneUser.experiences.length) {
+          cloneUser.experiences = [{}]
+        }
+        if (!cloneUser.educations.length) {
+          cloneUser.educations = [{}]
+        }
+        this.user = cloneUser
+      }
+    }
+  },
   methods: {
     editUser () {
       this.formData = JSON.parse(JSON.stringify(this.user))
       this.isEditting = true
     },
-    saveUser () {
-      this.user = JSON.parse(JSON.stringify(this.formData))
-      this.isEditting = false
+    async saveUser () {
+      try {
+        const { data } = await Axios.post(`${this.apiUrl}/user/update`, this.formData)
+        if (data.success) {
+          this.user = JSON.parse(JSON.stringify(this.formData))
+          this.$cookies.set(USER_INFO_KEY, JSON.parse(JSON.stringify(this.formData)))
+          this.isEditting = false
+        } else {
+          alert('Update Failed')
+        }
+      } catch (error) {
+        alert(error)
+      }
     },
     addExp () {
       this.formData.experiences.push({})
