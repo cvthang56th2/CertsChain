@@ -34,6 +34,15 @@ export default {
       }),
       methods: {
         formatDate,
+        avatarUrl(user) {
+          let fileName
+          if (user.avatar) {
+            fileName = `avatar/${user.avatar}`
+          } else {
+            fileName = `default-avatar-${user.gender || 'male'}.png`
+          }
+          return `${this.apiUrl}/${fileName}`
+        },
         goBack (n = -1) {
           this.$router.go(n)
         },

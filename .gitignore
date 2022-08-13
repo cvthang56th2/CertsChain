@@ -2,5 +2,6 @@ api/node_modules
 be/node_modules
 be/.env
 be/public/certs
+be/public/avatar
 web/node_modules
 web/.env

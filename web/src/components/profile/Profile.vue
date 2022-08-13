@@ -10,7 +10,7 @@
             <div class="image overflow-hidden">
               <img
                 class="h-auto w-full mx-auto"
-                src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
+                :src="avatarUrl(user)"
                 alt=""
               />
             </div>

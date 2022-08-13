@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10 h-screen overflow-auto">
+  <div>
     <div class="relative">
       <button @click="goTo('/')" class="absolute top-2 underline text-blue-700">&#8592; Select other user type</button>
       <template v-if="$route.path !== '/login'">
