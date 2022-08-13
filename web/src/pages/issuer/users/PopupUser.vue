@@ -111,7 +111,11 @@ export default {
         const { data } = await Axios.post(`${this.apiUrl}/user/${api}`, payload)
         this.$emit('saved')
       } catch (error) {
-        console.log('error', error)        
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     }
   }

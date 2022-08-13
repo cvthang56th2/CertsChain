@@ -30,7 +30,11 @@ export default {
         const { data } = await Axios.get(`${this.apiUrl}/user/${this.$route.params.userId}`)
         this.userData = data
       } catch (error) {
-        alert(error)
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     }
   }

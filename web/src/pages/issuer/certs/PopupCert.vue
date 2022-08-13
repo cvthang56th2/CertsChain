@@ -76,7 +76,11 @@ export default {
         const { data } = await Axios.get(`${this.apiUrl}/school/list`)
         this.schools = (data || []).filter(e => e.status !== 'archived')
       } catch (error) {
-        console.log('error', error)        
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     },
     async getUsers() {
@@ -84,7 +88,11 @@ export default {
         const { data } = await Axios.get(`${this.apiUrl}/user/list`)
         this.users = (data || []).filter(e => e.status !== 'archived')
       } catch (error) {
-        console.log('error', error)        
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     },
     async saveCertificate () {
@@ -92,12 +100,20 @@ export default {
         const payload = this.formData
         const { data } = await Axios.post(`${this.apiUrl}/certificate/${payload._id ? 'update' : 'create'}`, payload)
         if (data.error) {
-          alert(data.status)
+          this.$swal(
+            'Error',
+            data.status,
+            'error'
+          );
           return
         }
         this.$emit('saved')
       } catch (error) {
-        console.log('error', error)        
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     }
   }

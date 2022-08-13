@@ -6,6 +6,9 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { createStore } from 'vuex'
 import store from './store'
 
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 import appPlugin from './plugins/appPlugin'
 import routes from './pages/routes'
 
@@ -45,6 +48,7 @@ router.beforeEach((to, from, next) => {
 })
 
 const app = createApp(App)
+app.use(VueSweetalert2);
 app.use(router)
 app.use(appPlugin)
 app.use(VueCookies, { expire: '7d'})

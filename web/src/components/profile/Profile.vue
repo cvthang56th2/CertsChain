@@ -310,11 +310,19 @@ export default {
         const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
         this.$refs.avatarFile.value = null
         if(!allowedTypes.includes(file.type)){
-          alert('Filetype is wrong!!')
+          this.$swal(
+            'Error',
+            'Filetype is wrong!!',
+            'error'
+          );
           return
         }
         // if(file.size>500000){
-        //   alert('Too large, max size allowed is 500kb')
+        //   this.$swal(
+        //     'Error',
+        //     'Too large, max size allowed is 500kb',
+        //     'error'
+        //   );
         //   return
         // }
         const formData = new FormData();
@@ -326,7 +334,11 @@ export default {
         }
         this.user.avatar = data.avatar
       } catch (error) {
-        alert(error)
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     },
     editUser () {
@@ -340,10 +352,18 @@ export default {
           this.user = JSON.parse(JSON.stringify(this.formData))
           this.isEditting = false
         } else {
-          alert('Update Failed')
+          this.$swal(
+            'Error',
+            'Update Failed',
+            'error'
+          );
         }
       } catch (error) {
-        alert(error)
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     },
     addExp () {

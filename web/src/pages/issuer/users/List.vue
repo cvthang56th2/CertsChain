@@ -83,7 +83,11 @@ export default {
         const { data } = await Axios.get(`${this.apiUrl}/user/list`)
         this.users = data || []
       } catch (error) {
-        console.log('error', error)        
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     },
     async changeStatus(userId) {

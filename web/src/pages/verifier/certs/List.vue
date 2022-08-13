@@ -69,7 +69,11 @@ export default {
         const { data } = await Axios.get(`${this.apiUrl}/certificate/list`)
         this.certs = data || []
       } catch (error) {
-        console.log('error', error)        
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );     
       }
     }
   }

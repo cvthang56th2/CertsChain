@@ -590,6 +590,7 @@ router.post('/certificate/verify', uploadPdf.single('certificateFile'), async (r
       })
     }
     return res.send({
+      valid: true,
       status: 'Certificate is Geniune',
     })
   } catch (error) {

@@ -137,7 +137,11 @@ export default {
         await Axios.post(`${this.apiUrl}/school/save`, payload)
         this.$emit('saved')
       } catch (error) {
-        console.log('error', error)        
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     }
   }

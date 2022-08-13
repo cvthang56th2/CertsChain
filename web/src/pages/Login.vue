@@ -91,10 +91,18 @@ export default {
           this.$store.commit('auth/SET_IS_LOGIN', true)
           this.goTo('/')
         } else {
-          alert(data.status)
+          this.$swal(
+            'Error',
+            data.status,
+            'error'
+          );
         }
       } catch (error) {
-        alert(error)
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     }
   }

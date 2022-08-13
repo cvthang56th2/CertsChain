@@ -31,19 +31,37 @@ export default {
     async verifyCertificate () {
       try {
         const file = this.$refs.certificateFile.files[0]
-        console.log('file', file)
-        console.log('this.formData.certinumber', this.formData.certinumber)
         if (!file || !this.formData.certinumber) {
-          alert('Please fill all inputs')
+          this.$swal(
+            'Error',
+            'Please fill all inputs',
+            'error'
+          );
           return
         }
         const formData = new FormData()
         formData.append('certinumber', this.formData.certinumber)
         formData.append('certificateFile', file)
         const { data } = await Axios.post(`${this.apiUrl}/certificate/verify`, formData)
-        console.log('data', data)
+        if (data.valid) {
+          this.$swal(
+            'Certificate is Valid',
+            data.status,
+            'success'
+          );
+        } else {
+          this.$swal(
+            'Certificate is In-Valid',
+            data.status,
+            'error'
+          );
+        }
       } catch (error) {
-        alert(error)
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
       }
     }
   }
