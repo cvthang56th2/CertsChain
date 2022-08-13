@@ -88,7 +88,6 @@
 </template>
 
 <script>
-import Popup from '../../Popup.vue'
 import Axios from 'axios'
 
 export default {
@@ -103,7 +102,6 @@ export default {
     }
   },
   components: {
-    Popup
   },
   watch: {
     modelValue (v) {

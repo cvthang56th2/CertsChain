@@ -1,10 +1,10 @@
 <script setup>
-import DefaultLayout from './components/layouts/Default.vue'
 </script>
 
 <template>
-  <DefaultLayout>
-  </DefaultLayout>
+  <div class="p-10 h-screen overflow-auto">
+    <router-view />
+  </div>
 </template>
 
 <style>

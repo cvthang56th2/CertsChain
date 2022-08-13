@@ -17,9 +17,15 @@ function formatDate (date, options = {}) {
 
   return date
 }
+
+import Popup from '../components/Popup.vue'
+
 export default {
   install: (app, options) => {
     app.mixin({
+      components: {
+        Popup
+      },
       filters: {
         formatDate
       },

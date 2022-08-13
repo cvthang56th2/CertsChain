@@ -72,7 +72,7 @@
 <script>
 import {
   LOGIN_KEY
-} from '../../constants'
+} from '../constants'
 
 export default {
   methods: {
@@ -80,6 +80,7 @@ export default {
       // TODO
       this.$store.commit('auth/SET_IS_LOGIN', true)
       this.$cookies.set(LOGIN_KEY, true)
+      this.goTo('/')
     }
   }
 }

@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <DefaultLayout>
     <div class="flex">
       <aside class="w-[170px]" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
           <ul class="space-y-2">
             <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value">
               <a
-                href="#"
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
               >
                 <span v-html="tabObj.icon"></span>
                 <span class="ml-3">{{ tabObj.label }}</span>
@@ -20,15 +19,16 @@
         <component :is="currentTab" />
       </div>
     </div>
-  </div>
+  </DefaultLayout>
 </template>
 
 <script>
 import Dashboard from './dashboard/Dashboard.vue'
-import Profile from '../profile/Profile.vue'
 import CertificateList from './certs/List.vue'
 import UserList from './users/List.vue'
 import SchoolList from './schools-cources/List.vue'
+import Profile from '../../components/profile/Profile.vue'
+import DefaultLayout from '../../components/layouts/Default.vue'
 
 export default {
   components: {
@@ -37,6 +37,7 @@ export default {
     CertificateList,
     UserList,
     SchoolList,
+    DefaultLayout
   },
   data: () => ({
     currentTab: 'Dashboard',
