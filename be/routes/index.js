@@ -10,6 +10,7 @@ const School = require('../Models/schoolSchema')
 const Certi = require('../Models/certi')
 const sha256 = require('sha256')
 const fs = require('fs')
+const path = require('path')
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
@@ -570,32 +571,31 @@ router.post('/certificate/:_id/change-status', async (req, res) => {
   }
 })
 
-router.post('/certificate/verify', uploadPdf.single('certificate'), (req, res) => {
-  const certinumber = req.body.certinumber
-  const certiData = String(req.file.buffer)
-  Certi.findOne({ certinumber })
-    .then(async (certifound) => {
-      if (certifound) {
-        if (certifound.details === certiData) {
-          return res.send({
-            status: 'Certificate is Geniune',
-          })
-        } else {
-          return res.send({
-            status: 'Certificate is tempered',
-          })
-        }
-      } else {
-        return res.send({
-          status: 'Certificate is not generated from us',
-        })
-      }
-    })
-    .catch((err) => {
-      console.log(err)
+router.post('/certificate/verify', uploadPdf.single('certificateFile'), async (req, res) => {
+  try {
+    const certinumber = req.body.certinumber
+    const certiData = req.file.buffer.toString()
+    const certifound = await Certi.findOne({ certinumber })
+    if (!certifound || !certifound?.certSrc) {
       return res.send({
-        status: 'server down',
+        status: 'Certificate is not generated from us',
       })
+    }
+    const fileName = path.basename(certifound.certSrc)
+    const certBuf = fs.readFileSync(`./public/certs/${fileName}`).toString()
+
+    if (certBuf !== certiData) {
+      return res.send({
+        status: 'Certificate is tempered',
+      })
+    }
+    return res.send({
+      status: 'Certificate is Geniune',
     })
+  } catch (error) {
+    return res.send({
+      status: 'server down',
+    })
+  }
 })
 module.exports = router

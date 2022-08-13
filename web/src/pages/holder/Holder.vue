@@ -126,6 +126,20 @@ export default {
     ...mapGetters({
       userInfo: 'auth/userInfo'
     })
+  },
+  watch: {
+    currentTab () {
+      this.$router.push({ path: this.$route.path, query: { tab: this.currentTab }})
+    }
+  },
+  mounted() {
+    const _this = this
+    setTimeout(() => {
+      const { tab } = _this.$route.query
+      if (tab && _this.tabs.some(e => e.value === tab)) {
+        _this.currentTab = tab
+      }
+    }, 50);
   }
 }
 </script>
