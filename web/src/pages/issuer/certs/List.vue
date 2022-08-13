@@ -53,7 +53,7 @@ export default {
         return {
           ...certObj,
           userName: [certObj.userId?.username, [certObj.userId?.firstName, certObj.userId?.lastName].filter(Boolean).join(' ')].filter(Boolean).join('-'),
-          schoolAndCource: [certObj.school?.name, courceObj.name, courceObj.time].filter(Boolean).join(' '),
+          schoolAndCource: [certObj.school?.name, courceObj.name, courceObj.time].filter(Boolean).join(' - '),
         }
       })
       if (this.keyword) {

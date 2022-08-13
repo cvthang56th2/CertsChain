@@ -2,11 +2,11 @@
   <DefaultLayout>
     <div v-if="(userInfo && ['Admin', 'Issuer'].includes(userInfo.userType))" class="flex">
       <aside class="w-[170px]" aria-label="Sidebar">
-        <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
+        <div class="overflow-y-auto py-4 px-3 shadow-md bg-blue-50 rounded dark:bg-blue-800">
           <ul class="space-y-2">
-            <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value">
+            <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value" :class="currentTab === tabObj.value ? 'bg-blue-200' : ''">
               <a
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer"
               >
                 <span v-html="tabObj.icon"></span>
                 <span class="ml-3">{{ tabObj.label }}</span>

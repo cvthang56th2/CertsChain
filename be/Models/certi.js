@@ -46,6 +46,7 @@ const Certischema = new Schema({
     required: false,
     default: 'active'
   },
-})
+}, 
+{ timestamps: true })
 // Compile model from schema
 module.exports = mongoose.model('Certificate', Certischema)

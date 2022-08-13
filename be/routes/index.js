@@ -408,8 +408,13 @@ router.post('/school/:_id/change-status', async (req, res) => {
 // certicifates
 router.get('/certificate/list', async function (req, res, next) {
   try {
+    const { userId } = req.query
+    const queryOptions = {}
+    if (userId) {
+      queryOptions.userId = userId
+    }
     const certs = await Certi
-      .find({})
+      .find(queryOptions)
       .populate([{
         path: 'userId'
       }, {
