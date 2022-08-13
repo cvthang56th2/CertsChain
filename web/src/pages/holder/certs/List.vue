@@ -23,7 +23,8 @@
             </div>
           </div> 
           <div class="flex items-center justify-between mt-4">
-            <a :href="certObj.certSrc" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">View more ⟶</a> 
+            <a :href="certObj.certSrc" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">View certificate ⟶</a> 
+            <a :href="certObj.certSrc" @click.prevent="downloadItem(certObj.certSrc)" target="_blank" class="bg-pink-500 hover:bg-pink-400 text-white p-2 rounded-md">Download ↓</a> 
           </div>
         </div>
       </div>

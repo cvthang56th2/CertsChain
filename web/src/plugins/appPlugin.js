@@ -19,6 +19,7 @@ function formatDate (date, options = {}) {
 }
 
 import Popup from '../components/Popup.vue'
+import Axios from 'axios'
 
 export default {
   install: (app, options) => {
@@ -34,6 +35,18 @@ export default {
       }),
       methods: {
         formatDate,
+        downloadItem (url) {
+          Axios.get(url, { responseType: 'blob' })
+            .then(response => {
+              const blob = new Blob([response.data], { type: 'application/pdf' })
+              const link = document.createElement('a')
+              link.href = URL.createObjectURL(blob)
+              const splitted = url.split('/')
+              link.download = splitted[splitted.length - 1]
+              link.click()
+              URL.revokeObjectURL(link.href)
+            }).catch(console.error)
+        },
         avatarUrl(user) {
           let fileName
           if (user.avatar) {
