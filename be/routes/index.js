@@ -36,9 +36,9 @@ const uploadAvatar = multer({
     filename: (req, file, callback) => {
       callback(null, `${new Date().getTime()}-${file.originalname.split(' ').join('_')}`);
     },
-    limits: {
-      fileSize: 5000000
-    }
+    // limits: {
+    //   fileSize: 5000000
+    // }
   })
 });
 
@@ -68,7 +68,9 @@ Certi.find()
       certis.forEach((certi) => {
         certificate.createNewBlock(certi.nonce, certi.prehash, certi.hash)
         certificate.getLastBlock().certiNo = certi.certinumber
-        certificate.getLastBlock().certiData = certi.details
+        const { userId, schoolId, courceId, certSrc } = certi
+        const certiData = { userId, schoolId, courceId, certSrc }
+        certificate.getLastBlock().certiData = certiData
       })
     }
   })
@@ -275,6 +277,13 @@ router.post('/user/upload-avatar', uploadAvatar.single('avatarFile'), async (req
       error.httpStatusCode = 400
       return next(error)
     }
+    if (user.avatar) {
+      const oldAvatar = `${avatarDirPath}/${user.avatar}`
+      if (fs.existsSync(oldAvatar)) {
+        fs.unlinkSync(oldAvatar)
+      }
+    }
+
     await User.findByIdAndUpdate(userId, {
       avatar: req.file.filename
     })
@@ -456,6 +465,7 @@ router.post('/certificate/create', async (req, res) => {
     const certifound = await Certi.findOne(certiData)
     if (certifound) {
       return res.send({
+        error: true,
         certificateNumber: certifound.certinumber,
         status: 'Certificate Number Has been generated Already',
       })

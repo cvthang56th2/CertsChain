@@ -290,10 +290,10 @@ export default {
       immediate: true,
       handler () {
         const cloneUser = JSON.parse(JSON.stringify(this.userData))
-        if (!cloneUser.experiences.length) {
+        if (!cloneUser.experiences?.length) {
           cloneUser.experiences = [{}]
         }
-        if (!cloneUser.educations.length) {
+        if (!cloneUser.educations?.length) {
           cloneUser.educations = [{}]
         }
         this.user = cloneUser
@@ -308,14 +308,15 @@ export default {
         }
         const file = e.target.files[0]
         const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+        this.$refs.avatarFile.value = null
         if(!allowedTypes.includes(file.type)){
           alert('Filetype is wrong!!')
           return
         }
-        if(file.size>500000){
-          alert('Too large, max size allowed is 500kb')
-          return
-        }
+        // if(file.size>500000){
+        //   alert('Too large, max size allowed is 500kb')
+        //   return
+        // }
         const formData = new FormData();
         formData.append('userId', this.user._id)
         formData.append('avatarFile', file)
@@ -327,7 +328,6 @@ export default {
       } catch (error) {
         alert(error)
       }
-      this.$refs.avatarFile.value = null
     },
     editUser () {
       this.formData = JSON.parse(JSON.stringify(this.user))

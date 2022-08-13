@@ -90,7 +90,11 @@ export default {
     async saveCertificate () {
       try {
         const payload = this.formData
-        await Axios.post(`${this.apiUrl}/certificate/${payload._id ? 'update' : 'create'}`, payload)
+        const { data } = await Axios.post(`${this.apiUrl}/certificate/${payload._id ? 'update' : 'create'}`, payload)
+        if (data.error) {
+          alert(data.status)
+          return
+        }
         this.$emit('saved')
       } catch (error) {
         console.log('error', error)        
