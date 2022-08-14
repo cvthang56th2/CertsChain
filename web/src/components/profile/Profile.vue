@@ -11,7 +11,7 @@
               <div class="w-[100px] h-[100px] xl:w-[200px] xl:h-[200px] mx-auto bg bg-center bg-no-repeat bg-cover rounded-full border-4 border-gray-600" :style="`background-image: url(${avatarUrl(user)})`">
               </div>
               <div class="mt-2 text-center" v-if="editable && user._id">
-                <button @click="$refs.avatarFile.click()" class="border-2 px-3 py-1 rounded-md">Change Avatar</button>
+                <button @click="$refs.avatarFile.click()" class="px-3 py-1 rounded-md text-sm bg-cyan-300 hover:bg-cyan-200">Change Avatar</button>
                 <input ref="avatarFile" type="file" class="hidden" @input="changeAvatar" accept="image/jpg,image/png,image/jpeg">
               </div>
             </div>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="grid grid-cols-2">
                   <div class="px-4 py-2 font-semibold">Contact No.</div>
-                  <input v-if="isEditting" v-model="formData.contactNo" class="px-4 py-2 border-b-2" type="text" placeholder="Contact No.">
+                  <input v-if="isEditting" v-model="formData.contactNo" class="px-4 py-2 border-b-2" type="text" name="phone" placeholder="Contact No.">
                   <div v-else class="px-4 py-2">+{{ user.contactNo }}</div>
                 </div>
                 <div class="grid grid-cols-2">
@@ -123,7 +123,7 @@
                 <div class="grid grid-cols-2">
                   <div class="px-4 py-2 font-semibold">Birthday</div>
                   <input v-if="isEditting" v-model="formData.birthday" class="px-4 py-2 border-b-2" type="date" placeholder="Birthday">
-                  <div v-else class="px-4 py-2">{{ user.birthday }}</div>
+                  <div v-else class="px-4 py-2">{{ formatDate(user.birthday, { format: 'DD/MM/YYYY' }) }}</div>
                 </div>
               </div>
             </div>
@@ -330,6 +330,7 @@ export default {
           throw new Error('upload failed')
         }
         this.user.avatar = data.avatar
+        this.$store.commit('auth/SET_USER_INFO', this.user)
       } catch (error) {
         this.$swal(
           'Error',
@@ -347,6 +348,7 @@ export default {
         const { data } = await Axios.post(`${this.apiUrl}/user/update`, this.formData)
         if (data.success) {
           this.user = JSON.parse(JSON.stringify(this.formData))
+          this.$store.commit('auth/SET_USER_INFO', this.user)
           this.isEditting = false
         } else {
           this.$swal(
