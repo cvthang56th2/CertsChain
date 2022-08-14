@@ -6,29 +6,36 @@
       <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
-      <div class="flex border-b-2 py-2 font-bold">
-        <div class="w-2/12 whitespace-pre-wrap px-2">Name</div>
-        <div class="w-2/12 whitespace-pre-wrap px-2">Director Name</div>
-        <div class="w-2/12 whitespace-pre-wrap px-2">Description</div>
-        <div class="w-2/12 whitespace-pre-wrap px-2">Cources</div>
-        <div class="w-2/12 whitespace-pre-wrap px-2">Created At</div>
-        <div class="w-1/12 whitespace-pre-wrap px-2">Status</div>
-        <div class="w-1/12 whitespace-pre-wrap px-2">Actions</div>
+      <div class="hidden xl:flex border-b-2 py-2 font-bold">
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">Name</div>
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">Director Name</div>
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">Description</div>
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">Cources</div>
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">Created At</div>
+        <div class="xl:w-1/12 whitespace-pre-wrap px-2">Status</div>
+        <div class="xl:w-1/12 whitespace-pre-wrap px-2">Actions</div>
       </div>
-      <div v-for="(schoolObj, sIndex) in computedSchools" :key="`school-${sIndex}`" class="flex border-b-2 last:border-b-0 py-2">
-        <div class="w-2/12 whitespace-pre-wrap px-2">{{ schoolObj.name }}</div>
-        <div class="w-2/12 whitespace-pre-wrap px-2">{{ schoolObj.directorName }}</div>
-        <div class="w-2/12 whitespace-pre-wrap px-2">{{ schoolObj.description }}</div>
-        <div class="w-2/12 whitespace-pre-wrap px-2">
+      <div v-for="(schoolObj, sIndex) in computedSchools" :key="`school-${sIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+          <b class="xl:hidden">Name</b>{{ schoolObj.name }}: </div>
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+          <b class="xl:hidden">Director Name</b>{{ schoolObj.directorName }}: </div>
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+          <b class="xl:hidden">Description</b>{{ schoolObj.description }}: </div>
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+          <b class="xl:hidden">Cources: </b>
           <div v-for="(courceObj, cIndex) in schoolObj.cources" :key="`school-${sIndex}-cource-${cIndex}`">
             {{ [courceObj.name, courceObj.time].filter(Boolean).join(' - ') }} 
           </div>
         </div>
-        <div class="w-2/12 whitespace-pre-wrap px-2">{{ formatDate(schoolObj.createdAt) }}</div>
-        <div class="w-1/12 whitespace-pre-wrap px-2">
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+          <b class="xl:hidden">Created At: </b>{{ formatDate(schoolObj.createdAt) }}</div>
+        <div class="xl:w-1/12 whitespace-pre-wrap px-2">
+          <b class="xl:hidden">Status: </b>
           <toggle v-model="schoolObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(schoolObj._id)" />
         </div>
-        <div class="w-1/12 whitespace-pre-wrap px-2">
+        <div class="mt-10 xl:mt-0 xl:w-1/12 whitespace-pre-wrap px-2">
+          <b class="xl:hidden">Actions: </b>
           <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
         </div>
       </div>

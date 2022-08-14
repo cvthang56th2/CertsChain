@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout>
-    <div class="flex">
-      <aside class="w-[170px]" aria-label="Sidebar">
+    <div class="xl:flex">
+      <aside class="xl:w-[170px]" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 shadow-md bg-blue-50 rounded dark:bg-blue-800">
           <ul class="space-y-2">
             <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value" :class="currentTab === tabObj.value ? 'bg-blue-200' : ''">
@@ -174,12 +174,10 @@ export default {
   },
   mounted() {
     const _this = this
-    setTimeout(() => {
-      const { tab } = _this.$route.query
-      if (tab && _this.tabs.some(e => e.value === tab)) {
-        _this.currentTab = tab
-      }
-    }, 50);
+    const { tab } = _this.$route.query
+    if (tab && _this.tabs.some(e => e.value === tab)) {
+      _this.currentTab = tab
+    }
   }
 }
 </script>

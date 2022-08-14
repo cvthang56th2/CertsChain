@@ -6,22 +6,22 @@
       <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
-      <div class="flex border-b-2 py-2 font-bold">
-        <div class="w-1/5 px-2">Certificate Number</div>
-        <div class="w-1/5 px-2">User</div>
-        <div class="w-1/5 px-2">School and Cource</div>
-        <div class="w-1/5 px-2">Link</div>
-        <div class="w-1/5 px-2">Status</div>
+      <div class="hidden xl:flex border-b-2 py-2 font-bold">
+        <div class="xl:w-1/5 px-2">Certificate Number</div>
+        <div class="xl:w-1/5 px-2">User</div>
+        <div class="xl:w-1/5 px-2">School and Cource</div>
+        <div class="xl:w-1/5 px-2">Link</div>
+        <div class="xl:w-1/5 px-2">Status</div>
       </div>
-      <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="flex border-b-2 last:border-b-0 py-2">
-        <div class="w-1/5 px-2">{{ certObj.certinumber }}</div>
-        <div class="w-1/5 px-2">{{ certObj.userName }}</div>
-        <div class="w-1/5 px-2">{{ certObj.schoolAndCource }}</div>
-        <div class="w-1/5 px-2">
-          <a :href="certObj.certSrc" target="_blank" class="underline text-blue-600 hover:text-blue-400">{{ certObj.certSrc }}</a>
+      <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
+        <div class="xl:w-1/5 px-2"><b class="xl:hidden">Certificate Number:</b> {{ certObj.certinumber }}</div>
+        <div class="xl:w-1/5 px-2"><b class="xl:hidden">User:</b> {{ certObj.userName }}</div>
+        <div class="xl:w-1/5 px-2"><b class="xl:hidden">School and Cource:</b> {{ certObj.schoolAndCource }}</div>
+        <div class="xl:w-1/5 px-2">
+          <b class="xl:hidden">Link:</b> <a :href="certObj.certSrc" target="_blank" class="underline text-blue-600 hover:text-blue-400">{{ certObj.certSrc }}</a>
         </div>
-        <div class="w-1/5 px-2">
-          <toggle v-model="certObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(certObj._id)" />
+        <div class="mb-10 xl:mb-0 xl:w-1/5 px-2">
+          <b class="xl:hidden">Status:</b> <toggle v-model="certObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(certObj._id)" />
         </div>
       </div>
     </div>

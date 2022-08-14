@@ -3,8 +3,8 @@
     <div v-if="(userInfo && userInfo.userType === 'Issuer')" class="text-center mt-20">
       User are Issuer, <span class="underline text-blue-600 hover:text-blue-400 cursor-pointer" @click="goTo('/issuer')">Go to Issuer Page</span>
     </div>
-    <div v-else  class="flex">
-      <aside class="w-[170px]" aria-label="Sidebar">
+    <div v-else  class="xl:flex">
+      <aside class="xl:w-[170px]" aria-label="Sidebar">
         <div class="overflow-y-auto shadow-md py-4 px-3 bg-blue-50 rounded dark:bg-blue-800">
           <ul class="space-y-2">
             <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value" :class="currentTab === tabObj.value ? 'bg-blue-200' : ''">
@@ -19,7 +19,7 @@
         </div>
       </aside>
       <div class="flex-1 py-4 px-3">
-        <component :is="currentTab" :userData="userInfo" />
+        <component v-if="userInfo._id" :is="currentTab" :userData="userInfo" />
       </div>
     </div>
   </DefaultLayout>
@@ -134,12 +134,10 @@ export default {
   },
   mounted() {
     const _this = this
-    setTimeout(() => {
-      const { tab } = _this.$route.query
-      if (tab && _this.tabs.some(e => e.value === tab)) {
-        _this.currentTab = tab
-      }
-    }, 50);
+    const { tab } = _this.$route.query
+    if (tab && _this.tabs.some(e => e.value === tab)) {
+      _this.currentTab = tab
+    }
   }
 }
 </script>

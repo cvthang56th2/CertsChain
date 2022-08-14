@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="relative">
-      <button @click="goTo('/')" class="absolute top-2 underline text-blue-700">&#8592; Select other user type</button>
+      <button @click="goTo('/')" class="relative xl:top-2 xl:absolute block underline text-blue-700">&#8592; Select other user type</button>
       <template v-if="$route.path !== '/login'">
         <h1 class="text-center text-3xl font-extrabold uppercase">{{ userType }}</h1>
-        <div v-if="['Issuer', 'Holder'].includes(userType) && isLogin" class="absolute top-2 right-0">
+        <div v-if="['Issuer', 'Holder'].includes(userType) && isLogin" class="relative xl:top-2 xl:right-0 xl:absolute">
           Hello, <span class="font-bold text-lg">{{userInfo && userInfo.username}}</span>!
           <button class="ml-4 underline" @click="logout">
             Logout

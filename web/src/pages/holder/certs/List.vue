@@ -1,8 +1,8 @@
 <template>
   <div>
     <h2 class="text-center text-2xl font-extrabold mb-4">List Certs</h2>
-    <div class="flex flex-wrap">
-      <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="p-4 w-1/3">
+    <div class="xl:flex flex-wrap">
+      <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="p-4 xl:w-1/3">
         <div class="px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800 ">
           <div class="flex items-center justify-between">
             <span class="text-sm font-light text-gray-600 dark:text-gray-400">{{ formatDate(certObj.createdAt, { format: 'DD/MM/YYYY' }) }}</span> 
@@ -25,10 +25,10 @@
               Teacher: <span class="ml-2 font-bold text-gray-700 dark:text-gray-200">{{ certObj.courceObj?.teacherName }}</span>
             </div>
           </div> 
-          <div class="flex items-center justify-between mt-4">
-            <a :href="certObj.certSrc" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">View certificate ⟶</a> 
-            <button @click.prevent="shareCertificate(certObj)" target="_blank" class="bg-blue-500 hover:bg-blue-400 text-white py-2 px-5 rounded-md">Share</button> 
-            <a :href="certObj.certSrc" @click.prevent="downloadItem(certObj.certSrc)" target="_blank" class="bg-pink-500 hover:bg-pink-400 text-white p-2 rounded-md">Download ↓</a> 
+          <div class="xl:flex items-center justify-between mt-4">
+            <a :href="certObj.certSrc" target="_blank" class="mt-4 xl:mt-0 mx-auto block xl:inline text-blue-600 dark:text-blue-400 hover:underline">View certificate ⟶</a> 
+            <button @click.prevent="shareCertificate(certObj)" target="_blank" class="mt-4 xl:mt-0 mx-auto text-center block xl:inline bg-blue-500 hover:bg-blue-400 text-white py-2 px-5 rounded-md">Share</button> 
+            <a :href="certObj.certSrc" @click.prevent="downloadItem(certObj.certSrc)" target="_blank" class="mt-4 xl:mt-0 mx-auto text-center block xl:inline bg-pink-500 hover:bg-pink-400 text-white p-2 rounded-md">Download ↓</a> 
           </div>
         </div>
       </div>

@@ -1,18 +1,15 @@
 <template>
   <div>
     <h2 class="text-center text-2xl font-extrabold mb-4">Profile</h2>
-    <div class="container mx-auto my-5 p-5">
+    <div class="container mx-auto my-5 xl:p-5">
       <div class="md:flex no-wrap md:-mx-2">
         <!-- Left Side -->
         <div class="w-full md:w-3/12 md:mx-2">
           <!-- Profile Card -->
           <div class="bg-white p-3 border-t-4 border-green-400">
             <div class="image overflow-hidden">
-              <img
-                class="h-auto w-full mx-auto"
-                :src="avatarUrl(user)"
-                alt=""
-              />
+              <div class="w-[100px] h-[100px] xl:w-[200px] xl:h-[200px] mx-auto bg bg-center bg-no-repeat bg-cover rounded-full border-4 border-gray-600" :style="`background-image: url(${avatarUrl(user)})`">
+              </div>
               <div class="mt-2 text-center" v-if="editable && user._id">
                 <button @click="$refs.avatarFile.click()" class="border-2 px-3 py-1 rounded-md">Change Avatar</button>
                 <input ref="avatarFile" type="file" class="hidden" @input="changeAvatar" accept="image/jpg,image/png,image/jpeg">
