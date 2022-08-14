@@ -488,7 +488,8 @@ router.get('/certificate/get-data-create', async function (req, res, next) {
       }, [])
     }
     res.send({
-      users
+      users,
+      schools
     })
   } catch (error) {
     next(error)

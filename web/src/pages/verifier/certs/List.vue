@@ -1,10 +1,30 @@
 <template>
   <div>
     <h2 class="text-center text-2xl font-extrabold mb-4">List Certs</h2>
-    <div class="flex">
-      <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="goTo('/verify-certificate')">Verify Certificate</button>
-      <button class="ml-4 border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="goTo('/certificate-chain')">Certificate Chain</button>
-      <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
+    <div class="flex justify-between items-center">
+      <div>
+        <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="goTo('/verify-certificate')">Verify Certificate</button>
+        <button class="ml-4 border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="goTo('/certificate-chain')">Certificate Chain</button>
+        <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
+      </div>
+      <div class="flex">
+        <div>
+          <select v-model="schoolId" class="border-2 p-2">
+            <option value="">Select School</option>
+            <option v-for="(schoolObj, sIndex) in schools" :key="`school-option-${sIndex}`" :value="schoolObj._id">
+              {{ schoolObj.name }}
+            </option>
+          </select>
+        </div>
+        <div v-if="schoolId" class="ml-2">
+          <select v-model="courceId" class="border-2 p-2">
+            <option value="">Select Cource</option>
+            <option v-for="(courceObj, cIndex) in cources" :key="`cource-option-${cIndex}`" :value="courceObj._id">
+              {{ [courceObj.name, courceObj.time].filter(Boolean).join(' - ') }}
+            </option>
+          </select>
+        </div>
+      </div>
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
       <div class="hidden xl:flex border-b-2 py-2 font-bold">
@@ -48,6 +68,9 @@ export default {
   },
   data: () => ({
     certs: [],
+    schools: [],
+    schoolId: '',
+    courceId: '',
     keyword: null
   }),
   computed: {
@@ -71,13 +94,35 @@ export default {
           (item.schoolAndCource && item.schoolAndCource.match(reg))
         ))
       }
+      if (this.schoolId) {
+        result = result.filter(e => (e.schoolId?._id || e.schoolId) === this.schoolId)
+        if (this.courceId) {
+          result = result.filter(e => (e.courceId?._id || e.courceId) === this.courceId)
+        }
+      }
       return result
+    },
+    cources () {
+      return (this.schools.find(e => e._id === this.schoolId) || {}).cources || []
     },
   },
   mounted () {
     this.getCerts()
+    this.getSchools()
   },
   methods: {
+    async getSchools() {
+      try {
+        const { data } = await Axios.get(`${this.apiUrl}/school/list`)
+        this.schools = data || []
+      } catch (error) {
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
+      }
+    },
     async getCerts() {
       try {
         const { data } = await Axios.get(`${this.apiUrl}/certificate/list`)

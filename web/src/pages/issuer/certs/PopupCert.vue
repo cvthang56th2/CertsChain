@@ -1,7 +1,13 @@
 <template>
   <Popup v-model="modelValue" @hide="hide" :title="certObj._id ? 'Edit Cert' : 'Add Cert'" width="60%" :save="saveCertificate" :closeOnSave="false" ref="popup">
-    <div class="text-gray-700">
-      <div class="flex">
+    <div class="text-gray-700 popup-cert">
+      <!-- <div class="flex items-center">
+        <div class="px-4 py-2 font-semibold w-1/3">Is Generate for Cource?</div>
+        <div>
+          <toggle v-model="isGenerateForCource" :trueValue="true" :falseValue="false" offLabel="Yes" onLabel="No" />
+        </div>
+      </div> -->
+      <div v-if="!isGenerateForCource" class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">User</div>
         <select v-model="formData.userId" class="border-2 p-2 m w-full" @change="onChangeUser">
           <!-- <option :value="undefined">Select User</option> -->
@@ -10,7 +16,7 @@
           </option>
         </select>
       </div>
-      <div v-if="formData.userId" class="flex mt-4">
+      <div v-if="isGenerateForCource || (!isGenerateForCource && formData.userId)" class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">School</div>
         <select v-model="formData.schoolId" class="border-2 p-2 m w-full">
           <!-- <option :value="undefined">Select school</option> -->
@@ -19,7 +25,7 @@
           </option>
         </select>
       </div>
-      <div v-if="formData.userId && formData.schoolId" class="flex mt-4">
+      <div v-if="(isGenerateForCource || (!isGenerateForCource && formData.userId)) && formData.schoolId" class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">Cource</div>
         <select v-model="formData.courceId" class="border-2 p-2 m w-full">
           <!-- <option :value="undefined">Select cource</option> -->
@@ -31,11 +37,16 @@
     </div>
   </Popup>
 </template>
+<style src="@vueform/toggle/themes/default.css"></style>
 
 <script>
 import Axios from 'axios'
+import Toggle from '@vueform/toggle'
 
 export default {
+  components: {
+    Toggle
+  },
   props: {
     modelValue: {
       type: Boolean,
@@ -46,8 +57,6 @@ export default {
       default: () => ({})
     }
   },
-  components: {
-  },
   watch: {
     modelValue (v) {
       if (v) {
@@ -57,13 +66,17 @@ export default {
     }
   },
   data: () => ({
+    isGenerateForCource: false,
     formData: {},
+    listSchool: [],
     users: [],
   }),
   computed: {
     schools () {
       let result = []
-      if (this.formData.userId) {
+      if (this.isGenerateForCource) {
+        result = this.listSchool
+      } else if (this.formData.userId) {
         const selectedUserObj = this.users.find(e => e._id === this.formData.userId) || {}
         result = (selectedUserObj.dropdownSchools || [])
       }
@@ -86,6 +99,7 @@ export default {
       try {
         const { data } = await Axios.get(`${this.apiUrl}/certificate/get-data-create`)
         this.users = (data.users || [])
+        this.listSchool = data.schools || []
       } catch (error) {
         this.$swal(
           'Error',
@@ -96,7 +110,10 @@ export default {
     },
     async saveCertificate () {
       try {
-        const payload = this.formData
+        const payload = {
+          ...JSON.parse(JSON.stringify(this.formData)),
+          isGenerateForCource: this.isGenerateForCource
+        }
         const { data } = await Axios.post(`${this.apiUrl}/certificate/${payload._id ? 'update' : 'create'}`, payload)
         if (data.error) {
           this.$swal(
@@ -131,4 +148,11 @@ export default {
 
 <style>
 
+.popup-cert  .toggle-label {
+  position: relative;
+  bottom: unset;
+  left: unset;
+  color: white;
+  font-weight: bold;
+}
 </style>
