@@ -24,7 +24,7 @@
             <b class="xl:hidden">School and Cource: </b>{{ certObj.schoolAndCource }}</div>
           <div class="xl:w-1/5 px-2">
             <b class="xl:hidden">Link: </b>
-            <a :href="certObj.certSrc" target="_blank" class="underline text-blue-600 hover:text-blue-400">{{ certObj.certSrc }}</a>
+            <a :href="certObj.certSrc" target="_blank" class="underline text-blue-600 hover:text-blue-400">{{ certObj.fileName }}</a>
           </div>
           <div class="xl:w-1/5 px-2 capitalize">
             <b class="xl:hidden">Status: </b>
@@ -54,8 +54,11 @@ export default {
     computedCerts () {
       let result = JSON.parse(JSON.stringify(this.certs)).map(certObj => {
         const courceObj = (certObj.schoolId?.cources || []).find(e => e._id === certObj.courceId) || {}
+        const splitted = (certObj.certSrc || '').split('/')
+        const fileName = splitted[splitted.length - 1]
         return {
           ...certObj,
+          fileName,
           userName: [certObj.userId?.username, [certObj.userId?.firstName, certObj.userId?.lastName].filter(Boolean).join(' ')].filter(Boolean).join('-'),
           schoolAndCource: [certObj.school?.name, courceObj.name, courceObj.time].filter(Boolean).join(' - '),
         }
