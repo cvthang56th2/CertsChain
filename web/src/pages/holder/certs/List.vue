@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     shareCertificate (certObj) {
-      navigator.clipboard.writeText(`Certificate Number: ${certObj.certinumber}\nCertificate file: ${certObj.certSrc}\nVerify Certificate at this link: http://localhost:3000/#/verify-certificate`);
+      navigator.clipboard.writeText(`Certificate Number: ${certObj.certinumber}\nCertificate file: ${certObj.certSrc}\nVerify Certificate at this link: http://localhost:3000/#/verify-certificate\nUser Profile: http://localhost:3000/#/user/${this.userInfo._id}`);
       this.$swal({
         toast: true,
         position: 'top-end',
