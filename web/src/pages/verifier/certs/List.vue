@@ -4,7 +4,7 @@
     <div class="flex justify-between items-center">
       <div>
         <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="goTo('/verify-certificate')">Verify Certificate</button>
-        <button class="ml-4 border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="goTo('/certificate-chain')">Certificate Chain</button>
+        <!-- <button class="ml-4 border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="goTo('/certificate-chain')">Certificate Chain</button> -->
         <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
       </div>
       <div class="flex">

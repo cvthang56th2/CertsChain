@@ -2,7 +2,7 @@
   <div>
     <h2 class="text-center text-2xl font-extrabold mb-4">List Users</h2>
     <div class="flex">
-      <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="goTo('/account-chain')">Account Chain</button>
+      <!-- <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="goTo('/account-chain')">Account Chain</button> -->
       <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
