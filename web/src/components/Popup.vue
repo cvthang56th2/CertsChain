@@ -54,6 +54,10 @@ export default {
     save: {
       type: Function,
       default: () => (() => {})
+    },
+    closeOnSave: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -64,7 +68,9 @@ export default {
       if (typeof this.save === 'function') {
         this.save()
       }
-      this.hide()
+      if (this.closeOnSave) {
+        this.hide()
+      }
     }
   }
 }

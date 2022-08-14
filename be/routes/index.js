@@ -452,6 +452,49 @@ router.get('/certificate/list', async function (req, res, next) {
   }
 })
 
+router.get('/certificate/get-data-create', async function (req, res, next) {
+  try {
+    const certs = await Certi.find({}).lean()
+    const users = await User.find({ status: 'active' }).lean()
+    const schools = await School.find({ status: 'active' }).lean()
+    const countSchoolCources = schools.reduce((total, schoolObj) => {
+      total += (schoolObj.cources || []).length
+      return total
+    }, 0)
+    for (const userObj of users) {
+      const userCertSchoolCourceIds = certs.reduce((resultArr, certObj) => {
+        if (String(certObj.userId) === String(userObj._id)) {
+          resultArr.push(`${certObj.schoolId}-${certObj.courceId}`)
+        }
+        return resultArr
+      }, [])
+      if (userCertSchoolCourceIds.length === countSchoolCources) {
+        userObj.disabled = true
+      }
+      userObj.dropdownSchools = JSON.parse(JSON.stringify(schools)).reduce((resultArr, schoolObj) => {
+        let countDisableCources = 0
+        schoolObj.cources = (schoolObj.cources || []).map(courceObj => {
+          if (userCertSchoolCourceIds.includes(`${schoolObj._id}-${courceObj._id}`)) {
+            courceObj.disabled = true
+            countDisableCources++
+          }
+          return courceObj
+        })
+        if (countDisableCources === schoolObj.cources.length) {
+          schoolObj.disabled = true
+        }
+        resultArr.push(schoolObj)
+        return resultArr
+      }, [])
+    }
+    res.send({
+      users
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/certificate/create', async (req, res) => {
   try {
     const certiNo = certinumber.generate({
