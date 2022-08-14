@@ -56,4 +56,15 @@ Blockchain.prototype.proofOfWork = async function (prehash, blockdata) {
   })
 }
 
+Blockchain.prototype.isValidBlock = async function (prehash, hash) {
+  const index = this.chain.findIndex(e => e.prehash === prehash && e.hash === hash)
+  if (index === 0) {
+    return true
+  }
+  if (index === -1 || this.chain[index].prehash !== this.chain[index - 1].prehash) {
+    return false
+  }
+  return true
+}
+
 module.exports = Blockchain

@@ -649,17 +649,29 @@ router.post('/certificate/verify', uploadPdf.single('certificateFile'), async (r
         status: 'Certificate is not generated from us',
       })
     }
+    if (certifound.status === 'archived') {
+      return res.send({
+        status: 'This Certificate has been ARCHIVED!',
+      })
+    }
+
     const fileName = path.basename(certifound.certSrc)
     const certBuf = fs.readFileSync(`./public/certs/${fileName}`).toString()
+    
+    if (!certificate.isValidBlock(certiData.prehash, certiData.hash)) {
+      return res.send({
+        status: 'This block is not valid',
+      })
+    }
 
     if (certBuf !== certiData) {
       return res.send({
-        status: 'Certificate is tempered',
+        status: 'Certificate file has been MODIFIED!',
       })
     }
     return res.send({
       valid: true,
-      status: 'Certificate is Geniune',
+      status: 'This Certificate is Genuine',
     })
   } catch (error) {
     return res.send({

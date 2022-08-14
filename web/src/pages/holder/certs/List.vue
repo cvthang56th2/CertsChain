@@ -7,7 +7,7 @@
           <div class="px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800 ">
             <div class="flex items-center justify-between">
               <span class="text-sm font-light text-gray-600 dark:text-gray-400">{{ formatDate(certObj.createdAt, { format: 'DD/MM/YYYY' }) }}</span> 
-              <a class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-green-600 rounded">Success</a>
+              <a class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform rounded capitalize" :class="certObj.status === 'archived' ? 'bg-red-600' : 'bg-green-600'">{{ certObj.status }}</a>
             </div> 
             <div class="mt-2">
               <div class="font-semibold">
