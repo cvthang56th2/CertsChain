@@ -18,7 +18,7 @@
             <h1 class="text-gray-900 font-bold text-xl leading-8 my-1 text-center">
               {{ [user.firstName, user.lastName].filter(Boolean).join(' ') }}
             </h1>
-            <h3 class="text-gray-600 font-lg text-semibold leading-6 text-center">
+            <h3 v-if="user.experiences[user.experiences.length - 1].title" class="text-green-600 text-lg text-semibold leading-6 text-center my-1">
               {{ user.experiences[user.experiences.length - 1].title }}
             </h3>
             <textarea v-if="isEditting" v-model="formData.description" placeholder="Description" class="text-sm text-gray-500 hover:text-gray-600 leading-6 w-full border-b-2" rows="4"></textarea>
