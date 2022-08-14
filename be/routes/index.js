@@ -97,7 +97,7 @@ router.get('/certificate-chain', async function (req, res, next) {
 /* GET users listing. */
 router.get('/user/list', async function (req, res, next) {
   try {
-    const users = await User.find({}).select('-password').lean()
+    const users = await User.find({}).sort({ createdAt: -1 }).select('-password').lean()
     // for (const user of users) {
     //   await User.findByIdAndRemove(user._id)
     // }
@@ -376,7 +376,7 @@ router.post('/user/login', (req, res) => {
 // schools and cources
 router.get('/school/list', async function (req, res, next) {
   try {
-    const schools = await School.find({}).select('-password').lean()
+    const schools = await School.find({}).sort({ createdAt: -1 }).select('-password').lean()
     res.send(schools)
   } catch (error) {
     next(error)
@@ -444,6 +444,7 @@ router.get('/certificate/list', async function (req, res, next) {
       }, {
         path: 'schoolId'
       }])
+      .sort({ createdAt: -1 })
       .lean()
     res.send(certs)
   } catch (error) {

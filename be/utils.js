@@ -59,10 +59,10 @@ const generateCertPdf = async (certiData = {}) => {
   jumpLine(doc, 5)
 
   doc
-    .font('./public/fonts/NotoSansJP-Light.otf')
-    .fontSize(10)
+    .font('./public/fonts/NotoSansJP-Bold.otf')
+    .fontSize(14)
     .fill('#021c27')
-    .text('Super Course for Awesomes', {
+    .text(school.name, {
       align: 'center',
     });
 
@@ -248,10 +248,10 @@ const generateCertPdf = async (certiData = {}) => {
     );
 
   // Footer
-  const bottomHeight = doc.page.height - 100;
+  const bottomHeight = doc.page.height - 120;
   const qrCodeImage = await qrCode.toDataURL(link)
   doc.image(qrCodeImage, doc.page.width / 2 - 30, bottomHeight, {
-    fit: [60, 60],
+    fit: [80, 80],
   });
 
   doc.end();
