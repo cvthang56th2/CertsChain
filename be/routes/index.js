@@ -150,7 +150,7 @@ router.post('/user/signup', (req, res, next) => {
 
           const block = await account.createNewBlock(nonce, prehash, hash)
 
-          const passwordEncypted = sha256(password)
+          const passwordEncrypted = sha256(password)
 
           const newUser = new User({
             username: block.username,
@@ -166,7 +166,7 @@ router.post('/user/signup', (req, res, next) => {
             permanantAddress,
             email,
             birthday,
-            password: passwordEncypted
+            password: passwordEncrypted
           })
 
           console.log(account)
@@ -232,6 +232,7 @@ router.post('/user/update', async (req, res, next) => {
     const {
       _id,
       userType,
+      password,
       firstName,
       lastName,
       gender,
@@ -251,7 +252,7 @@ router.post('/user/update', async (req, res, next) => {
         status: 'User not found',
       })
     }
-    await User.findByIdAndUpdate(_id, {
+    const updateData = {
       userType,
       firstName,
       lastName,
@@ -265,7 +266,14 @@ router.post('/user/update', async (req, res, next) => {
       experiences,
       educations,
       status,
-    })
+    }
+    if (password) {
+      const passwordEncrypted = sha256(password)
+      if (user.password !== passwordEncrypted) {
+        updateData.password = passwordEncrypted
+      }
+    }
+    await User.findByIdAndUpdate(_id, updateData)
     return res.send({
       success: true
     })
@@ -322,8 +330,8 @@ router.post('/user/login', (req, res) => {
           .hashBlock(user.nonce, user.prehash, { username })
           .then((hash) => {
             if (user.hash === hash) {
-              const passwordEncypted = sha256(password)
-              if (passwordEncypted === user.password) {
+              const passwordEncrypted = sha256(password)
+              if (passwordEncrypted === user.password) {
                 for (const key of ['password','hash','blockindex','nonce','prehash']) {
                   delete user[key]
                 }

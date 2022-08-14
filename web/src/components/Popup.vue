@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="modelValue" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-      <div class="relative w-auto my-6 mx-auto w-[80%]">
+      <div class="`relative my-6 mx-auto" :style="`width: ${width}`">
         <!--content-->
         <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
           <!--header-->
@@ -42,6 +42,10 @@ export default {
     modelValue: {
       type: Boolean,
       default: false
+    },
+    width: {
+      type: String,
+      default: '80%'
     },
     title: {
       type: String,

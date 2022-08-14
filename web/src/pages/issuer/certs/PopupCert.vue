@@ -1,18 +1,18 @@
 <template>
-  <Popup v-model="modelValue" @hide="hide" :title="certObj._id ? 'Edit Cert' : 'Add Cert'" :save="saveCertificate">
+  <Popup v-model="modelValue" @hide="hide" :title="certObj._id ? 'Edit Cert' : 'Add Cert'" width="60%" :save="saveCertificate">
     <div class="text-gray-700">
       <div class="flex">
         <div class="px-4 py-2 font-semibold w-1/3">User</div>
-        <select v-model="formData.userId" class="border-2 p-2 m w-[200px]">
+        <select v-model="formData.userId" class="border-2 p-2 m w-full">
           <!-- <option :value="undefined">Select User</option> -->
           <option v-for="(userObj, uIndex) in users" :key="`user-option-${uIndex}`" :value="userObj._id">
-            {{ [userObj.firstName, userObj.lastName].filter(Boolean).join(' ') }}
+            {{ [userObj.username, [userObj.firstName, userObj.lastName].filter(Boolean).join(' ')].join(' - ') }}
           </option>
         </select>
       </div>
       <div class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">School</div>
-        <select v-model="formData.schoolId" class="border-2 p-2 m w-[200px]">
+        <select v-model="formData.schoolId" class="border-2 p-2 m w-full">
           <!-- <option :value="undefined">Select school</option> -->
           <option v-for="(schoolObj, sIndex) in schools" :key="`school-option-${sIndex}`" :value="schoolObj._id">
             {{ schoolObj.name }}
@@ -21,10 +21,10 @@
       </div>
       <div v-if="formData.schoolId" class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">Cource</div>
-        <select v-model="formData.courceId" class="border-2 p-2 m w-[200px]">
+        <select v-model="formData.courceId" class="border-2 p-2 m w-full">
           <!-- <option :value="undefined">Select cource</option> -->
           <option v-for="(courceObj, cIndex) in cources" :key="`cource-option-${cIndex}`" :value="courceObj._id">
-            {{ courceObj.name }}
+            {{ [courceObj.name, courceObj.time].filter(Boolean).join(' - ') }}
           </option>
         </select>
       </div>
