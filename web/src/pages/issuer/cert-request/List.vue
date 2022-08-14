@@ -45,7 +45,7 @@
               <button class="px-2 py-1 rounded-md cursor-pointer bg-green-600 text-white" @click="changeStatus(certRequestObj._id, 'approved')">Approve</button>
               <button class="px-2 py-1 ml-4 rounded-md cursor-pointer bg-red-600 text-white" @click="changeStatus(certRequestObj._id, 'denied')">Deny</button>
             </template>
-            <span v-else class="capitalize px-2 py-1 rounded-sm text-white" :class="certRequestObj.status === 'active' ? 'bg-green-600' : 'bg-red-600'">{{ certRequestObj.status }}</span>
+            <span v-else class="capitalize px-2 py-1 rounded-sm text-white" :class="certRequestObj.status === 'approved' ? 'bg-green-600' : 'bg-red-600'">{{ certRequestObj.status }}</span>
           </div>
         </div>
       </template>
