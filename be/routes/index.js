@@ -7,6 +7,7 @@ const Blockchain = require('../blockchain')
 const certificatechain = require('../certificatechain')
 const User = require('../Models/userSchema')
 const School = require('../Models/schoolSchema')
+const CertiRequest = require('../Models/certiRequestSchema')
 const Certi = require('../Models/certi')
 const sha256 = require('sha256')
 const fs = require('fs')
@@ -495,91 +496,122 @@ router.get('/certificate/get-data-create', async function (req, res, next) {
     next(error)
   }
 })
+const generateCertificate = async (data = {}) => {
+  const certiNo = certinumber.generate({
+    length: 8,
+    charset: 'numeric',
+  })
 
+  const {
+    userId,
+    schoolId,
+    courceId
+  } = data
+
+  const user = await User.findById(userId).lean()
+  if (!user) {
+    return {
+      error: true,
+      statusCode: 404,
+      data: {
+        status: 'User not found',
+      }
+    }
+  }
+  const school = await School.findById(schoolId).lean()
+  if (!school) {
+    return {
+      error: true,
+      statusCode: 404,
+      data: {
+        status: 'School not found',
+      }
+    }
+  }
+  const cource = (school.cources || []).find(e => String(e._id) === String(courceId))
+  if (!cource) {
+    return {
+      error: true,
+      statusCode: 404,
+      data: {
+        status: 'Cource not found',
+      }
+    }
+  }
+  const certiData = {
+    userId,
+    schoolId,
+    courceId
+  }
+
+  const certifound = await Certi.findOne(certiData)
+  if (certifound) {
+    return {
+      data: {
+        error: true,
+        certificateNumber: certifound.certinumber,
+        status: 'Certificate Number Has been generated Already',
+      }
+    }
+  }
+  const certSrc = await generateCertPdf({ user, school, cource })
+  certiData.certSrc = certSrc
+  certificate.createNewcertificate(certiNo, certiData)
+  const blockdata = certificate.pendingcertificate[0].block
+  const prehash = certificate.getLastBlock()['hash']
+
+  const nonce = await certificate.proofOfWork(prehash, blockdata)
+
+  const hash = await certificate.hashBlock(nonce, prehash, blockdata)
+
+  const block = await certificate.createNewBlock(
+    nonce,
+    prehash,
+    hash
+  )
+
+  const newCerti = new Certi({
+    ...certiData,
+    certinumber: block.certificate.certiNo,
+    hash: block.hash,
+    nonce: block.nonce,
+    prehash: block.prehash,
+    blockindex: block.index,
+  })
+  const certi = await newCerti.save()
+  if (!certi) {
+    certificate.chain.pop()
+    return {
+      data: {
+        status:
+          'Certificate Number generation unsuccessful created try again',
+      }
+    }
+  }
+  return {
+    data: {
+      certificateNumber: certi.certinumber,
+      status: 'Generated Successfully',
+    }
+  }
+}
 router.post('/certificate/create', async (req, res) => {
   try {
-    const certiNo = certinumber.generate({
-      length: 8,
-      charset: 'numeric',
-    })
-
     const {
       userId,
       schoolId,
       courceId
     } = req.body
-
-    const user = await User.findById(userId).lean()
-    if (!user) {
-      res.status(404)
-      return res.send({
-        status: 'User not found',
-      })
-    }
-    const school = await School.findById(schoolId).lean()
-    if (!school) {
-      res.status(404)
-      return res.send({
-        status: 'School not found',
-      })
-    }
-    const cource = (school.cources || []).find(e => String(e._id) === String(courceId))
-    if (!cource) {
-      res.status(404)
-      return res.send({
-        status: 'Cource not found',
-      })
-    }
-    const certiData = {
+    const generateResult = await generateCertificate({
       userId,
       schoolId,
       courceId
-    }
-
-    const certifound = await Certi.findOne(certiData)
-    if (certifound) {
-      return res.send({
-        error: true,
-        certificateNumber: certifound.certinumber,
-        status: 'Certificate Number Has been generated Already',
-      })
-    }
-    const certSrc = await generateCertPdf({ user, school, cource })
-    certiData.certSrc = certSrc
-    certificate.createNewcertificate(certiNo, certiData)
-    const blockdata = certificate.pendingcertificate[0].block
-    const prehash = certificate.getLastBlock()['hash']
-
-    const nonce = await certificate.proofOfWork(prehash, blockdata)
-
-    const hash = await certificate.hashBlock(nonce, prehash, blockdata)
-
-    const block = await certificate.createNewBlock(
-      nonce,
-      prehash,
-      hash
-    )
-
-    const newCerti = new Certi({
-      ...certiData,
-      certinumber: block.certificate.certiNo,
-      hash: block.hash,
-      nonce: block.nonce,
-      prehash: block.prehash,
-      blockindex: block.index,
     })
-    const certi = await newCerti.save()
-    if (!certi) {
-      certificate.chain.pop()
-      return res.send({
-        status:
-          'Certificate Number generation unsuccessful created try again',
-      })
+    const { error, data, statusCode } = generateResult
+    if (error) {
+      res.status(statusCode)
     }
-    return res.send({
-      certificateNumber: certi.certinumber,
-      status: 'Generated Successfully',
-    })
+    return res.send(data)
   } catch (error) {
     console.log('error', error)
     res.status(500)
@@ -679,4 +711,96 @@ router.post('/certificate/verify', uploadPdf.single('certificateFile'), async (r
     })
   }
 })
+
+
+// CertiRequest
+router.get('/certiRequest/list', async function (req, res, next) {
+  try {
+    const { userId } = req.query
+    const queryOptions = {}
+    if (userId) {
+      queryOptions.userId = userId
+    }
+    const certiRequests = await CertiRequest
+      .find(queryOptions)
+      .populate([{
+        path: 'userId'
+      }, {
+        path: 'schoolId'
+      }])
+      .sort({ createdAt: -1 })
+      .lean()
+    res.send(certiRequests)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/certiRequest/save', async (req, res, next) => {
+  try {
+    const {
+      _id,
+      data
+    } = req.body
+    if (_id) {
+      const certiRequest = await CertiRequest.findOne({ _id })
+      if (!certiRequest) {
+        return res.send({
+          status: 'CertiRequest not found',
+        })
+      }
+      await CertiRequest.findByIdAndUpdate(_id, data)
+    } else {
+      await CertiRequest.create(data)
+    }
+    return res.send({
+      success: true
+    })
+  } catch (error) {
+    console.log('error', error)
+    res.status(500)
+    return res.send({
+      status: 'server down',
+    })
+  }
+})
+
+router.post('/certiRequest/:_id/change-status', async (req, res) => {
+  try {
+    const { _id } = req.params
+    const { status } = req.body
+    const certiRequestObj = await CertiRequest.findById(_id)
+    if (!certiRequestObj) {
+      res.status(404)
+      return res.send({
+        status: 'request not found'
+      })
+    }
+    if (status === 'approved') {
+      const generateResult = await generateCertificate({
+        userId: certiRequestObj.userId,
+        schoolId: certiRequestObj.schoolId,
+        courceId: certiRequestObj.courceId
+      })
+      const { error, data, statusCode } = generateResult
+      if (error) {
+        res.status(statusCode)
+        return res.send(data)
+      }
+    }
+    await CertiRequest.findByIdAndUpdate(_id, {
+      status
+    })
+    return res.send({
+      success: true
+    })
+  } catch (error) {
+    console.log('error', error)
+    res.status(500)
+    return res.send({
+      status: 'server down',
+    })
+  }
+})
+
 module.exports = router

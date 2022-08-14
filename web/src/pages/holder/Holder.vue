@@ -29,6 +29,7 @@
 import Dashboard from './dashboard/Dashboard.vue'
 import CertificateList from './certs/List.vue'
 import Profile from '../../components/profile/Profile.vue'
+import CertificateRequestList from './cert-request/List.vue'
 import DefaultLayout from '../../components/layouts/Default.vue'
 import { mapGetters } from 'vuex'
 
@@ -37,6 +38,7 @@ export default {
     Dashboard,
     Profile,
     CertificateList,
+    CertificateRequestList,
     DefaultLayout
   },
   data: () => ({
@@ -118,6 +120,14 @@ export default {
               />
             </g>
           </g>
+        </svg>`
+      },
+      {
+        label: 'Certificate Request',
+        value: 'CertificateRequestList',
+        icon: `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="25" height="25">
+        <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
+        <g><path d="M663.3,865.5H10V117.1h653.3V865.5L663.3,865.5z M602.2,803.4V179.3h-531v624.1L602.2,803.4L602.2,803.4z M204.4,335.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,335.7z M204.4,512.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,512.7z M204.4,688.5c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,688.5z M867.5,882.9L724.5,706.2V117.1H990v589.2L867.5,882.9L867.5,882.9z M863.7,780.7l65.1-93.7V178.8H785.7v505.7L863.7,780.7L863.7,780.7z M764.9,316v-61.2h183.5V316H764.9L764.9,316z"/></g>
         </svg>`
       },
     ]

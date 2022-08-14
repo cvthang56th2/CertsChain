@@ -42,7 +42,8 @@ export default {
         title: 'Do you want to Logout?',
         showDenyButton: false,
         showCancelButton: true,
-        confirmButtonText: 'OK',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
       }).then(({ isConfirmed }) => {
         if (isConfirmed) {
           this.$cookies.set(LOGIN_USER_ID_KEY, '')
