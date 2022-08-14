@@ -15,29 +15,34 @@
         <div class="xl:w-1/12 whitespace-pre-wrap px-2">Status</div>
         <div class="xl:w-1/12 whitespace-pre-wrap px-2">Actions</div>
       </div>
-      <div v-for="(schoolObj, sIndex) in computedSchools" :key="`school-${sIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
-        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Name</b>{{ schoolObj.name }}: </div>
-        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Director Name</b>{{ schoolObj.directorName }}: </div>
-        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Description</b>{{ schoolObj.description }}: </div>
-        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Cources: </b>
-          <div v-for="(courceObj, cIndex) in schoolObj.cources" :key="`school-${sIndex}-cource-${cIndex}`">
-            {{ [courceObj.name, courceObj.time].filter(Boolean).join(' - ') }} 
+      <template v-if="computedSchools.length">
+        <div v-for="(schoolObj, sIndex) in computedSchools" :key="`school-${sIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
+          <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Name: </b>{{ schoolObj.name }}</div>
+          <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Director Name: </b>{{ schoolObj.directorName }}</div>
+          <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Description: </b>{{ schoolObj.description }}</div>
+          <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Cources: </b>
+            <div v-for="(courceObj, cIndex) in schoolObj.cources" :key="`school-${sIndex}-cource-${cIndex}`">
+              {{ [courceObj.name, courceObj.time].filter(Boolean).join(' - ') }} 
+            </div>
+          </div>
+          <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Created At: </b>{{ formatDate(schoolObj.createdAt) }}</div>
+          <div class="xl:w-1/12 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Status: </b>
+            <toggle v-model="schoolObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(schoolObj._id)" />
+          </div>
+          <div class="mt-10 xl:mt-0 xl:w-1/12 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Actions: </b>
+            <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
           </div>
         </div>
-        <div class="xl:w-2/12 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Created At: </b>{{ formatDate(schoolObj.createdAt) }}</div>
-        <div class="xl:w-1/12 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Status: </b>
-          <toggle v-model="schoolObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(schoolObj._id)" />
-        </div>
-        <div class="mt-10 xl:mt-0 xl:w-1/12 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Actions: </b>
-          <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
-        </div>
+      </template>
+      <div v-else class="text-center mt-4">
+        No items
       </div>
     </div>
 

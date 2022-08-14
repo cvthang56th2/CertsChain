@@ -14,22 +14,27 @@
         <div class="xl:w-1/6 whitespace-pre-wrap px-2">Status</div>
         <div class="xl:w-1/6 whitespace-pre-wrap px-2">Actions</div>
       </div>
-      <div v-for="(userObj, uIndex) in computedUsers" :key="`user-${uIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
-        <div class="xl:w-1/6 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Username:</b>{{ userObj.username }}</div>
-        <div class="xl:w-1/6 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Name:</b>{{ [userObj.firstName, userObj.lastName].filter(Boolean).join(' ') }}</div>
-        <div class="xl:w-1/6 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Email:</b>{{ userObj.email }}</div>
-        <div class="xl:w-1/6 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Created At:</b>{{ formatDate(userObj.createdAt) }}</div>
-        <div class="xl:w-1/6 whitespace-pre-wrap px-2 capitalize">
-          <b class="xl:hidden">Status:</b>{{ userObj.status }}
+      <template v-if="computedUsers.length">
+        <div v-for="(userObj, uIndex) in computedUsers" :key="`user-${uIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
+          <div class="xl:w-1/6 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Username:</b>{{ userObj.username }}</div>
+          <div class="xl:w-1/6 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Name:</b>{{ [userObj.firstName, userObj.lastName].filter(Boolean).join(' ') }}</div>
+          <div class="xl:w-1/6 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Email:</b>{{ userObj.email }}</div>
+          <div class="xl:w-1/6 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Created At:</b>{{ formatDate(userObj.createdAt) }}</div>
+          <div class="xl:w-1/6 whitespace-pre-wrap px-2 capitalize">
+            <b class="xl:hidden">Status:</b>{{ userObj.status }}
+          </div>
+          <div class="xl:w-1/6 whitespace-pre-wrap px-2">
+            <b class="xl:hidden">Actions: </b>
+            <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="goTo(`/user/${userObj._id}`)">View Detail</button>
+          </div>
         </div>
-        <div class="xl:w-1/6 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Actions: </b>
-          <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="goTo(`/user/${userObj._id}`)">View Detail</button>
-        </div>
+      </template>
+      <div v-else class="text-center mt-4">
+        No items
       </div>
     </div>
 

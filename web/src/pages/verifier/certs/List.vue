@@ -14,21 +14,26 @@
         <div class="xl:w-1/5 px-2">Link</div>
         <div class="xl:w-1/5 px-2">Status</div>
       </div>
-      <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
-        <div class="xl:w-1/5 px-2">
-          <b class="xl:hidden">Certificate Number: </b>{{ certObj.certinumber }}</div>
-        <div class="xl:w-1/5 px-2">
-          <b class="xl:hidden">User: </b>{{ certObj.userName }}</div>
-        <div class="xl:w-1/5 px-2">
-          <b class="xl:hidden">School and Cource: </b>{{ certObj.schoolAndCource }}</div>
-        <div class="xl:w-1/5 px-2">
-          <b class="xl:hidden">Link: </b>
-          <a :href="certObj.certSrc" target="_blank" class="underline text-blue-600 hover:text-blue-400">{{ certObj.certSrc }}</a>
+      <template v-if="computedCerts.length">
+        <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
+          <div class="xl:w-1/5 px-2">
+            <b class="xl:hidden">Certificate Number: </b>{{ certObj.certinumber }}</div>
+          <div class="xl:w-1/5 px-2">
+            <b class="xl:hidden">User: </b>{{ certObj.userName }}</div>
+          <div class="xl:w-1/5 px-2">
+            <b class="xl:hidden">School and Cource: </b>{{ certObj.schoolAndCource }}</div>
+          <div class="xl:w-1/5 px-2">
+            <b class="xl:hidden">Link: </b>
+            <a :href="certObj.certSrc" target="_blank" class="underline text-blue-600 hover:text-blue-400">{{ certObj.certSrc }}</a>
+          </div>
+          <div class="xl:w-1/5 px-2 capitalize">
+            <b class="xl:hidden">Status: </b>
+            {{ certObj.status }}
+          </div>
         </div>
-        <div class="xl:w-1/5 px-2 capitalize">
-          <b class="xl:hidden">Status: </b>
-          {{ certObj.status }}
-        </div>
+      </template>
+      <div v-else class="text-center mt-4">
+        No items
       </div>
     </div>
   </div>
