@@ -89,7 +89,12 @@ export default {
           this.$cookies.set(LOGIN_USER_ID_KEY, data.userInfo._id)
           this.$store.commit('auth/SET_USER_INFO', data.userInfo)
           this.$store.commit('auth/SET_IS_LOGIN', true)
-          this.goTo('/')
+          const { cbUrl } = this.$route.query
+          if (cbUrl) {
+            this.goTo(cbUrl)
+          } else {
+            this.goTo('/')
+          }
           this.$swal({
             toast: true,
             position: 'top-end',
