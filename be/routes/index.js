@@ -118,7 +118,7 @@ router.get('/user/:_id', async function (req, res, next) {
   }
 })
 
-router.post('/user/signup', (req, res, next) => {
+router.post('/user/create', (req, res, next) => {
   const {
     username,
     password,

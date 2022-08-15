@@ -105,7 +105,7 @@ export default {
       this.$emit('update:modelValue', false)
     },
     async saveUser () {
-      const api = this.formData._id ? 'update' : 'signup'
+      const api = this.formData._id ? 'update' : 'create'
       try {
         const payload = this.formData
         const { data } = await Axios.post(`${this.apiUrl}/user/${api}`, payload)
