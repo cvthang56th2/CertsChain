@@ -556,7 +556,7 @@ const generateCertificate = async (data = {}) => {
   }
   const certSrc = await generateCertPdf({ user, school, cource })
   certiData.certSrc = certSrc
-  certificate.createNewcertificate(certiNo, certiData)
+  certificate.addPendingCertificate(certiNo, certiData)
   const blockdata = certificate.pendingcertificate[0].block
   const prehash = certificate.getLastBlock()['hash']
 
