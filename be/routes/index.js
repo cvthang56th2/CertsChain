@@ -676,7 +676,7 @@ router.post('/certificate/verify', uploadPdf.single('certificateFile'), async (r
     const certinumber = req.body.certinumber
     const certiData = req.file.buffer.toString()
     const certifound = await Certi.findOne({ certinumber })
-    if (!certifound || !certifound?.certSrc) {
+    if (!certifound || (certifound && !certifound.certSrc)) {
       return res.send({
         status: 'Certificate is not generated from us',
       })
