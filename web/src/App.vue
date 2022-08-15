@@ -1,6 +1,8 @@
 <template>
   <div class="p-10 h-screen overflow-auto">
     <router-view />
+
+    <button v-if="$route.path !== '/verify-certificate'" class="absolute bottom-4 left-1/2 px-5 py-2 text-xl shadow-lg bg-cyan-500 text-white font-semibold -translate-x-1/2" @click="goTo('/verify-certificate')">Verify Certificate</button>
   </div>
 </template>
 
