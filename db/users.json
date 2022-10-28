@@ -1,0 +1,230 @@
+{ 
+    "_id" : ObjectId("62f1242ff16a293f8c47af46"), 
+    "status" : "archived", 
+    "username" : "duzyte", 
+    "hash" : "0000813e6a0bd076e6e6ee04709d4cd75141238edab50ad6bf87123864551a8e", 
+    "nonce" : "75010", 
+    "prehash" : "#", 
+    "blockindex" : "2", 
+    "firstName" : "Ima", 
+    "lastName" : "Tucker", 
+    "contactNo" : "Corrupti sequi et d", 
+    "currentAddress" : "Natus placeat sit h", 
+    "permanantAddress" : "Ducimus asperiores ", 
+    "email" : "xivi@mailinator.com", 
+    "birthday" : "2006-10-16", 
+    "createdAt" : ISODate("2022-08-08T14:56:47.314+0000"), 
+    "updatedAt" : ISODate("2022-08-14T02:00:05.243+0000"), 
+    "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", 
+    "__v" : NumberInt(0), 
+    "gender" : "female", 
+    "description" : null, 
+    "educations" : null, 
+    "experiences" : null, 
+    "userType" : "Holder"
+}
+{ 
+    "_id" : ObjectId("62f12433f16a293f8c47af4a"), 
+    "status" : "active", 
+    "username" : "farosi", 
+    "hash" : "000037cf25185892e39345715472ac14388e7dd586970ca7cd50986f363d31eb", 
+    "nonce" : "161843", 
+    "prehash" : "0000813e6a0bd076e6e6ee04709d4cd75141238edab50ad6bf87123864551a8e", 
+    "blockindex" : "3", 
+    "firstName" : "Lilah", 
+    "lastName" : "Alexander", 
+    "contactNo" : "Reiciendis a iusto q", 
+    "currentAddress" : "Quod iusto sequi nis", 
+    "permanantAddress" : "Omnis eos dignissim", 
+    "email" : "vymuzivufe@mailinator.com", 
+    "birthday" : "1979-04-04", 
+    "createdAt" : ISODate("2022-08-08T14:56:51.533+0000"), 
+    "updatedAt" : ISODate("2022-08-12T17:03:03.495+0000"), 
+    "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", 
+    "__v" : NumberInt(0), 
+    "gender" : null, 
+    "userType" : "Holder"
+}
+{ 
+    "_id" : ObjectId("62f125a4f16a293f8c47af6b"), 
+    "status" : "active", 
+    "username" : "favyhitit", 
+    "hash" : "0000344c6b1858bea216e716f432cbcb9bbd3b0896c29b0c7a6c2065377c8f53", 
+    "nonce" : "56936", 
+    "prehash" : "000037cf25185892e39345715472ac14388e7dd586970ca7cd50986f363d31eb", 
+    "blockindex" : "4", 
+    "firstName" : "Ignatius", 
+    "lastName" : "Finch", 
+    "contactNo" : "Sed aliquip qui volu", 
+    "currentAddress" : "Sed velit asperiore", 
+    "permanantAddress" : "Esse enim eligendi ", 
+    "email" : "bikonone@mailinator.com", 
+    "birthday" : "2021-12-02", 
+    "createdAt" : ISODate("2022-08-08T15:03:00.376+0000"), 
+    "updatedAt" : ISODate("2022-08-12T17:03:03.789+0000"), 
+    "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", 
+    "__v" : NumberInt(0), 
+    "userType" : "Holder"
+}
+{ 
+    "_id" : ObjectId("62f75176f3b5632d2cb33edd"), 
+    "status" : "active", 
+    "username" : "cvthang", 
+    "hash" : "00004c43bb444fd43a6fe809efe9995440dc7984ba6fa35e2563d6e0fdfe76a0", 
+    "nonce" : "14227", 
+    "prehash" : "0000344c6b1858bea216e716f432cbcb9bbd3b0896c29b0c7a6c2065377c8f53", 
+    "blockindex" : "5", 
+    "firstName" : "Cao", 
+    "lastName" : "Thắng", 
+    "contactNo" : "0368844581", 
+    "currentAddress" : "88/6 Nguyễn Khuyến, Vĩnh Hải, TP Nha Trang", 
+    "permanantAddress" : "VN", 
+    "email" : "cvthang56th2@gmail.com", 
+    "birthday" : "1996-06-16", 
+    "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", 
+    "experiences" : [
+        {
+            "_id" : ObjectId("62f75ff0d06fb542a09664f4"), 
+            "title" : "Freelancer", 
+            "time" : "2021 to now"
+        }, 
+        {
+            "_id" : ObjectId("62f75ff0d06fb542a09664f5"), 
+            "title" : "Web Developer at 9thWonderVN", 
+            "time" : "from 2018 to now"
+        }
+    ], 
+    "educations" : [
+        {
+            "_id" : ObjectId("62f75ff0d06fb542a09664f6"), 
+            "title" : "Nha Trang University", 
+            "time" : "2014 - 2018"
+        }, 
+        {
+            "_id" : ObjectId("62f858b6d94b351d000b1500"), 
+            "title" : "Luong The Vinh School", 
+            "time" : "2011-2014"
+        }
+    ], 
+    "createdAt" : ISODate("2022-08-13T07:23:34.088+0000"), 
+    "updatedAt" : ISODate("2022-08-14T03:15:16.888+0000"), 
+    "__v" : NumberInt(0), 
+    "description" : "Experienced Developer with a demonstrated history of working in the marketing and advertising industry. Skilled in Vue.js, PHP, Web Services API, JavaScript, and MongoDB. Strong engineering professional graduated from Nha Trang University. ", 
+    "gender" : "male", 
+    "userType" : "Admin", 
+    "avatar" : "1660443085617-241763831_2096706967136204_2587422707497577247_n.jpg"
+}
+{ 
+    "_id" : ObjectId("62f75263d06fb542a0966487"), 
+    "userType" : "Holder", 
+    "status" : "active", 
+    "username" : "dedulox", 
+    "hash" : "0000bda2492e7179c3693ce513f6e2197eb6d92c81633b9b4cf045f9013fd84a", 
+    "nonce" : "60016", 
+    "prehash" : "00004c43bb444fd43a6fe809efe9995440dc7984ba6fa35e2563d6e0fdfe76a0", 
+    "blockindex" : "6", 
+    "firstName" : "Kenneth", 
+    "lastName" : "Chapman", 
+    "contactNo" : "Consequuntur amet n", 
+    "currentAddress" : "Dolore voluptas sed ", 
+    "permanantAddress" : "Ut nostrum consequun", 
+    "email" : "hivem@mailinator.com", 
+    "birthday" : "2007-01-23", 
+    "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", 
+    "experiences" : [
+
+    ], 
+    "educations" : [
+
+    ], 
+    "createdAt" : ISODate("2022-08-13T07:27:31.974+0000"), 
+    "updatedAt" : ISODate("2022-08-13T07:27:31.974+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("62f79335a87d0b4508db18a4"), 
+    "userType" : "Holder", 
+    "status" : "active", 
+    "username" : "kyfimi", 
+    "hash" : "00002ee87d0186df1f7dca4c925b668d75f5234c510a989953a5af172f3ffeb5", 
+    "nonce" : "14968", 
+    "prehash" : "0000bda2492e7179c3693ce513f6e2197eb6d92c81633b9b4cf045f9013fd84a", 
+    "blockindex" : "7", 
+    "firstName" : "Alea", 
+    "lastName" : "Rhodes", 
+    "contactNo" : "Accusamus cupiditate", 
+    "currentAddress" : "In cupidatat quia su", 
+    "permanantAddress" : "Est optio illum qu", 
+    "email" : "kirowowy@mailinator.com", 
+    "birthday" : "1971-06-18", 
+    "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", 
+    "experiences" : [
+
+    ], 
+    "educations" : [
+
+    ], 
+    "createdAt" : ISODate("2022-08-13T12:04:05.779+0000"), 
+    "updatedAt" : ISODate("2022-08-14T02:34:09.679+0000"), 
+    "__v" : NumberInt(0), 
+    "description" : null, 
+    "gender" : "female"
+}
+{ 
+    "_id" : ObjectId("62f7934da87d0b4508db18aa"), 
+    "userType" : "Holder", 
+    "status" : "active", 
+    "username" : "vajoxibuke", 
+    "hash" : "0000991b06d4389063b8e7e631b94702bcdb7f769fc12760ece76695f40bb013", 
+    "nonce" : "80639", 
+    "prehash" : "00002ee87d0186df1f7dca4c925b668d75f5234c510a989953a5af172f3ffeb5", 
+    "blockindex" : "8", 
+    "firstName" : "Elliott", 
+    "lastName" : "Mayer", 
+    "contactNo" : "Mollitia nemo vel at", 
+    "currentAddress" : "Qui sint consequatu", 
+    "permanantAddress" : "Labore et totam volu", 
+    "email" : "niroja@mailinator.com", 
+    "birthday" : "1977-07-18", 
+    "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", 
+    "experiences" : [
+
+    ], 
+    "educations" : [
+
+    ], 
+    "createdAt" : ISODate("2022-08-13T12:04:29.120+0000"), 
+    "updatedAt" : ISODate("2022-08-14T02:31:34.400+0000"), 
+    "__v" : NumberInt(0), 
+    "description" : null, 
+    "gender" : "female"
+}
+{ 
+    "_id" : ObjectId("62f85a47d94b351d000b1540"), 
+    "userType" : "Holder", 
+    "status" : "active", 
+    "username" : "pahebumi", 
+    "hash" : "00006da1f64e4a0c330e5325a7510ddb7697f73c9257cf9bfe8be2b43c6fa1a1", 
+    "nonce" : "13022", 
+    "prehash" : "0000991b06d4389063b8e7e631b94702bcdb7f769fc12760ece76695f40bb013", 
+    "blockindex" : "9", 
+    "firstName" : "Damian", 
+    "lastName" : "Long", 
+    "contactNo" : "Consequat Eaque vol", 
+    "currentAddress" : "Dicta nihil sed odit", 
+    "permanantAddress" : "Reprehenderit cum si", 
+    "email" : "havuwiz@mailinator.com", 
+    "birthday" : "1992-09-17", 
+    "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", 
+    "experiences" : [
+
+    ], 
+    "educations" : [
+
+    ], 
+    "createdAt" : ISODate("2022-08-14T02:13:27.704+0000"), 
+    "updatedAt" : ISODate("2022-08-14T02:31:28.786+0000"), 
+    "__v" : NumberInt(0), 
+    "description" : null, 
+    "gender" : "female"
+}
