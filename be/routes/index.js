@@ -474,17 +474,23 @@ router.get('/certificate/get-data-create', async function (req, res, next) {
       }
       userObj.dropdownSchools = JSON.parse(JSON.stringify(schools)).reduce((resultArr, schoolObj) => {
         let countDisableCources = 0
-        schoolObj.cources = (schoolObj.cources || []).map(courceObj => {
-          if (userCertSchoolCourceIds.includes(`${schoolObj._id}-${courceObj._id}`)) {
-            courceObj.disabled = true
-            countDisableCources++
+        schoolObj.cources = (schoolObj.cources || []).reduce((_resultArr, courceObj) => {
+          if ((courceObj.students || []).includes(String(userObj._id))) {
+            if (userCertSchoolCourceIds.includes(`${schoolObj._id}-${courceObj._id}`)) {
+              courceObj.disabled = true
+              courceObj.name = `${courceObj.name} (passed)`
+              countDisableCources++
+            }
+            _resultArr.push(courceObj)
           }
-          return courceObj
-        })
-        if (countDisableCources === schoolObj.cources.length) {
-          schoolObj.disabled = true
+          return _resultArr
+        }, [])
+        if (schoolObj.cources.length) {
+          if (countDisableCources === schoolObj.cources.length) {
+            schoolObj.disabled = true
+          }
+          resultArr.push(schoolObj)
         }
-        resultArr.push(schoolObj)
         return resultArr
       }, [])
     }
@@ -600,18 +606,49 @@ router.post('/certificate/create', async (req, res) => {
     const {
       userId,
       schoolId,
-      courceId
+      courceId,
+      isGenerateForCource
     } = req.body
-    const generateResult = await generateCertificate({
-      userId,
-      schoolId,
-      courceId
-    })
-    const { error, data, statusCode } = generateResult
-    if (error) {
-      res.status(statusCode)
+    if (isGenerateForCource) {
+      const school = await School.findOne({ _id })
+      if (!school) {
+        return res.send({
+          status: 'School not found',
+        })
+      }
+      const cource = school.find(e => String(e._id) === courceId)
+      if (!cource) {
+        return res.send({
+          status: 'Cource not found',
+        })
+      }
+      for (const studentId of (cource.students || [])) {
+        const generateResult = await generateCertificate({
+          userId: studentId,
+          schoolId,
+          courceId
+        })
+        const { error, data, statusCode } = generateResult
+        if (error) {
+          res.status(statusCode)
+          return res.send(data)
+        }
+      }
+    } else {
+      const generateResult = await generateCertificate({
+        userId,
+        schoolId,
+        courceId
+      })
+      const { error, data, statusCode } = generateResult
+      if (error) {
+        res.status(statusCode)
+        return res.send(data)
+      }
     }
-    return res.send(data)
+    return res.send({
+      success: true
+    })
   } catch (error) {
     console.log('error', error)
     res.status(500)

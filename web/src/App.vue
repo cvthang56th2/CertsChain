@@ -25,6 +25,9 @@ export default {
 <style>
 #app {
 }
+input {
+  height: 44px;
+}
 .toggle-label {
   position: absolute;
   bottom: -24px;
