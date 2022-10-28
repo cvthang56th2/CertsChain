@@ -36,6 +36,16 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes, // short for `routes: routes`
 })
+router.beforeEach((to, from, next) => {
+  const userType = to.meta.userType
+  if (['Issuer', 'Holder'].includes(userType)) {
+    const userInfo = getCookie(LOGIN_USER_ID_KEY)
+    if (!userInfo) {
+      next({ path: `/login`, query: { cbUrl: to.path } })
+    }
+  }
+  next()
+})
 
 const app = createApp(App)
 app.use(VueSweetalert2);

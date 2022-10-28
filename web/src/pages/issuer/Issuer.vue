@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout v-if="isMounted">
+  <DefaultLayout>
     <div v-if="(userInfo && ['Admin', 'Issuer'].includes(userInfo.userType))" class="xl:flex h-full">
       <aside class="w-full xl:w-[150px] shadow-md bg-blue-50" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 rounded dark:bg-blue-800">
@@ -46,7 +46,6 @@ export default {
     DefaultLayout
   },
   data: () => ({
-    isMounted: false,
     currentTab: 'Profile',
     tabs: [
       // {
@@ -228,13 +227,6 @@ export default {
     }
   },
   mounted() {
-    if (!Object.keys(this.userInfo || {}).length) {
-      return this.$router.push({
-        path: `/login`, query: { cbUrl: this.$route.path
-        }
-      })
-    }
-    this.isMounted = true
     const _this = this
     const { tab } = _this.$route.query
     if (tab && _this.tabs.some(e => e.value === tab)) {
