@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col h-full">
     <div class="relative">
       <button @click="goTo('/')" class="relative xl:top-2 xl:absolute block underline text-blue-700">&#8592; Select other user type</button>
       <template v-if="$route.path !== '/login'">
@@ -12,7 +12,7 @@
         </div>
       </template>
     </div>
-    <div class="mt-5">
+    <div class="flex-1 mt-5">
       <slot />
     </div>
   </div>
