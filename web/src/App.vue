@@ -25,7 +25,7 @@ export default {
 <style>
 #app {
 }
-input:not([type=radio]) {
+input:not([type=radio], [type=checkbox]) {
   height: 44px;
 }
 input.vs__search {

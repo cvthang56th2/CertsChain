@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout>
+  <DefaultLayout v-if="isMounted">
     <div v-if="(userInfo && userInfo.userType === 'Issuer')" class="text-center mt-20">
       User are Issuer, <span class="underline text-blue-600 hover:text-blue-400 cursor-pointer" @click="goTo('/issuer')">Go to Issuer Page</span>
     </div>
@@ -42,6 +42,7 @@ export default {
     DefaultLayout
   },
   data: () => ({
+    isMounted: false,
     currentTab: 'Profile',
     tabs: [
       // {
@@ -152,6 +153,13 @@ export default {
     }
   },
   mounted() {
+    if (!Object.keys(this.userInfo || {}).length) {
+      return this.$router.push({
+        path: `/login`, query: { cbUrl: this.$route.path
+        }
+      })
+    }
+    this.isMounted = true
     const _this = this
     const { tab } = _this.$route.query
     if (tab && _this.tabs.some(e => e.value === tab)) {
