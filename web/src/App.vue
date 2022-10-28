@@ -32,4 +32,12 @@ export default {
   color: black;
   font-weight: bold;
 }
+.vs__dropdown-option {
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
+}
+.vs__dropdown-option.vs__dropdown-option--selected {
+  background-color: rgb(26, 166, 236);
+  color: #fff
+}
 </style>

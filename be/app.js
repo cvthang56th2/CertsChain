@@ -23,7 +23,7 @@ app.set('view engine', 'ejs')
 const cors = require('cors');
 
 const corsOption = {
-    origin: ['http://localhost:3000', 'http://18.140.57.129'],
+    origin: '*',
 };
 app.use(cors(corsOption));
 //if you want in every domain then

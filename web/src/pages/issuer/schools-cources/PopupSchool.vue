@@ -2,28 +2,28 @@
   <Popup v-model="modelValue" @hide="hide" :save="saveSchool" :title="formData._id ? 'Edit School' : 'Add School'">
     <div class="text-gray-700">
       <div class="flex">
-        <div class="px-4 py-2 font-semibold w-1/3">Name</div>
+        <div class="px-4 py-2 font-semibold w-1/4">Name</div>
         <input v-model="formData.name" class="px-4 py-2 border-b-2 w-2/3" type="text" name="name" placeholder="Name...">
       </div>
       <div class="flex">
-        <div class="px-4 py-2 font-semibold w-1/3">Director Name</div>
+        <div class="px-4 py-2 font-semibold w-1/4">Director Name</div>
         <input v-model="formData.directorName" class="px-4 py-2 border-b-2 w-2/3" type="text" name="directorName" placeholder="Director Name...">
       </div>
       <div class="flex">
-        <div class="px-4 py-2 font-semibold w-1/3">Description</div>
+        <div class="px-4 py-2 font-semibold w-1/4">Description</div>
         <textarea v-model="formData.description" class="px-4 py-2 border-b-2 w-2/3" name="Description" placeholder="Description..."></textarea>
       </div>
       <div class="flex">
-        <div class="px-4 py-2 font-semibold w-1/3">Address</div>
+        <div class="px-4 py-2 font-semibold w-1/4">Address</div>
         <input v-model="formData.address" class="px-4 py-2 border-b-2 w-2/3" type="text" name="address" placeholder="Address...">
       </div>
       <div class="flex">
-        <div class="px-4 py-2 font-semibold w-1/3">Contact</div>
+        <div class="px-4 py-2 font-semibold w-1/4">Contact</div>
         <input v-model="formData.contact" class="px-4 py-2 border-b-2 w-2/3" type="text" name="contact" placeholder="Contact...">
       </div>
       <div v-for="(courceObj, cIndex) in formData.cources" :key="`user-cource-${cIndex}`">
         <div class="flex">
-          <div class="px-4 py-2 font-semibold w-1/3">Cource #{{cIndex + 1}}</div>
+          <div class="px-4 py-2 font-semibold w-1/4">Cource #{{cIndex + 1}}</div>
           <div class="px-4 py-2 border-b-2 w-2/3 flex items-center">
             <div class="w-4/5 pr-2">
               <div class="flex items-stretch">
@@ -54,6 +54,14 @@
                   </div>
                 </div>
               </div>
+              <div class="flex items-end mt-4">
+                <div class="w-full flex flex-col justify-between pl-2">
+                  <label class="font-semibold">Students</label>
+                  <div>
+                    <v-select v-model="courceObj.students" multiple :options="formattedUsers" :reduce="e => e._id" :closeOnSelect="false" deselectFromDropdown />
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="w-1/5">
               <button class="p-1 border-2 border-red-500 rounded-md" @click="removeCource(cIndex)">Remove</button>
@@ -62,7 +70,7 @@
         </div>
       </div>
       <div class="flex">
-        <div class="w-1/3"></div>
+        <div class="w-1/4"></div>
         <div class="flex items-center px-4">
           <button
             class="block w-full text-green-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs px-3 py-1 mb-4 mt-2"
@@ -73,7 +81,7 @@
         </div>
       </div>
       <div class="flex">
-        <div class="px-4 py-2 font-semibold w-1/3">Status</div>
+        <div class="px-4 py-2 font-semibold w-1/4">Status</div>
         <div class="flex items-center px-4">
           <div class="cursor-pointer" @click="$refs.statusActive.click()">
             <input ref="statusActive" type="radio" class="mr-2" v-model="formData.status" value="active" /> Active
@@ -89,6 +97,8 @@
 
 <script>
 import Axios from 'axios'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
 
 export default {
   props: {
@@ -102,21 +112,44 @@ export default {
     }
   },
   components: {
+    vSelect,
   },
   watch: {
     modelValue (v) {
       if (v) {
+        this.getUsers()
         this.formData = JSON.parse(JSON.stringify(this.schoolObj))
         if (!this.formData?.cources) {
           this.formData.cources = [{}]
         }
       }
-    }
+    },
   },
   data: () => ({
-    formData: {}
+    formData: {},
+    users: []
   }),
+  computed: {
+    formattedUsers () {
+      return this.users.map(userObj => ({
+        ...userObj,
+        label: [userObj.firstName, userObj.lastName].filter(Boolean).join(' ')
+      }))
+    }
+  },
   methods: {
+    async getUsers() {
+      try {
+        const { data } = await Axios.get(`${this.apiUrl}/user/list`)
+        this.users = data || []
+      } catch (error) {
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
+      }
+    },
     hide() {
       this.$emit('update:modelValue', false)
     },

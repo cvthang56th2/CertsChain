@@ -4,15 +4,15 @@
       User are Issuer, <span class="underline text-blue-600 hover:text-blue-400 cursor-pointer" @click="goTo('/issuer')">Go to Issuer Page</span>
     </div>
     <div v-else  class="xl:flex">
-      <aside class="xl:w-[170px]" aria-label="Sidebar">
+      <aside class="xl:w-[150px]" aria-label="Sidebar">
         <div class="overflow-y-auto shadow-md py-4 px-3 bg-blue-50 rounded dark:bg-blue-800">
           <ul class="space-y-2">
             <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value" :class="currentTab === tabObj.value ? 'bg-blue-200' : ''">
               <a
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer"
+                class="flex items-center flex-col text-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer"
               >
                 <span v-html="tabObj.icon"></span>
-                <span class="ml-3">{{ tabObj.label }}</span>
+                <span class="ml-3 xl:ml-0 xl:mt-1">{{ tabObj.label }}</span>
               </a>
             </li>
           </ul>
@@ -44,26 +44,30 @@ export default {
   data: () => ({
     currentTab: 'Profile',
     tabs: [
-      {
-        label: 'Dashboard',
-        value: 'Dashboard',
-        icon: `<svg
-          aria-hidden="true"
-          class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-          <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-        </svg>`
-      },
+      // {
+      //   label: 'Dashboard',
+      //   value: 'Dashboard',
+      //   icon: `<svg
+      //     aria-h
+      //       height="35px"idden="true"
+      //       width="35px"
+      //     class= text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+      //     fill="currentColor"
+      //     viewBox="0 0 20 20"
+      //     xmlns="http://www.w3.org/2000/svg"
+      //   >
+      //     <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+      //     <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+      //   </svg>`
+      // },
       {
         label: 'Profile',
         value: 'Profile',
         icon: `<svg
           aria-hidden="true"
-          class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            height="35px"
+            width="35px"
+          class="flex-shrink-0 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +83,9 @@ export default {
         label: 'Certificates',
         value: 'CertificateList',
         icon: `<svg
-          class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+          height="35px"
+          width="35px"
+          class="flex-shrink-0 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
           fill="currentColor"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +131,10 @@ export default {
       {
         label: 'Certificate Request',
         value: 'CertificateRequestList',
-        icon: `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="25" height="25">
+        icon: `<svg
+          width="35px"
+          height="35px"
+        version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="25" height="25">
         <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
         <g><path d="M663.3,865.5H10V117.1h653.3V865.5L663.3,865.5z M602.2,803.4V179.3h-531v624.1L602.2,803.4L602.2,803.4z M204.4,335.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,335.7z M204.4,512.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,512.7z M204.4,688.5c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,688.5z M867.5,882.9L724.5,706.2V117.1H990v589.2L867.5,882.9L867.5,882.9z M863.7,780.7l65.1-93.7V178.8H785.7v505.7L863.7,780.7L863.7,780.7z M764.9,316v-61.2h183.5V316H764.9L764.9,316z"/></g>
         </svg>`

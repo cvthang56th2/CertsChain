@@ -1,15 +1,15 @@
 <template>
   <DefaultLayout>
     <div v-if="(userInfo && ['Admin', 'Issuer'].includes(userInfo.userType))" class="xl:flex">
-      <aside class="w-full xl:w-[170px]" aria-label="Sidebar">
+      <aside class="w-full xl:w-[150px]" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 shadow-md bg-blue-50 rounded dark:bg-blue-800">
           <ul class="space-y-2">
             <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value" :class="currentTab === tabObj.value ? 'bg-blue-200' : ''">
               <a
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer"
+                class="flex items-center xl:flex-col p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer text-center"
               >
                 <span v-html="tabObj.icon"></span>
-                <span class="ml-3">{{ tabObj.label }}</span>
+                <span class="ml-3 xl:ml-0 xl:mt-1">{{ tabObj.label }}</span>
               </a>
             </li>
           </ul>
@@ -48,26 +48,30 @@ export default {
   data: () => ({
     currentTab: 'Profile',
     tabs: [
-      {
-        label: 'Dashboard',
-        value: 'Dashboard',
-        icon: `<svg
-          aria-hidden="true"
-          class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-          <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-        </svg>`
-      },
+      // {
+      //   label: 'Dashboard',
+      //   value: 'Dashboard',
+      //   icon: `<svg
+      //     aria-hidden="true"
+      //     width="35px"
+      //     height="35px"
+      //     class="text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+      //     fill="currentColor"
+      //     viewBox="0 0 20 20"
+      //     xmlns="http://www.w3.org/2000/svg"
+      //   >
+      //     <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+      //     <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+      //   </svg>`
+      // },
       {
         label: 'Profile',
         value: 'Profile',
         icon: `<svg
           aria-hidden="true"
-          class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+          width="35px"
+          height="35px"
+          class="flex-shrink-0 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -89,8 +93,8 @@ export default {
           xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
           y="0px"
-          width="25px"
-          height="25px"
+          width="35px"
+          height="35px"
           viewBox="0 0 512 512"
           enable-background="new 0 0 512 512"
           xml:space="preserve"
@@ -148,7 +152,7 @@ export default {
       {
         label: 'Schools and Cources',
         value: 'SchoolList',
-        icon: `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="25" height="25">
+        icon: `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="35px" height="35px">
         <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
         <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)"><path d="M4920,2444.9V1795l-229.2-239l-229.2-241H2310.5H159.3V505.1v-809.9h128.4h128.4v-1203v-1201l-90.9-13.8c-51.4-5.9-122.5-11.8-158-11.8c-63.2,0-67.2-4-67.2-69.1v-69.1h4901h4899l-5.9,75.1l-5.9,73.1l-152.1-7.9l-154.1-5.9v1216.9v1216.8h128.4h128.4v809.9V1315H7687.5H5536.3l-229.2,243L5078,1799v154.1v152.1h661.8h661.8V2599v493.9h-740.8H4920V2444.9z M6259.3,2604.9l4-341.7h-592.6H5078v341.7v343.7l588.7-2l586.7-2L6259.3,2604.9z M5874.1,752l859.3-888.9l-867.2-5.9c-478.1-2-1260.3-2-1742.3,0l-873.1,5.9L4120,756c478.1,491.9,875.1,890.9,883,888.9C5010.9,1642.9,5402,1241.9,5874.1,752z M4157.5,1014.7c-84.9-90.9-375.3-389.2-642-661.8l-486-499.8h-1365h-1367v647.9c0,357.5,5.9,655.8,13.8,661.8c5.9,7.9,910.7,13.8,2007,13.8h1995.2L4157.5,1014.7z M9696.5,511l4-657.8l-1376.9,2l-1378.8,2l-523.5,541.3c-288.4,298.3-570.9,596.6-628.2,659.8l-106.7,118.5l2003.1-4l2001.1-5.9L9696.5,511z M2984.1-1509.8v-1205H1769.2H554.3v1205v1205h1214.9h1214.9V-1509.8z M6855.9-1509.8v-1205h-659.8h-661.8l-5.9,726.9c-5.9,807.9-3.9,796.1-146.2,952.1c-116.6,128.4-207.4,167.9-393.1,167.9c-124.4,0-175.8-9.9-237.1-43.5c-106.7-57.3-197.5-154.1-246.9-270.6c-41.5-90.9-43.5-124.4-45.4-813.9v-719.1h-659.8h-657.8v1205v1205H4999h1856.9V-1509.8z M9423.9-1509.8v-1205H8209.1H6994.2v1205v1205h1214.9h1214.9V-1509.8z M5178.8-1059.5c41.5-23.7,100.8-77,130.4-120.5l55.3-79l5.9-728.9l5.9-726.9h-387.2h-385.2v691.4c0,580.8,5.9,705.2,29.6,766.4c37.5,84.9,94.8,152.1,177.8,203.5C4896.3-1000.2,5078-1002.1,5178.8-1059.5z"/><path d="M4771.8,1079.9c-110.6-49.4-199.5-130.4-262.7-237c-47.4-81-53.3-110.6-53.3-268.7c0-158,5.9-187.7,53.3-268.7c108.6-183.7,264.7-272.6,480-274.6c104.7,0,162,11.9,237.1,47.4c416.8,197.5,416.8,794.1,0,991.7C5099.8,1129.3,4890.4,1135.2,4771.8,1079.9z M5103.7,957.5c156.1-43.5,290.4-219.3,290.4-383.2c0-235.1-231.1-430.6-464.2-397.1c-227.2,35.6-387.2,276.6-325.9,493.9c45.4,165.9,215.3,304.2,375.3,308.2C5006.9,979.2,5062.2,969.3,5103.7,957.5z"/><path d="M4916,777.7l-5.9-124.4l-112.6-5.9l-114.6-5.9v-67.2v-69.1h187.7h187.7v197.5v197.5h-69.1H4922L4916,777.7z"/><path d="M811.1-927.1v-405h405h405v405v405h-405h-405V-927.1z M1463-927.1V-1174h-246.9H969.2v246.9v246.9h246.9H1463V-927.1z"/><path d="M1931.2-536c-7.9-5.9-13.8-189.6-13.8-405v-391.1h405h405v405v405h-391.1C2120.8-522.1,1937.1-528.1,1931.2-536z M2585.1-927.1l2-246.9h-256.8h-254.8v246.9v246.9h252.8h254.8L2585.1-927.1z"/><path d="M811.1-2092.6v-405h405h405v405v405h-405h-405V-2092.6z M1463-2102.5v-256.8l-246.9,3.9l-246.9,4v252.8v252.9h246.9H1463V-2102.5z"/><path d="M1931.2-1701.5c-7.9-5.9-13.8-189.6-13.8-405v-391.1h405h405v405v405h-391.1C2120.8-1687.6,1937.1-1693.5,1931.2-1701.5z M2579.1-2102.5v-246.9h-246.9h-246.9l-5.9,252.8l-5.9,252.9l252.9-5.9l252.9-5.9V-2102.5z"/><path d="M3418.7-927.1v-405h395.1h395.1v405v405h-395.1h-395.1V-927.1z M4070.6-927.1V-1174h-256.8H3557v246.9v246.9h256.8h256.8V-927.1z"/><path d="M5769.4-927.1v-405h405h405l-4,401l-5.9,399l-399,5.9l-401,4V-927.1z M6421.3-927.1V-1174h-256.8h-256.8v246.9v246.9h256.8h256.8V-927.1z"/><path d="M3418.7-2092.6v-405h395.1h395.1v405v405h-395.1h-395.1V-2092.6z M4066.6-2096.5l-5.9-252.8h-246.9h-246.9l-5.9,252.8l-5.9,250.9h258.8h258.8L4066.6-2096.5z"/><path d="M5769.4-2092.6v-405h405h405l-4,401l-5.9,399l-399,5.9l-401,4V-2092.6z M6417.4-2096.5l-5.9-252.8h-246.9h-246.9l-5.9,252.8l-5.9,250.9h258.8h258.8L6417.4-2096.5z"/><path d="M7251-927.1v-405h405h405v405v405h-405h-405V-927.1z M7902.9-927.1V-1174h-246.9H7409v246.9v246.9h246.9h246.9V-927.1z"/><path d="M8371-536c-7.9-5.9-13.8-189.6-13.8-405v-391.1h405h405v405v405H8776C8560.7-522.1,8377-528.1,8371-536z M9028.8-927.1V-1174H8772h-256.8v246.9v246.9H8772h256.8V-927.1z"/><path d="M7251-2092.6v-405h405h405v405v405h-405h-405V-2092.6z M7902.9-2102.5v-256.8h-246.9H7409v256.8v256.8h246.9h246.9V-2102.5z"/><path d="M8371-1701.5c-7.9-5.9-13.8-189.6-13.8-405v-391.1h405h405v405v405H8776C8560.7-1687.6,8377-1693.5,8371-1701.5z M9024.9-2096.5l-5.9-252.8H8772h-246.9l-5.9,252.8l-5.9,250.9H8772h258.8L9024.9-2096.5z"/></g></g>
         </svg>`
@@ -157,7 +161,9 @@ export default {
         label: 'Certificates',
         value: 'CertificateList',
         icon: `<svg
-          class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+          width="35px"
+          height="35px"
+          class="flex-shrink-0 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
           fill="currentColor"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -203,7 +209,7 @@ export default {
       {
         label: 'Certificate Request',
         value: 'CertificateRequestList',
-        icon: `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="25" height="25">
+        icon: `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="35px" height="35px">
         <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
         <g><path d="M663.3,865.5H10V117.1h653.3V865.5L663.3,865.5z M602.2,803.4V179.3h-531v624.1L602.2,803.4L602.2,803.4z M204.4,335.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,335.7z M204.4,512.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,512.7z M204.4,688.5c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,688.5z M867.5,882.9L724.5,706.2V117.1H990v589.2L867.5,882.9L867.5,882.9z M863.7,780.7l65.1-93.7V178.8H785.7v505.7L863.7,780.7L863.7,780.7z M764.9,316v-61.2h183.5V316H764.9L764.9,316z"/></g>
         </svg>`
