@@ -46,7 +46,7 @@ export default {
     DefaultLayout
   },
   data: () => ({
-    currentTab: 'Profile',
+    currentTab: 'CertificateRequestList',
     tabs: [
       // {
       //   label: 'Dashboard',
@@ -65,26 +65,15 @@ export default {
       //   </svg>`
       // },
       {
-        label: 'Profile',
-        value: 'Profile',
-        icon: `<svg
-          aria-hidden="true"
-          width="35px"
-          height="35px"
-          class="flex-shrink-0 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-            clip-rule="evenodd"
-          ></path>
+        label: 'Certificate Requests',
+        value: 'CertificateRequestList',
+        icon: `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="35px" height="35px">
+        <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
+        <g><path d="M663.3,865.5H10V117.1h653.3V865.5L663.3,865.5z M602.2,803.4V179.3h-531v624.1L602.2,803.4L602.2,803.4z M204.4,335.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,335.7z M204.4,512.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,512.7z M204.4,688.5c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,688.5z M867.5,882.9L724.5,706.2V117.1H990v589.2L867.5,882.9L867.5,882.9z M863.7,780.7l65.1-93.7V178.8H785.7v505.7L863.7,780.7L863.7,780.7z M764.9,316v-61.2h183.5V316H764.9L764.9,316z"/></g>
         </svg>`
       },
       {
-        label: 'Users',
+        label: 'Users Management',
         value: 'UserList',
         icon: `<svg
           version="1.1"
@@ -158,7 +147,7 @@ export default {
         </svg>`
       },
       {
-        label: 'Certificates',
+        label: 'Certificates Management',
         value: 'CertificateList',
         icon: `<svg
           width="35px"
@@ -207,11 +196,22 @@ export default {
         </svg>`
       },
       {
-        label: 'Certificate Request',
-        value: 'CertificateRequestList',
-        icon: `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="35px" height="35px">
-        <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
-        <g><path d="M663.3,865.5H10V117.1h653.3V865.5L663.3,865.5z M602.2,803.4V179.3h-531v624.1L602.2,803.4L602.2,803.4z M204.4,335.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,335.7z M204.4,512.7c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,512.7z M204.4,688.5c-16.8,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h275.3c16.9,0,30.6,13.7,30.6,30.6c0,16.9-13.7,30.6-30.6,30.6H204.4L204.4,688.5z M867.5,882.9L724.5,706.2V117.1H990v589.2L867.5,882.9L867.5,882.9z M863.7,780.7l65.1-93.7V178.8H785.7v505.7L863.7,780.7L863.7,780.7z M764.9,316v-61.2h183.5V316H764.9L764.9,316z"/></g>
+        label: 'Profile',
+        value: 'Profile',
+        icon: `<svg
+          aria-hidden="true"
+          width="35px"
+          height="35px"
+          class="flex-shrink-0 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+            clip-rule="evenodd"
+          ></path>
         </svg>`
       },
     ]

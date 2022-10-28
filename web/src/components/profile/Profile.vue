@@ -2,9 +2,9 @@
   <div class="h-full flex flex-col">
     <h2 class="text-center text-2xl font-extrabold mb-4">Profile</h2>
     <div class="container mx-auto my-5 xl:p-5 flex-1">
-      <div class="md:flex no-wrap md:-mx-2 shadow-md h-full">
+      <div class="md:flex no-wrap md:-mx-2 h-full">
         <!-- Left Side -->
-        <div class="w-full md:w-3/12 md:mx-2">
+        <div class="w-full md:w-3/12 md:mx-2 shadow-md">
           <!-- Profile Card -->
           <div class="bg-white p-3 border-t-4 border-green-400">
             <div class="image overflow-hidden">
@@ -47,10 +47,10 @@
           <!-- End of friends card -->
         </div>
         <!-- Right Side -->
-        <div class="w-full md:w-9/12 mx-2 h-64">
+        <div class="w-full md:w-9/12 mx-2 flex flex-col">
           <!-- Profile tab -->
           <!-- About Section -->
-          <div class="bg-white p-3 shadow-sm rounded-sm">
+          <div class="bg-white p-3 shadow-md rounded-sm">
             <div
               class="flex items-center space-x-2 font-semibold text-gray-900 leading-8"
             >
@@ -156,7 +156,7 @@
           <div class="my-4"></div>
 
           <!-- Experience and education -->
-          <div class="bg-white p-3 shadow-sm rounded-sm">
+          <div class="bg-white p-3 shadow-md rounded-sm flex-1">
             <div class="grid grid-cols-2 gap-x-10">
               <div>
                 <div
