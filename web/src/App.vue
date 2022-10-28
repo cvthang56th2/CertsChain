@@ -25,8 +25,11 @@ export default {
 <style>
 #app {
 }
-input {
+input:not([type=radio]) {
   height: 44px;
+}
+input.vs__search {
+  height: 34px;
 }
 .toggle-label {
   position: absolute;

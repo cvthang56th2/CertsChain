@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
   if (['Issuer', 'Holder'].includes(userType)) {
     const userInfo = getCookie(LOGIN_USER_ID_KEY)
     if (!userInfo) {
-      next({ path: `/login`, query: { cbUrl: to.path } })
+      // next({ path: `/login`, query: { cbUrl: to.path } })
     }
   }
   next()

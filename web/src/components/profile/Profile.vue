@@ -130,13 +130,13 @@
             <template v-if="editable">
               <div v-if="isEditting" class="flex">
                 <button
-                  class="mr-2 block w-full text-red-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                  class="mr-2 block w-full text-red-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                   @click="isEditting = false"
                 >
                   Cancel
                 </button>
                 <button
-                  class="ml-2 block w-full text-green-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                  class="ml-2 block w-full text-green-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                   @click="saveUser"
                 >
                   Save
@@ -144,7 +144,7 @@
               </div>
               <button
                 v-else
-                class="block w-full text-blue-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                class="block w-full text-blue-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                 @click="editUser"
               >
                 Edit
@@ -195,7 +195,7 @@
                 </ul>
                 <button
                   v-if="isEditting"
-                  class="block w-full text-green-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                  class="block w-full text-green-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                   @click="addExp"
                 >
                   Add
@@ -243,7 +243,7 @@
                 </ul>
                 <button
                   v-if="isEditting"
-                  class="block w-full text-green-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                  class="block w-full text-green-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                   @click="addEducation"
                 >
                   Add

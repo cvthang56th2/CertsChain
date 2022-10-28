@@ -5,7 +5,7 @@
       <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="isShowPopupSchool = true">Add School</button>
       <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
     </div>
-    <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
+    <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mb-4">
       <div class="hidden xl:flex border-b-2 py-2 font-bold">
         <div class="xl:w-2/12 whitespace-pre-wrap px-2">Name</div>
         <div class="xl:w-2/12 whitespace-pre-wrap px-2">Director Name</div>
@@ -37,7 +37,7 @@
           </div>
           <div class="mt-10 xl:mt-0 xl:w-1/12 whitespace-pre-wrap px-2">
             <b class="xl:hidden">Actions: </b>
-            <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
+            <button class="border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
           </div>
         </div>
       </template>

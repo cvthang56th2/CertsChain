@@ -9,7 +9,7 @@
           <ul class="space-y-2">
             <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value" :class="currentTab === tabObj.value ? 'bg-blue-200' : ''">
               <a
-                class="flex items-center flex-col text-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer"
+                class="flex items-center flex-col text-center p-2 text-base font-normal text-gray-900 rounded-md dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer"
               >
                 <span v-html="tabObj.icon"></span>
                 <span class="ml-3 xl:ml-0 xl:mt-1">{{ tabObj.label }}</span>

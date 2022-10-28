@@ -24,7 +24,7 @@
       <div v-for="(courceObj, cIndex) in formData.cources" :key="`user-cource-${cIndex}`">
         <div class="flex">
           <div class="px-4 py-2 font-semibold w-1/4">Cource #{{cIndex + 1}}</div>
-          <div class="px-4 py-2 border-b-2 w-2/3 flex items-center">
+          <div class="px-4 py-2 w-2/3 flex items-center" :class="cIndex !== formData.cources.length - 1 ? 'border-b-2 pb-4 mb-4' : ''">
             <div class="w-4/5 pr-2">
               <div class="flex items-stretch">
                 <div class="w-1/2 flex flex-col justify-between">
@@ -73,7 +73,7 @@
         <div class="w-1/4"></div>
         <div class="flex items-center px-4">
           <button
-            class="block w-full text-green-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs px-3 py-1 mb-4 mt-2"
+            class="block w-full text-green-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs px-3 py-1 mb-4 mt-2"
             @click="addCource"
           >
             Add Cource
