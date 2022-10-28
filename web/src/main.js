@@ -38,8 +38,10 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   const userType = to.meta.userType
+  console.log('userType', userType)
   if (['Issuer', 'Holder'].includes(userType)) {
     const userInfo = getCookie(LOGIN_USER_ID_KEY)
+    console.log('userInfo', userInfo)
     if (!userInfo) {
       next({ path: `/login`, query: { cbUrl: to.path } })
     }
