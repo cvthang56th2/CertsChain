@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center text-3xl font-extrabold">SELECT USER TYPE</h1>
+    <h1 class="text-center text-3xl font-extrabold">SELECT USER TYPEeeee</h1>
     <div class="xl:flex mt-20">
       <div class="w-full mt-10 xl:w-1/3 px-10">
         <div class="text-center cursor-pointer p-4 border-2 hover:shadow-md" @click="goTo('/issuer')">
