@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-full">
     <div class="relative">
       <button @click="goTo('/verifier?tab=UserList')" class="absolute top-2 underline text-blue-700">&#8592; Back to Verifier Page</button>
     </div>

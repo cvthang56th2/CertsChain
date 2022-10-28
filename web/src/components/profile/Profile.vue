@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="h-full flex flex-col">
     <h2 class="text-center text-2xl font-extrabold mb-4">Profile</h2>
-    <div class="container mx-auto my-5 xl:p-5">
-      <div class="md:flex no-wrap md:-mx-2">
+    <div class="container mx-auto my-5 xl:p-5 flex-1">
+      <div class="md:flex no-wrap md:-mx-2 shadow-md h-full">
         <!-- Left Side -->
         <div class="w-full md:w-3/12 md:mx-2">
           <!-- Profile Card -->
