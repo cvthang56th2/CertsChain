@@ -2,11 +2,13 @@ sudo su
 
 REPLACE ENV DEV IN BE + FE
 
-## Start BE:
-service mongod start && cd /home/ec2-user/CertsChain/be/ && npm run start
+## Start BE background:
+service mongod start && cd /home/ec2-user/CertsChain/be/ && pm2 start ./bin/www
 
 ## Build FE:
-cd /var/www/html/ && rm * -rf && cd /home/ec2-user/CertsChain && git pull && cd /home/ec2-user/CertsChain/web/ && npm run build && cp -a ./dist/. /var/www/html/ -rf
+cd /home/ec2-user/CertsChain && git pull && cd /home/ec2-user/CertsChain/web/ && npm run build
+cp ./dist/* /var/www/html/
+cp ./dist/assets/* /var/www/html/assets
 
 ## Import DB:
 mongoimport --db certschain --collection users --legacy --drop --file ./db/users.json &&mongoimport --db certschain --collection certificates --legacy --drop --file ./db/certificates.json && mongoimport --db certschain --collection certirequests --legacy --drop --file ./db/certirequests.json && mongoimport --db certschain --collection schools --legacy --drop --file ./db/schools.json
