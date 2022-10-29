@@ -12,6 +12,7 @@ const Certi = require('../Models/certi')
 const sha256 = require('sha256')
 const fs = require('fs')
 const path = require('path')
+const { Certificate } = require('crypto')
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
@@ -453,6 +454,19 @@ router.get('/certificate/list', async function (req, res, next) {
   }
 })
 
+router.get('/exec-query-test', async function (req, res, next) {
+  try {
+    const certs = await Certificate.find()
+    for (const cert of certs) {
+      await Certificate.findByIdAndRemove(cert._id)
+    }
+    res.send({
+      success: true
+    })
+  } catch (error) {
+    next(error)
+  }
+})
 router.get('/certificate/get-data-create', async function (req, res, next) {
   try {
     const certs = await Certi.find({}).lean()
