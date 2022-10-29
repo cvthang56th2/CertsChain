@@ -643,7 +643,7 @@ router.post('/certificate/create', async (req, res) => {
           courceId
         })
         const { error, data, statusCode } = generateResult
-        if (error) {
+        if (error && data?.status !== 'Certificate Number Has been generated Already') {
           res.status(statusCode)
           return res.send(data)
         }
