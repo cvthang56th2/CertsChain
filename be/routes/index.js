@@ -558,6 +558,15 @@ const generateCertificate = async (data = {}) => {
       }
     }
   }
+  if (!(cource.students || []).includes(userId)) {
+    return {
+      error: true,
+      statusCode: 404,
+      data: {
+        status: 'Student not join this Cource'
+      }
+    }
+  }
   const certiData = {
     userId,
     schoolId,
@@ -624,13 +633,13 @@ router.post('/certificate/create', async (req, res) => {
       isGenerateForCource
     } = req.body
     if (isGenerateForCource) {
-      const school = await School.findOne({ _id })
+      const school = await School.findOne({ _id: schoolId })
       if (!school) {
         return res.send({
           status: 'School not found',
         })
       }
-      const cource = school.find(e => String(e._id) === courceId)
+      const cource = (school.cources || []).find(e => String(e._id) === courceId)
       if (!cource) {
         return res.send({
           status: 'Cource not found',
