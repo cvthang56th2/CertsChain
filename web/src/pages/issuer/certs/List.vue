@@ -17,22 +17,24 @@
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mb-4">
       <div class="hidden xl:flex border-b-2 py-2 font-bold">
-        <div class="xl:w-1/5 px-2">Certificate Number</div>
-        <div class="xl:w-1/5 px-2">User</div>
-        <div class="xl:w-1/5 px-2">School and Cource</div>
-        <div class="xl:w-1/5 px-2">Link</div>
-        <div class="xl:w-1/5 px-2">Status</div>
+        <div class="xl:w-1/6 px-2">Certificate Number</div>
+        <div class="xl:w-1/6 px-2">User</div>
+        <div class="xl:w-1/6 px-2">School and Cource</div>
+        <div class="xl:w-1/6 px-2">Created At</div>
+        <div class="xl:w-1/6 px-2">Link</div>
+        <div class="xl:w-1/6 px-2">Status</div>
       </div>
       
       <template v-if="computedCerts.length">
-        <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
-          <div class="xl:w-1/5 px-2"><b class="xl:hidden">Certificate Number:</b> {{ certObj.certinumber }}</div>
-          <div class="xl:w-1/5 px-2"><b class="xl:hidden">User:</b> {{ certObj.userName }}</div>
-          <div class="xl:w-1/5 px-2"><b class="xl:hidden">School and Cource:</b> {{ certObj.schoolAndCource }}</div>
-          <div class="xl:w-1/5 px-2">
+        <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="xl:flex items-center border-b-2 last:border-b-0 py-2">
+          <div class="xl:w-1/6 px-2"><b class="xl:hidden">Certificate Number:</b> {{ certObj.certinumber }}</div>
+          <div class="xl:w-1/6 px-2"><b class="xl:hidden">User:</b> {{ certObj.userName }}</div>
+          <div class="xl:w-1/6 px-2"><b class="xl:hidden">School and Cource:</b> {{ certObj.schoolAndCource }}</div>
+          <div class="xl:w-1/6 px-2"><b class="xl:hidden">Created At:</b> {{ formatDate(certObj.createdAt) }}</div>
+          <div class="xl:w-1/6 px-2">
             <b class="xl:hidden">Link:</b> <a :href="certObj.certSrc" target="_blank" class="underline text-blue-600 hover:text-blue-400">{{ certObj.fileName }}</a>
           </div>
-          <div class="mb-10 xl:mb-0 xl:w-1/5 px-2">
+          <div class="mb-10 xl:mb-0 xl:w-1/6 px-2">
             <b class="xl:hidden">Status:</b> <toggle v-model="certObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(certObj._id)" />
           </div>
         </div>
