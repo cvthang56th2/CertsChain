@@ -28,9 +28,10 @@
           <b class="xl:hidden">Status: </b>
             <toggle v-model="userObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(userObj._id)" />
           </div>
-          <div class="mt-10 xl:mt-0 xl:w-1/6 whitespace-pre-wrap px-2">
-          <b class="xl:hidden">Actions: </b>
+          <div class="mt-10 xl:mt-0 xl:w-1/6 whitespace-pre-wrap px-2 flex">
+            <b class="xl:hidden">Actions: </b>
             <button class="border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400" @click="editUser(userObj)">Edit</button>
+            <button class="ml-2 border-2 px-5 py-1 rounded-md cursor-pointer border-orange-400" @click="addCource(userObj)">Update Cources</button>
           </div>
         </div>
       </template>
@@ -40,28 +41,37 @@
     </div>
 
     <PopupUser v-model="isShowPopupUser" @saved="getUsers()" :userObj="selectedUser" />
+    <PopupAddCources v-model="isShowPopupAddCources" @saved="getUsers()" :userObj="selectedUser" />
   </div>
 </template>
 <style src="@vueform/toggle/themes/default.css"></style>
 
 <script>
 import PopupUser from './PopupUser.vue'
+import PopupAddCources from './PopupAddCources.vue'
 import Axios from 'axios'
 import Toggle from '@vueform/toggle'
 
 export default {
   components: {
     PopupUser,
+    PopupAddCources,
     Toggle
   },
   data: () => ({
     isShowPopupUser: false,
+    isShowPopupAddCources: false,
     users: [],
     keyword: null,
     selectedUser: {},
   }),
   watch: {
     isShowPopupUser (v) {
+      if (!v) {
+        this.selectedUser = {}
+      }
+    },
+    isShowPopupAddCources (v) {
       if (!v) {
         this.selectedUser = {}
       }
@@ -117,6 +127,10 @@ export default {
     editUser(userObj) {
       this.selectedUser = userObj
       this.isShowPopupUser = true
+    },
+    addCource (userObj) {
+      this.selectedUser = userObj
+      this.isShowPopupAddCources = true
     }
   }
 }

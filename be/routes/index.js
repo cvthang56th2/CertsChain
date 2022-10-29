@@ -118,6 +118,103 @@ router.get('/user/:_id', async function (req, res, next) {
   }
 })
 
+router.get('/user/:_id/get-data-update-cources/', async function (req, res, next) {
+  try {
+    const schools = await School.find({}).lean()
+    const { _id } = req.params
+    const joinedCources = []
+    for (const schoolObj of schools) {
+      const joinedCourceIds = (schoolObj.cources || []).reduce((resultArr, courceObj) => {
+        if ((courceObj.students || []).includes(String(_id))) {
+          resultArr.push(String(courceObj._id))
+        }
+        return resultArr
+      }, [])
+      if (joinedCourceIds.length) {
+        joinedCources.push({
+          schoolId: String(schoolObj._id),
+          courceIds: joinedCourceIds
+        })
+      }
+    }
+    res.send({
+      joinedCources,
+      schools
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+router.post('/user/update-cources', async (req, res, next) => {
+  try {
+    const {
+      userId,
+      data,
+      oldJoined
+    } = req.body
+    const user = await User.findOne({ _id: userId }).select('-password').lean()
+    if (!user) {
+      res.status(404)
+      return res.send({
+        status: 'User not found',
+      })
+    }
+    const schools = await School.find({}).lean()
+    //reset
+    for (const itemObj of (oldJoined || [])) {
+      const { schoolId, courceIds = [] } = itemObj || {}
+      const schoolObj = schools.find(e => String(e._id) === schoolId)
+      
+      if (!schoolObj) {
+        res.status(404)
+        return res.send({
+          status: 'School not found',
+        })
+      }
+      for (const courceId of courceIds) {
+        const courceObj = (schoolObj.cources || []).find(e => String(e._id) === courceId)
+        if (courceObj) {
+          const studentIndex = (courceObj.students || []).findIndex(id => String(id) === userId)
+          if (studentIndex !== -1) {
+            courceObj.students.splice(studentIndex, 1)
+          }
+        }
+      }
+      await School.findByIdAndUpdate(schoolObj._id, {
+        cources: schoolObj.cources
+      })
+    }
+    //pick again
+    for (const itemObj of (data || [])) {
+      const { schoolId, courceIds = [] } = itemObj || {}
+      const schoolObj = schools.find(e => String(e._id) === schoolId)
+      if (!schoolObj) {
+        res.status(404)
+        return res.send({
+          status: 'School not found',
+        })
+      }
+      for (const courceId of courceIds) {
+        const courceObj = (schoolObj.cources || []).find(e => String(e._id) === courceId)
+        if (courceObj) {
+          courceObj.students = courceObj.students || []
+          courceObj.students.push(userId)
+        }
+      }
+      await School.findByIdAndUpdate(schoolObj._id, {
+        cources: schoolObj.cources
+      })
+    }
+    return res.send({
+      success: true
+    })
+  } catch (err) {
+    console.log(err)
+    return res.send({
+      status: 'error try again!!!',
+    })
+  }
+})
 router.post('/user/create', (req, res, next) => {
   const {
     username,
