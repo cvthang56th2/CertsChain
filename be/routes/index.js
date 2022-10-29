@@ -456,7 +456,7 @@ router.get('/certificate/list', async function (req, res, next) {
 
 router.get('/exec-query-test', async function (req, res, next) {
   try {
-    const certs = await Certificate.find()
+    const certs = await Certificate.find({})
     for (const cert of certs) {
       await Certificate.findByIdAndRemove(cert._id)
     }
@@ -464,6 +464,7 @@ router.get('/exec-query-test', async function (req, res, next) {
       success: true
     })
   } catch (error) {
+    console.log('error', error)
     next(error)
   }
 })
