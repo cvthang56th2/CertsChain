@@ -3,7 +3,7 @@
     <div class="text-gray-700">
       <div class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">School</div>
-        <v-select appendToBody v-model="formData.schoolId" class="w-full" :options="schools" :reduce="e => e._id" label="name" @update:modelValue="onChangeSchool">
+        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.schoolId" class="w-full" :options="schools" :reduce="e => e._id" label="name" @update:modelValue="onChangeSchool">
           <template #no-options>
             User not join any School
           </template>
@@ -11,7 +11,7 @@
       </div>
       <div v-if="formData.schoolId" class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">Cource</div>
-        <v-select appendToBody v-model="formData.courceId" class="w-full" :options="cources" :reduce="e => e._id">
+        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.courceId" class="w-full" :options="cources" :reduce="e => e._id">
           <template #no-options>
             User not join any cources at this School.
           </template>

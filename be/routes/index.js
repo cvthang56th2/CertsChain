@@ -491,7 +491,7 @@ router.get('/certificate/get-data-create', async function (req, res, next) {
         schoolObj.cources = (schoolObj.cources || []).reduce((_resultArr, courceObj) => {
           if ((courceObj.students || []).includes(String(userObj._id))) {
             if (userCertSchoolCourceIds.includes(`${schoolObj._id}-${courceObj._id}`)) {
-              courceObj.disabled = true
+              courceObj.disable = true
               courceObj.name = `${courceObj.name} (passed)`
               countDisableCources++
             }
@@ -502,6 +502,7 @@ router.get('/certificate/get-data-create', async function (req, res, next) {
         if (schoolObj.cources.length) {
           if (countDisableCources === schoolObj.cources.length) {
             schoolObj.disabled = true
+            schoolObj.name = `${schoolObj.name} (all passed)`
           }
           resultArr.push(schoolObj)
         }

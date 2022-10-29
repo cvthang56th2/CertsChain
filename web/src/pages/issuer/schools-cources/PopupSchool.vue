@@ -58,7 +58,7 @@
                 <div class="w-full flex flex-col justify-between pl-2">
                   <label class="font-semibold">Students</label>
                   <div>
-                    <v-select appendToBody v-model="courceObj.students" multiple :options="formattedUsers" :reduce="e => e._id" :closeOnSelect="false" deselectFromDropdown />
+                    <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courceObj.students" multiple :options="formattedUsers" :reduce="e => e._id" :closeOnSelect="false" deselectFromDropdown />
                   </div>
                 </div>
               </div>
