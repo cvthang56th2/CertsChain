@@ -31,10 +31,13 @@ input:not([type=radio], [type=checkbox]) {
 input.vs__search {
   height: 34px;
 }
+.toggle-container {
+  min-height: 40px;
+}
 .toggle-label {
   position: absolute;
   bottom: -24px;
-  left: 0;
+  left: 6px;
   color: black;
   font-weight: bold;
 }
