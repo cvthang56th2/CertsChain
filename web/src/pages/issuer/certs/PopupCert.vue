@@ -81,6 +81,9 @@ export default {
         label: e.name
       }))
     },
+    availabelSchools () {
+      return this.schools.filter(e => !e.disabled)
+    },
     cources () {
       return ((this.schools.find(e => e._id === this.formData.schoolId) || {}).cources || []).map(courceObj => ({
         ...courceObj,
@@ -102,8 +105,8 @@ export default {
       this.formData.schoolId = null
       this.formData.courceId = null
       await this.$nextTick(() => {
-        if (this.schools.length === 1) {
-          this.formData.schoolId = this.schools[0]._id
+        if (this.availabelSchools.length === 1) {
+          this.formData.schoolId = this.availabelSchools[0]._id
         }
       })
       await this.$nextTick(() => {
