@@ -4,12 +4,12 @@
       User are Issuer, <span class="underline text-blue-600 hover:text-blue-400 cursor-pointer" @click="goTo('/issuer')">Go to Issuer Page</span>
     </div>
     <div v-else class="xl:flex h-full">
-      <aside class="bg-blue-50 shadow-md xl:w-[150px]" aria-label="Sidebar">
+      <aside class="bg-blue-50 shadow-md xl:w-[155px]" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 rounded dark:bg-blue-800">
           <ul class="space-y-2">
             <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value" class="shadow-md" :class="currentTab === tabObj.value ? 'bg-blue-200' : ''">
               <a
-                class="flex items-center xl:flex-col text-center p-5 text-base font-normal text-gray-900 rounded-md dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer"
+                class="flex items-center xl:flex-col text-center p-5 text-base font-medium text-gray-900 rounded-md dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer"
               >
                 <span v-html="tabObj.icon"></span>
                 <span class="ml-3 xl:ml-0 xl:mt-1">{{ tabObj.label }}</span>

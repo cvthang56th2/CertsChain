@@ -1,12 +1,12 @@
 <template>
   <DefaultLayout>
     <div class="xl:flex h-full">
-      <aside class="xl:w-[150px] shadow-md bg-blue-50" aria-label="Sidebar">
+      <aside class="xl:w-[155px] shadow-md bg-blue-50" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 rounded dark:bg-blue-800">
           <ul class="space-y-2">
             <li v-for="(tabObj, tIndex) in  tabs" :key="`holder-tab-${tIndex}`" @click="currentTab = tabObj.value" class="shadow-md" :class="currentTab === tabObj.value ? 'bg-blue-200' : ''">
               <a
-              class="flex items-center xl:flex-col p-5 text-base font-normal text-gray-900 rounded-md dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer text-center"
+              class="flex items-center xl:flex-col p-5 text-base font-medium text-gray-900 rounded-md dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 cursor-pointer text-center"
               >
                 <span v-html="tabObj.icon"></span>
                 <span class="ml-3 xl:ml-0 xl:mt-1">{{ tabObj.label }}</span>
