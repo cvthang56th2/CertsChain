@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="relative">
-      <button @click="goTo('/verifier?tab=CertificateList')" class="absolute top-2 underline text-blue-700">&#8592; Back to Verifier Page</button>
+      <button @click="goTo('/verifier?tab=CertificateList')" class="xl:absolute top-2 underline text-blue-700">&#8592; Back to Verifier Page</button>
     </div>
     <h2 class="text-center text-2xl font-extrabold mb-4">Verify Certificate</h2>
     <div class="mx-auto max-w-[650px] shadow-lg mt-20 p-2 xl:p-10">
