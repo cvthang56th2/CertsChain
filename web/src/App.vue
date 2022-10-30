@@ -25,7 +25,7 @@ export default {
 <style>
 #app {
 }
-input:not([type=radio], [type=checkbox]) {
+input:not([type=radio], [type=checkbox], [type=file]) {
   height: 44px;
 }
 input.vs__search {
@@ -37,9 +37,12 @@ input.vs__search {
 .toggle-label {
   position: absolute;
   bottom: -24px;
-  left: 6px;
+  left: 0;
   color: black;
   font-weight: bold;
+}
+.toggle.toggle-on .toggle-label {
+  left: 6px;
 }
 .vs__dropdown-option {
   padding-top: 7px !important;
