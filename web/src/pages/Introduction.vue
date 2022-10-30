@@ -11,49 +11,11 @@
 </template>
 
 <script>
-import Axios from 'axios'
 
 export default {
   data: () => ({
-    formData: {}
   }),
   methods: {
-    async verifyCertificate () {
-      try {
-        const file = this.$refs.certificateFile.files[0]
-        if (!file || !this.formData.certinumber) {
-          this.$swal(
-            'Error',
-            'Please fill all inputs',
-            'error'
-          );
-          return
-        }
-        const formData = new FormData()
-        formData.append('certinumber', this.formData.certinumber)
-        formData.append('certificateFile', file)
-        const { data } = await Axios.post(`${this.apiUrl}/certificate/verify`, formData)
-        if (data.valid) {
-          this.$swal(
-            'Certificate is Valid',
-            data.status,
-            'success'
-          );
-        } else {
-          this.$swal(
-            'Certificate is In-Valid',
-            data.status,
-            'error'
-          );
-        }
-      } catch (error) {
-        this.$swal(
-          'Error',
-          error,
-          'error'
-        );
-      }
-    }
   }
 }
 </script>
