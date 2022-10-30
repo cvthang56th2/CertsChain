@@ -37,7 +37,7 @@
       </div>
     </template>
     
-    <template v-if="currentPage === 'Verify Certificate'">
+    <template v-if="currentPage === 'Verify Certificates'">
       
       <div class="mt-2">
         Trang này dùng để User có thể xác minh VBCC
