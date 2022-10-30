@@ -4,19 +4,21 @@
       <button @click="goTo('/')" class="xl:absolute top-2 underline text-blue-700">&#8592; Back to Home Page</button>
     </div>
     <h2 class="text-center text-2xl font-extrabold mb-4">Instruction</h2>
-    <div class="mt-2">
-      Xem hướng dẫn của người dùng loại:
-      <button class="text-blue-500 ml-5 underline" @click="goTo('/instruction/issuer')">Issuer</button>
-      <button class="text-blue-500 ml-5 underline" @click="goTo('/instruction/holder')">Holder</button>
-      <button class="text-blue-500 ml-5 underline" @click="goTo('/instruction/verifier')">Verifier</button>
-    </div>
-    <div class="mt-2">
-      Hệ thống được thiết kế và phân ra 3 loại người dùng: Issuer, Holder và Verifier. Khi mới vào trang chủ, User cần chọn chức năng của mình đối với hệ thống để tiếp tục sử dụng.
-      <img src="../assets/image/home.png" alt="home" class="mx-auto">
-    </div>
-    <div class="mt-2">
-      Nếu User chọn là Issuer hay Holder, người dùng cần phải đăng nhập vào tài khoản của mình để sử dụng các chức năng của Issuer, Holder.
-      <img src="../assets/image/login.png" alt="login" class="mx-auto">
+    <div class="px-5 pt-5 pb-20 shadow-lg rounded-lg">
+      <div class="mt-3">
+        Xem hướng dẫn của người dùng loại:
+        <button class="text-blue-500 ml-5 underline" @click="goTo('/instruction/issuer')">Issuer</button>
+        <button class="text-blue-500 ml-5 underline" @click="goTo('/instruction/holder')">Holder</button>
+        <button class="text-blue-500 ml-5 underline" @click="goTo('/instruction/verifier')">Verifier</button>
+      </div>
+      <div class="mt-3">
+        Hệ thống được thiết kế và phân ra 3 loại người dùng: Issuer, Holder và Verifier. Khi mới vào trang chủ, User cần chọn chức năng của mình đối với hệ thống để tiếp tục sử dụng.
+        <img src="../assets/image/home.png" alt="home" class="mx-auto">
+      </div>
+      <div class="mt-3">
+        Nếu User chọn là Issuer hay Holder, người dùng cần phải đăng nhập vào tài khoản của mình để sử dụng các chức năng của Issuer, Holder.
+        <img src="../assets/image/login.png" alt="login" class="mx-auto">
+      </div>
     </div>
   </div>
 </template>
