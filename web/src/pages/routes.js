@@ -1,5 +1,7 @@
 import Home from './Home.vue'
 import UserDetail from './UserDetail.vue'
+import Introduction from './Introduction.vue'
+import Instruction from './Instruction.vue'
 import VerifyCerticiate from './VerifyCerticiate.vue'
 import CertificateChain from './CertificateChain.vue'
 import AccountChain from './AccountChain.vue'
@@ -11,6 +13,8 @@ import Issuer from './issuer/Issuer.vue'
 export default [
   { path: '/', component: Home },
   { path: '/user/:userId', component: UserDetail },
+  { path: '/introduction', component: Introduction },
+  { path: '/instruction', component: Instruction },
   { path: '/verify-certificate', component: VerifyCerticiate },
   { path: '/certificate-chain', component: CertificateChain },
   { path: '/account-chain', component: AccountChain },
