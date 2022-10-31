@@ -21,7 +21,7 @@
       <div class="mt-3 font-medium text-lg">
         Quy trình  thực hiện như sau:
       </div>
-      <div>1) Các đơn vị đào tạo - Issuer sẽ có một hệ thống quản lý thông tin học sinh sinh, viên hay Holder, từ hệ thống CertsChain này Holder đủ điều kiện được cấp VBCC sẽ yêu cầu đơn vị đào tạo cấp VBCC cho mình.</div>
+      <div>1) Các đơn vị đào tạo - Issuer sẽ có một hệ thống quản lý thông tin học sinh, sinh viên hay Holder, từ hệ thống CertsChain này Holder đủ điều kiện được cấp VBCC sẽ yêu cầu đơn vị đào tạo cấp VBCC cho mình.</div>
       <div>2) Issuer xem xét yêu cầu cấp VBCC của Holder, nếu xác nhận thì hệ thống CertsChain sẽ thực hiện:</div>
       <div class="ml-4">- Tạo VBCC dưới dạng file PDF.</div>
       <div class="ml-4">- Tạo một block mới lưu thông tin VBCC, mã số VBCC và thông tin file PDF trên CertsChain Blockchain</div>
