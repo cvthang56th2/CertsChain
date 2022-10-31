@@ -155,9 +155,9 @@
 
           <div class="my-4"></div>
 
-          <!-- Experience and education -->
+          <!-- Experience, education and Cources -->
           <div class="bg-white p-3 shadow-md rounded-sm flex-1">
-            <div class="grid grid-cols-2 gap-x-10">
+            <div class="grid grid-cols-3 gap-x-10">
               <div>
                 <div
                   class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
@@ -249,8 +249,47 @@
                   Add
                 </button>
               </div>
+              <div>
+                <div
+                  class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
+                >
+                  <span clas="text-green-500">
+                    <svg
+                      class="h-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
+                      <path
+                        fill="#fff"
+                        d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+                      />
+                    </svg>
+                  </span>
+                  <span class="tracking-wide">Joined Cources</span>
+                </div>
+                <ul class="list-inside space-y-2">
+                  <li v-for="(courcesObj, cIndex) in joinedCources" :key="`user-cource-${cIndex}`">
+                    <div class="flex justify-between">
+                      <div class="flex-1 pr-10">
+                        <div class="text-blue-600">{{ courcesObj.schoolName }}</div>
+                        <div class="text-teal-600">{{ courcesObj.courceName }}</div>
+                        <div class="text-gray-500 text-xs">{{ courcesObj.courceTime }}</div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <!-- End of Experience and education grid -->
+            <!-- End of Experience, Education and Cources grid -->
           </div>
           <!-- End of profile tab -->
         </div>
@@ -279,6 +318,7 @@ export default {
       experiences: [{}],
       educations: [{}]
     },
+    joinedCources: [],
     formData: {},
     isEditting: false
   }),
@@ -297,7 +337,22 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getJoinedCources()
+  },
   methods: {
+    async getJoinedCources() {
+      try {
+        const { data } = await Axios.get(`${this.apiUrl}/user/${this.userData._id}/get-joined-cources`)
+        this.joinedCources = data.joinedCources || []
+      } catch (error) {
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
+      }
+    },
     async changeAvatar (e) {
       try {
         if (!e.target.files.length) {

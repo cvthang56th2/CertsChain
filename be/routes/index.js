@@ -118,6 +118,33 @@ router.get('/user/:_id', async function (req, res, next) {
   }
 })
 
+router.get('/user/:_id/get-joined-cources/', async function (req, res, next) {
+  try {
+    const schools = await School.find({}).lean()
+    const { _id } = req.params
+    const joinedCources = schools.reduce((resultArr, schoolObj) => {
+      for (const courceObj of (schoolObj.cources || [])) {
+        if ((courceObj.students || []).includes(String(_id))) {
+          resultArr.push({
+            schoolId: schoolObj._id,
+            schoolName: schoolObj.name,
+            courceId: courceObj._id,
+            courceName: courceObj.name,
+            courceTime: courceObj.time
+          })
+        }
+      }
+      return resultArr
+    }, [])
+    res.send({
+      joinedCources
+    })
+  } catch (error) {
+    console.log('error', error)
+    next(error)
+  }
+})
+
 router.get('/user/:_id/get-data-update-cources/', async function (req, res, next) {
   try {
     const schools = await School.find({}).lean()
