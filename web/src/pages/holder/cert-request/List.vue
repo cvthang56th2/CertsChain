@@ -28,7 +28,9 @@
           <div class="xl:w-1/4 px-2"><b class="xl:hidden">User:</b> {{ certRequestObj.userName }}</div>
           <div class="xl:w-1/4 px-2"><b class="xl:hidden">School and Cource:</b> {{ certRequestObj.schoolAndCource }}</div>
           <div class="xl:w-1/4 px-2"><b class="xl:hidden">Created At:</b> {{ formatDate(certRequestObj.createdAt) }}</div>
-          <div class="xl:w-1/4 px-2 capitalize"><b class="xl:hidden">Status:</b> {{ certRequestObj.status }}</div>
+          <div class="xl:w-1/4 px-2 capitalize"><b class="xl:hidden">Status:</b> 
+            <span class="capitalize px-2 py-1 rounded-sm text-white" :class="certRequestObj.status === 'pending' ? 'bg-blue-600' : (certRequestObj.status === 'approved' ? 'bg-green-600' : 'bg-red-600')">{{ certRequestObj.status }}</span>
+          </div>
         </div>
       </template>
       <div v-else class="text-center mt-4">

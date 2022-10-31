@@ -9,7 +9,7 @@
         Xin chào,
       </div>
       <div class="mt-3">
-        Tôi là <b>Cao Viết Thắng</b>, một lập trình viên Fullstack NodeJS Developer, đang học lớp cao học <b>61CH.CNTT</b>, MSSV: <b>61CH.097</b>. Đây là web app tôi tạo ra để demo cho hệ thống <b>CertsChain</b> - một hệ thống về quản lý văn bằng chứng chỉ dựa trên công nghệ <b>BlockChain</b>. Tôi dùng web app này để demo cho luận văn tốt nghiệp thạc sĩ của mình.
+        Tôi là <b>Cao Viết Thắng</b>, một lập trình viên Fullstack NodeJS Developer, đang học lớp cao học <b>61CH.CNTT</b>, MSSV: <b>61CH.097</b>. Đây là web app tôi tạo ra để demo cho hệ thống <b>CertsChain</b> - một hệ thống về quản lý và xác minh văn bằng chứng chỉ dựa trên công nghệ <b>BlockChain</b>. Tôi dùng web app này để demo cho luận văn tốt nghiệp thạc sĩ của mình.
       </div>
       <div class="mt-3">
         <div class="font-medium text-lg">Hệ thống được xây dựng dựa trên mô hình như sau:</div>
@@ -52,8 +52,11 @@
         <div class="ml-4">
           <b>- BackEnd</b>: BackEnd tôi sử dụng NodeJS - Express để triển khai xây dựng danh sách các API giúp ứng dụng web giao tiếp với hệ thống, database cũng như Blockchain.
         </div>
+        <div class="mt-3 font-medium text-lg">
+          BlockChain:
+        </div>
         <div class="font-medium text-md">
-          BlockChain: Code BlockChain sẽ được tôi tự xây dựng bằng NodeJS và chạy ở  Backend, Một số thư viện của NodeJS được tôi sử dụng:
+          Code BlockChain sẽ được tôi tự xây dựng bằng NodeJS và chạy ở  Backend, một số thư viện của NodeJS được tôi sử dụng:
         </div>
         <div class="ml-4">-	Sha256: thư viện tạo mã băm SHA256, sử dụng để tạo các giá trị băm. Nó tạo ra một giá trị băm 256 bit. Dùng để băm dữ liệu trong hệ thống Blockchain</div>
         <div class="ml-4">-	Pdfkit: thư viện giúp sinh ra các file PDF, tôi sử dụng để tạo ra các file VBCC dưới định dạng PDF.</div>
