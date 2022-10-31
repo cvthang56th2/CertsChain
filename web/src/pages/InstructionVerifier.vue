@@ -3,7 +3,7 @@
     <div class="relative">
       <button @click="goTo('/instruction')" class="xl:absolute top-2 underline text-blue-700">&#8592; Back to Instruction</button>
     </div>
-    <h2 class="text-center text-2xl font-extrabold mb-4">Holder's Instruction</h2>
+    <h2 class="text-center text-2xl font-extrabold mb-4">Verifier's Instruction</h2>
     <div class="px-5 pt-5 pb-20 shadow-lg rounded-lg">
       <div class="mt-3">
         Page:
