@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="mt-3 font-medium text-lg">
-        Quy trình  thực hiện như sau:
+        Quy trình  thực hiện:
       </div>
       <div>1) Các đơn vị đào tạo - Issuer sẽ có một hệ thống quản lý thông tin học sinh, sinh viên hay Holder, từ hệ thống CertsChain này Holder đủ điều kiện được cấp VBCC sẽ yêu cầu đơn vị đào tạo cấp VBCC cho mình.</div>
       <div>2) Issuer xem xét yêu cầu cấp VBCC của Holder, nếu xác nhận thì hệ thống CertsChain sẽ thực hiện:</div>
@@ -35,8 +35,8 @@
           Môi trường triển khai
         </div>
         <div>
-          <div>Hệ thống được cài đặt trên máy local có cấu hình như sau:</div>
-          <div class="ml-4">-	Properties: Intel Core i5, 16GB RAM, Window 10 64bit.</div>
+          <div>Hệ thống được cài đặt trên instance ubutun của AWS có cấu hình như sau:</div>
+          <div class="ml-4">-	Properties: Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type, 64bit, 8GB Storage.</div>
           <div class="ml-4">-	NodeJS: 16</div>
           <div class="ml-4">-	Blockchain: tự phát triển, sử dụng NodeJS để tạo ra 1 class Blockchain bao gồm các thuộc tính và phương thức thường có của 1 hệ thống BlockChain.</div>
           <div class="ml-4">-	MongoDB: cơ sở dữ liệu dưới dạng NoSQL, dùng lưu trữ và truy vấn dữ liệu User, Certificate,…</div>
