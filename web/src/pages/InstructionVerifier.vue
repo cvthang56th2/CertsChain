@@ -12,7 +12,7 @@
       <template v-if="currentPage === 'Users'">
         <div class="mt-3">
           Hiển thị ra tất cả các Users có trong hệ thống
-          <img src="../assets/image/verifier/user-list.png" class="mx-auto">
+          <img src="../assets/image/verifier/user-list.png" class="mx-auto border-2 mt-4 mb-2">
           <div class="text-center text-sm italic">
             Danh sách tất cả các User trong hệ thống
           </div>
@@ -20,7 +20,7 @@
         
         <div class="mt-3">
           Bất kì ai cũng có thể xem chi tiết thông tin công khai của user trong hệ thống. Bằng cách click vào button View Detail.
-          <img src="../assets/image/verifier/user-detail.png" class="mx-auto">
+          <img src="../assets/image/verifier/user-detail.png" class="mx-auto border-2 mt-4 mb-2">
           <div class="text-center text-sm italic">
             Trang chi tiết User
           </div>
@@ -30,7 +30,7 @@
       <template v-if="currentPage === 'Certificates'">
         <div class="mt-3">
           Hiển thị tất cả các certificate có trong hệ thống, bất kì ai cũng có thể xem danh sách này.
-          <img src="../assets/image/verifier/certificate-list.png" class="mx-auto">
+          <img src="../assets/image/verifier/certificate-list.png" class="mx-auto border-2 mt-4 mb-2">
           <div class="text-center text-sm italic">
             Danh sách tất cả các certificate trong hệ thống
           </div>
@@ -52,7 +52,7 @@
               -	Có còn đang được công nhận hay đang còn hiệu lựu hay không.
             </li>
           </ul>
-          <img src="../assets/image/verifier/verify-certificate.png" class="mx-auto">
+          <img src="../assets/image/verifier/verify-certificate.png" class="mx-auto border-2 mt-4 mb-2">
           <div class="text-center text-sm italic">
             Trang xác minh VBCC
           </div>
@@ -64,17 +64,17 @@
           <div class="mt-3">
             <div class="font-medium">* Nếu đây là một VBCC hợp lệ</div>
             <div>Hệ thống sẽ thông báo như sau</div>
-            <img src="../assets/image/verifier/verify-valid.png" class="mx-auto">
+            <img src="../assets/image/verifier/verify-valid.png" class="mx-auto border-2 mt-4 mb-2">
           </div>
           <div class="mt-3">
             <div class="font-medium">* Nếu VBCC không hợp lệ</div>
             <div>Hệ thống sẽ thông báo như sau</div>
             <div class="mt-3">-	VBCC không được cấp phát bởi hệ thống</div>
-            <img src="../assets/image/verifier/verify-invalid-not-found.png" class="mx-auto">
+            <img src="../assets/image/verifier/verify-invalid-not-found.png" class="mx-auto border-2 mt-4 mb-2">
             <div class="mt-3">-	VBCC đã bị sửa chữa</div>
-            <img src="../assets/image/verifier/verify-invalid-modified.png" class="mx-auto">
+            <img src="../assets/image/verifier/verify-invalid-modified.png" class="mx-auto border-2 mt-4 mb-2">
             <div class="mt-3">-	VBCC không còn hiệu lực</div>
-            <img src="../assets/image/verifier/verify-invalid-archived.png" class="mx-auto">
+            <img src="../assets/image/verifier/verify-invalid-archived.png" class="mx-auto border-2 mt-4 mb-2">
           </div>
         </div>
       </template>
@@ -86,11 +86,11 @@
 
 export default {
   data: () => ({
-    currentPage: 'Users',
+    currentPage: 'Verify Certificates',
     pages: [
+      'Verify Certificates',
       'Users',
-      'Certificates',
-      'Verify Certificates'
+      'Certificates'
     ]
   }),
   methods: {

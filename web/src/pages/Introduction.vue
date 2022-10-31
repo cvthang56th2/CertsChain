@@ -13,7 +13,7 @@
       </div>
       <div class="mt-3">
         <div class="font-medium text-lg">Hệ thống được xây dựng dựa trên mô hình như sau:</div>
-        <img src="../assets/image/certschain-diagram.png" class="mx-auto">
+        <img src="../assets/image/certschain-diagram.png" class="mx-auto border-2 mt-4 mb-2">
         <div class="text-center text-sm italic">
           Mô hình thực hiện của hệ thống
         </div>
@@ -35,7 +35,7 @@
           Môi trường triển khai
         </div>
         <div>
-          <div>Hệ thống được cài đặt trên instance ubutun của AWS có cấu hình như sau:</div>
+          <div>Hệ thống được cài đặt trên AWS, sử dụng EC2 Instance có cấu hình như sau:</div>
           <div class="ml-4">-	Properties: Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type, 64bit, 8GB Storage.</div>
           <div class="ml-4">-	NodeJS: 16</div>
           <div class="ml-4">-	Blockchain: tự phát triển, sử dụng NodeJS để tạo ra 1 class Blockchain bao gồm các thuộc tính và phương thức thường có của 1 hệ thống BlockChain.</div>
