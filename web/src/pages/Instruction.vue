@@ -24,7 +24,7 @@
       </div>
       <div class="mt-3">
         Để xác minh văn bằng chứng chỉ, người dùng sẽ click vào button Verify Certificate:
-        <a class="ml-3 text-blue-500 underline cursor-pointer hover:text-purple-500" @click="goTo('/instruction/verifier')">
+        <a class="ml-1 text-blue-500 underline cursor-pointer hover:text-purple-500" @click="goTo('/instruction/verifier')">
           Xem hướng dẫn xác minh Văn bằng chứng chỉ
         </a>
         <img src="../assets/image/verifier/verify-certificate.png" alt="login" class="mx-auto border-2 mt-4 mb-2">
