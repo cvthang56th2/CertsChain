@@ -21,9 +21,17 @@
       </div>
       <div v-if="(isGenerateForCource || (!isGenerateForCource && formData.userId)) && formData.schoolId" class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">Cource</div>
-        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.courceId" :options="cources" :reduce="e => e._id" class="w-full">
+        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.courceId" :options="cources" :reduce="e => e._id" class="w-full" @update:modelValue="formData.excludeStudents = []">
           <template #no-options>
             User not join any cources at this School.
+          </template>
+        </v-select>
+      </div>
+      <div v-if="isGenerateForCource && formData.courceId" class="flex mt-4">
+        <div class="px-4 py-2 font-semibold w-1/3">Exclude Students</div>
+        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.excludeStudents" :options="courceStudents" multiple :closeOnSelect="false" deselectFromDropdown :reduce="e => e._id" class="w-full" >
+          <template #no-options>
+            No students joined this cource
           </template>
         </v-select>
       </div>
@@ -92,6 +100,18 @@ export default {
     },
     availabelCources () {
       return this.cources.filter(e => !e.disabled)
+    },
+    courceStudents () {
+      return ((this.cources.find(e => e._id === this.formData.courceId) || {}).students || []).reduce((resultArr, userId) => {
+        const user = this.users.find(e => e._id === userId)
+        if (user) {
+          resultArr.push({
+            ...JSON.parse(JSON.stringify(user)),
+            disabled: false
+          })
+        }
+        return resultArr
+      }, [])
     }
   },
   methods: {

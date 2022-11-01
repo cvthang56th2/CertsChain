@@ -92,24 +92,42 @@ router.get('/certificate-chain', async function (req, res, next) {
     const certificates = await Certi.find({}).lean()
     const schools = await School.find({}).lean()
     const users = await User.find({}).lean()
+    const result = []
     for (const block of certificate.chain) {
-      if (block.hash === '#') {
-        block.createdAt = new Date('2022/06/16')
+      const { nonce, prehash, hash } = block
+      const itemObj = {
+        nonce,
+        prehash,
+        hash
+      }
+      if (hash === '#') {
+        itemObj.createdAt = new Date('2022/06/16')
       } else {
-        const { userId, courceId, schoolId } = block.certiData || {}
-        const cert = certificates.find(e => String(e.certinumber) === String(block.certiNo))
+        let certiNo
+        let certiData = {}
+        if (block.certiData) {
+          certiData = block.certiData || {}
+          certiNo = block.certiNo
+        } else if (block.certificate) {
+          certiData = block.certificate.certiData
+          certiNo = block.certificate.certiNo
+        }
+        const { userId, courceId, schoolId, certSrc } = certiData
+        const cert = certificates.find(e => String(e.certinumber) === String(certiNo))
         const user = users.find(e => String(e._id) === String(userId))
         const school = schools.find(e => String(e._id) === String(schoolId))
         if (school) {
           const cource = (school.cources || []).find(e => String(e._id) === String(courceId))
-          block.schoolName = school.name
-          block.courceName = cource && cource.name
+          itemObj.schoolName = school.name
+          itemObj.courceName = cource && cource.name
         }
-        block.createdAt = cert && cert.createdAt
-        block.ownerName = user && `${[user.firstName, user.lastName].filter(Boolean).join(' ')} (${user.username})`
+        itemObj.certSrc = certSrc
+        itemObj.createdAt = cert && cert.createdAt
+        itemObj.ownerName = user && `${[user.firstName, user.lastName].filter(Boolean).join(' ')} (${user.username})`
       }
+      result.push(itemObj)
     }
-    res.send(certificate.chain)
+    res.send(result)
   } catch (error) {
     console.log('error', error)
     next(error)
@@ -604,6 +622,8 @@ router.get('/exec-query-test', async function (req, res, next) {
     for (const cert of certs) {
       await Certi.findByIdAndRemove(cert._id)
     }
+    certificate.chain = [certificate.chain[0]]
+    certificate.pendingcertificate = []
     res.send({
       success: true
     })
@@ -636,7 +656,7 @@ router.get('/certificate/get-data-create', async function (req, res, next) {
         schoolObj.cources = (schoolObj.cources || []).reduce((_resultArr, courceObj) => {
           if ((courceObj.students || []).includes(String(userObj._id))) {
             if (userCertSchoolCourceIds.includes(`${schoolObj._id}-${courceObj._id}`)) {
-              courceObj.disable = true
+              courceObj.disabled = true
               courceObj.name = `${courceObj.name} (passed)`
               countDisableCources++
             }
@@ -681,6 +701,15 @@ const generateCertificate = async (data = {}) => {
       statusCode: 404,
       data: {
         status: 'User not found',
+      }
+    }
+  }
+  if (user.status === 'archived') {
+    return {
+      error: true,
+      statusCode: 400,
+      data: {
+        status: 'User is Archived',
       }
     }
   }
@@ -776,6 +805,7 @@ router.post('/certificate/create', async (req, res) => {
       userId,
       schoolId,
       courceId,
+      excludeStudents = [],
       isGenerateForCource
     } = req.body
     if (isGenerateForCource) {
@@ -791,18 +821,15 @@ router.post('/certificate/create', async (req, res) => {
           status: 'Cource not found',
         })
       }
-      for (const studentId of (cource.students || [])) {
-        const generateResult = await generateCertificate({
+      const studentIds = (cource.students || []).filter(studentId => !excludeStudents.includes(String(studentId)))
+      for (const studentId of studentIds) {
+        await generateCertificate({
           userId: studentId,
           schoolId,
           courceId
         })
-        const { error, data, statusCode } = generateResult
-        if (error && data && data.status !== 'Certificate Number Has been generated Already') {
-          res.status(statusCode)
-          return res.send(data)
-        }
       }
+      return res.send({success :true})
     } else {
       const generateResult = await generateCertificate({
         userId,
