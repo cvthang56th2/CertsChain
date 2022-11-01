@@ -162,6 +162,7 @@ export default {
       this.formData.cources = [...this.formData.cources]
     },
     async saveSchool () {
+      this.setLoading()
       try {
         const payload = {
           _id: this.formData._id,
@@ -185,6 +186,7 @@ export default {
           'error'
         );
       }
+      this.setLoading(false)
     }
   }
 }

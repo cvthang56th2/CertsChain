@@ -105,6 +105,7 @@ export default {
       this.$emit('update:modelValue', false)
     },
     async saveUser () {
+      this.setLoading()
       const api = this.formData._id ? 'update' : 'create'
       try {
         const payload = this.formData
@@ -126,6 +127,7 @@ export default {
           'error'
         );
       }
+      this.setLoading(false)
     }
   }
 }

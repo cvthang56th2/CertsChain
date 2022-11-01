@@ -89,8 +89,29 @@ router.get('/account-chain', async function (req, res, next) {
 })
 router.get('/certificate-chain', async function (req, res, next) {
   try {
+    const certificates = await Certi.find({}).lean()
+    const schools = await School.find({}).lean()
+    const users = await User.find({}).lean()
+    for (const block of certificate.chain) {
+      if (block.hash === '#') {
+        block.createdAt = new Date('2022/06/16')
+      } else {
+        const { userId, courceId, schoolId } = block.certiData || {}
+        const cert = certificates.find(e => String(e.certinumber) === String(block.certiNo))
+        const user = users.find(e => String(e._id) === String(userId))
+        const school = schools.find(e => String(e._id) === String(schoolId))
+        if (school) {
+          const cource = (school.cources || []).find(e => String(e._id) === String(courceId))
+          block.schoolName = school.name
+          block.courceName = cource && cource.name
+        }
+        block.createdAt = cert && cert.createdAt
+        block.ownerName = user && `${[user.firstName, user.lastName].filter(Boolean).join(' ')} (${user.username})`
+      }
+    }
     res.send(certificate.chain)
   } catch (error) {
+    console.log('error', error)
     next(error)
   }
 })
@@ -777,7 +798,7 @@ router.post('/certificate/create', async (req, res) => {
           courceId
         })
         const { error, data, statusCode } = generateResult
-        if (error && data?.status !== 'Certificate Number Has been generated Already') {
+        if (error && data && data.status !== 'Certificate Number Has been generated Already') {
           res.status(statusCode)
           return res.send(data)
         }

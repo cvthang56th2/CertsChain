@@ -1,16 +1,19 @@
 <template>
   <div>
-    <div class="relative">
-      <button @click="goTo('/verifier?tab=CertificateList')" class="absolute top-2 underline text-blue-700">&#8592; Back to Verifier Page</button>
-    </div>
     <h2 class="text-center text-2xl font-extrabold mb-4">Certificate Chain</h2>
     <div>
       <div v-for="(blockObj, bIndex) in certificateChain" :key="`block-certificate-${bIndex}`" class="w-[800px] rounded-md shadow-md p-3 mb-5 mx-auto bg-slate-50 text-gray-800"> 
         <div><strong>Block #:</strong>  {{ bIndex }}</div>
         <div><strong>Nonce #:</strong>  {{ blockObj.nonce }}</div>
-        <div><strong>Time #:</strong>  {{ blockObj.timestamp }}</div>
+        <div><strong>Time #:</strong>  {{ formatDate(blockObj.createdAt) }}</div>
         <div><strong>Previous Hash #:</strong>  {{ blockObj.prehash }}</div>
         <div><strong>Hash #:</strong>  {{ blockObj.hash }}</div>
+        <template v-if="blockObj.hash !== '#'">
+          <div><strong>Owner:</strong> {{ blockObj.ownerName }}</div>
+          <div><strong>School:</strong> {{ blockObj.schoolName }}</div>
+          <div><strong>Cource:</strong> {{ blockObj.courceName }}</div>
+          <div><strong>Certificate link:</strong> <a href="blockObj.certiData.certSrc" target="_blank" class="text-blue-500 hover:text-purple-500 underline">{{ blockObj.certiData.certSrc }}</a></div>
+        </template>
       </div>
     </div>
   </div>

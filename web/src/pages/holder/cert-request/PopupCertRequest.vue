@@ -111,6 +111,7 @@ export default {
       }
     },
     async saveCertificate () {
+      this.setLoading()
       try {
         const payload = {
           data: {
@@ -145,6 +146,7 @@ export default {
           'error'
         );
       }
+      this.setLoading(false)
     }
   }
 }

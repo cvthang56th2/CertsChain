@@ -95,6 +95,7 @@ export default {
       this.$emit('update:modelValue', false)
     },
     async addCources () {
+      this.setLoading()
       try {
         const payload = {
           userId: this.userObj._id,
@@ -119,6 +120,7 @@ export default {
           'error'
         );
       }
+      this.setLoading(false)
     }
   }
 }

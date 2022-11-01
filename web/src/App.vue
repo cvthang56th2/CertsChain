@@ -8,14 +8,23 @@
     </div>
     <router-view />
     
+    <div v-if="isLoading" class="w-screen h-screen fixed top-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,.3)] z-[9999]">
+      <div class="loader"></div>
+    </div>
   </div>
 </template>
 
 <script>
 import { LOGIN_USER_ID_KEY } from './constants'
 import Axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters({
+      isLoading: 'isLoading'
+    })
+  },
   async mounted () {
     const userId = this.$cookies.get(LOGIN_USER_ID_KEY)
     if (userId) {
@@ -56,5 +65,18 @@ input.vs__search {
 .vs__dropdown-option.vs__dropdown-option--selected {
   background-color: rgb(26, 166, 236);
   color: #fff
+}
+.loader {
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

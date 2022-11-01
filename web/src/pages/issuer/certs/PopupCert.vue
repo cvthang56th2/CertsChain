@@ -142,6 +142,7 @@ export default {
       }
     },
     async saveCertificate () {
+      this.setLoading()
       try {
         const payload = {
           ...JSON.parse(JSON.stringify(this.formData)),
@@ -174,6 +175,7 @@ export default {
           'error'
         );
       }
+      this.setLoading(false)
     }
   }
 }
