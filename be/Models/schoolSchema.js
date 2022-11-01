@@ -26,7 +26,8 @@ const Schoolschema = new Schema({
     name: String,
     teacherName: String,
     description: String,
-    time: String
+    time: String,
+    students: [String]
   }],
   status: {
     type: String,

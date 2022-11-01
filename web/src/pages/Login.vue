@@ -4,8 +4,9 @@
       class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"
     >
       <div
-        class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
+        class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0 relative"
       >
+        <button @click="goTo('/')" class="relative xl:top-2 xl:absolute block underline text-blue-700">&#8592; Select other user type</button>
         <img
           src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
           class="w-full"
@@ -13,7 +14,8 @@
         />
       </div>
       <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-        <form>
+        <h1 class="text-3xl mb-5 text-center">Login</h1>
+        <form @submit="login">
           <!-- Username input -->
           <div class="mb-6">
             <input

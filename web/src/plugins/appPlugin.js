@@ -31,9 +31,13 @@ export default {
         formatDate
       },
       data: () =>  ({
+        baseUrl: import.meta.env.VITE_BASE_URL,
         apiUrl: import.meta.env.VITE_API_URL
       }),
       methods: {
+        setLoading (value = true) {
+          this.$store.commit('SET_IS_LOADING', value)
+        },
         formatDate,
         downloadItem (url) {
           Axios.get(url, { responseType: 'blob' })

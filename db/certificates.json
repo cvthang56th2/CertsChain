@@ -1,0 +1,32 @@
+{ 
+    "_id" : ObjectId("62f90136296f201b1cd36e0f"), 
+    "status" : "active", 
+    "userId" : ObjectId("62f12433f16a293f8c47af4a"), 
+    "schoolId" : ObjectId("62f85ba8d94b351d000b1547"), 
+    "courceId" : ObjectId("62f85ba8d94b351d000b1548"), 
+    "certSrc" : "http://localhost:4000/certs/certificate-Lilah_Alexander-Đại_học_Nha_Trang-Thạc_sĩ_Công_nghệ_Thông_tin-2020_-_2022-1660485941198.pdf", 
+    "certinumber" : "60906530", 
+    "hash" : "00007385a25f6be3b277122f739e65e7f96ddeb1da85e8dbb859d9802ab9973c", 
+    "nonce" : "104775", 
+    "prehash" : "#", 
+    "blockindex" : "2", 
+    "createdAt" : ISODate("2022-08-14T14:05:42.290+0000"), 
+    "updatedAt" : ISODate("2022-08-14T18:09:56.949+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("62f9254375601a2ebc0178b5"), 
+    "status" : "active", 
+    "userId" : ObjectId("62f75176f3b5632d2cb33edd"), 
+    "schoolId" : ObjectId("62f85ba8d94b351d000b1547"), 
+    "courceId" : ObjectId("62f85ba8d94b351d000b1548"), 
+    "certSrc" : "http://localhost:4000/certs/certificate-Cao_Thắng-Đại_học_Nha_Trang-Thạc_sĩ_Công_nghệ_Thông_tin-2020_-_2022-1660495170202.pdf", 
+    "certinumber" : "37487150", 
+    "hash" : "00006c895f905b893aedfebda077f68f380d756bac6bfcd1c65004f773273b4b", 
+    "nonce" : "53657", 
+    "prehash" : "00007385a25f6be3b277122f739e65e7f96ddeb1da85e8dbb859d9802ab9973c", 
+    "blockindex" : "3", 
+    "createdAt" : ISODate("2022-08-14T16:39:31.053+0000"), 
+    "updatedAt" : ISODate("2022-08-14T16:39:31.053+0000"), 
+    "__v" : NumberInt(0)
+}

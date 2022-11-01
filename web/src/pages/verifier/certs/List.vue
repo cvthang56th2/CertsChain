@@ -4,29 +4,19 @@
     <div class="flex justify-between items-center">
       <div>
         <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="goTo('/verify-certificate')">Verify Certificate</button>
-        <!-- <button class="ml-4 border-2 px-5 py-2 rounded-md cursor-pointer border-blue-400" @click="goTo('/certificate-chain')">Certificate Chain</button> -->
+        <!-- <button class="ml-4 border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400" @click="goTo('/certificate-chain')">Certificate Chain</button> -->
         <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
       </div>
       <div class="flex">
         <div>
-          <select v-model="schoolId" class="border-2 p-2">
-            <option value="">Select School</option>
-            <option v-for="(schoolObj, sIndex) in schools" :key="`school-option-${sIndex}`" :value="schoolObj._id">
-              {{ schoolObj.name }}
-            </option>
-          </select>
+          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="schoolId" :options="schools" label="name" :reduce="e => e._id" class="w-[300px]" @update:modelValue="courceId = null" placeholder="School" />
         </div>
-        <div v-if="schoolId" class="ml-2">
-          <select v-model="courceId" class="border-2 p-2">
-            <option value="">Select Cource</option>
-            <option v-for="(courceObj, cIndex) in cources" :key="`cource-option-${cIndex}`" :value="courceObj._id">
-              {{ [courceObj.name, courceObj.time].filter(Boolean).join(' - ') }}
-            </option>
-          </select>
+        <div class="ml-2">
+          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courceId" :options="cources" label="name" :reduce="e => e._id" class="w-[300px]" placeholder="Cource" :disabled="!schoolId" />
         </div>
       </div>
     </div>
-    <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 mb-4">
+    <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mb-4">
       <div class="hidden xl:flex border-b-2 py-2 font-bold">
         <div class="xl:w-1/5 px-2">Certificate Number</div>
         <div class="xl:w-1/5 px-2">User</div>
@@ -63,14 +53,18 @@
 <script>
 import Axios from 'axios'
 
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
+
 export default {
   components: {
+    vSelect
   },
   data: () => ({
     certs: [],
     schools: [],
-    schoolId: '',
-    courceId: '',
+    schoolId: null,
+    courceId: null,
     keyword: null
   }),
   computed: {

@@ -214,7 +214,7 @@ const generateCertPdf = async (certiData = {}) => {
   jumpLine(doc, 4);
 
   // Validation link
-  const link = `http://localhost:4000/certs/${certFileName}`;
+  const link = `${process.env.BASE_URL}/certs/${certFileName}`;
 
   const linkWidth = doc.widthOfString(link);
   const linkHeight = doc.currentLineHeight();

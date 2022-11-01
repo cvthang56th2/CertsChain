@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="h-full flex flex-col">
     <h2 class="text-center text-2xl font-extrabold mb-4">Profile</h2>
-    <div class="container mx-auto my-5 xl:p-5">
-      <div class="md:flex no-wrap md:-mx-2">
+    <div class="container mx-auto my-5 xl:p-5 flex-1">
+      <div class="md:flex no-wrap md:-mx-2 h-full">
         <!-- Left Side -->
-        <div class="w-full md:w-3/12 md:mx-2">
+        <div class="w-full md:w-3/12 md:mx-2 shadow-md">
           <!-- Profile Card -->
           <div class="bg-white p-3 border-t-4 border-green-400">
             <div class="image overflow-hidden">
@@ -47,10 +47,10 @@
           <!-- End of friends card -->
         </div>
         <!-- Right Side -->
-        <div class="w-full md:w-9/12 mx-2 h-64">
+        <div class="w-full md:w-9/12 mx-2 flex flex-col">
           <!-- Profile tab -->
           <!-- About Section -->
-          <div class="bg-white p-3 shadow-sm rounded-sm">
+          <div class="bg-white p-3 shadow-md rounded-sm">
             <div
               class="flex items-center space-x-2 font-semibold text-gray-900 leading-8"
             >
@@ -130,13 +130,13 @@
             <template v-if="editable">
               <div v-if="isEditting" class="flex">
                 <button
-                  class="mr-2 block w-full text-red-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                  class="mr-2 block w-full text-red-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                   @click="isEditting = false"
                 >
                   Cancel
                 </button>
                 <button
-                  class="ml-2 block w-full text-green-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                  class="ml-2 block w-full text-green-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                   @click="saveUser"
                 >
                   Save
@@ -144,7 +144,7 @@
               </div>
               <button
                 v-else
-                class="block w-full text-blue-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                class="block w-full text-blue-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                 @click="editUser"
               >
                 Edit
@@ -155,9 +155,9 @@
 
           <div class="my-4"></div>
 
-          <!-- Experience and education -->
-          <div class="bg-white p-3 shadow-sm rounded-sm">
-            <div class="grid grid-cols-2 gap-x-10">
+          <!-- Experience, education and Cources -->
+          <div class="bg-white p-3 shadow-md rounded-sm flex-1">
+            <div class="grid grid-cols-3 gap-x-10">
               <div>
                 <div
                   class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
@@ -195,7 +195,7 @@
                 </ul>
                 <button
                   v-if="isEditting"
-                  class="block w-full text-green-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                  class="block w-full text-green-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                   @click="addExp"
                 >
                   Add
@@ -243,14 +243,53 @@
                 </ul>
                 <button
                   v-if="isEditting"
-                  class="block w-full text-green-800 text-sm font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                  class="block w-full text-green-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
                   @click="addEducation"
                 >
                   Add
                 </button>
               </div>
+              <div>
+                <div
+                  class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
+                >
+                  <span clas="text-green-500">
+                    <svg
+                      class="h-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
+                      <path
+                        fill="#fff"
+                        d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+                      />
+                    </svg>
+                  </span>
+                  <span class="tracking-wide">Joined Cources</span>
+                </div>
+                <ul class="list-inside space-y-2">
+                  <li v-for="(courcesObj, cIndex) in joinedCources" :key="`user-cource-${cIndex}`">
+                    <div class="flex justify-between">
+                      <div class="flex-1 pr-10">
+                        <div class="text-blue-600">{{ courcesObj.schoolName }}</div>
+                        <div class="text-teal-600">{{ courcesObj.courceName }}</div>
+                        <div class="text-gray-500 text-xs">{{ courcesObj.courceTime }}</div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <!-- End of Experience and education grid -->
+            <!-- End of Experience, Education and Cources grid -->
           </div>
           <!-- End of profile tab -->
         </div>
@@ -279,6 +318,7 @@ export default {
       experiences: [{}],
       educations: [{}]
     },
+    joinedCources: [],
     formData: {},
     isEditting: false
   }),
@@ -297,7 +337,22 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getJoinedCources()
+  },
   methods: {
+    async getJoinedCources() {
+      try {
+        const { data } = await Axios.get(`${this.apiUrl}/user/${this.userData._id}/get-joined-cources`)
+        this.joinedCources = data.joinedCources || []
+      } catch (error) {
+        this.$swal(
+          'Error',
+          error,
+          'error'
+        );
+      }
+    },
     async changeAvatar (e) {
       try {
         if (!e.target.files.length) {

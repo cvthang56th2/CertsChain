@@ -26,7 +26,7 @@ Blockchain.prototype.getLastBlock = function () {
   return this.chain[this.chain.length - 1]
 }
 
-Blockchain.prototype.createNewcertificate = function (certiNo, certiData) {
+Blockchain.prototype.addPendingCertificate = function (certiNo, certiData) {
   const newcertificate = {
     certiNo,
     certiData,

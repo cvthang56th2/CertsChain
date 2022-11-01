@@ -1,3 +1,4 @@
+require('dotenv').config();
 const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
@@ -23,7 +24,7 @@ app.set('view engine', 'ejs')
 const cors = require('cors');
 
 const corsOption = {
-    origin: ['http://localhost:3000'],
+    origin: '*',
 };
 app.use(cors(corsOption));
 //if you want in every domain then

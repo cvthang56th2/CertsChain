@@ -4,7 +4,7 @@
     <div class="xl:flex flex-wrap">
       <template v-if="computedCerts.length">
         <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="p-4 xl:w-1/3">
-          <div class="px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800 ">
+          <div class="px-8 py-4 bg-white rounded-md shadow-md dark:bg-gray-800 ">
             <div class="flex items-center justify-between">
               <span class="text-sm font-light text-gray-600 dark:text-gray-400">{{ formatDate(certObj.createdAt, { format: 'DD/MM/YYYY' }) }}</span> 
               <a class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform rounded capitalize" :class="certObj.status === 'archived' ? 'bg-red-600' : 'bg-green-600'">{{ certObj.status }}</a>
@@ -70,15 +70,37 @@ export default {
   },
   methods: {
     shareCertificate (certObj) {
-      navigator.clipboard.writeText(`Certificate Number: ${certObj.certinumber}\nCertificate file: ${certObj.certSrc}\nVerify Certificate at this link: http://localhost:3000/#/verify-certificate\nUser Profile: http://localhost:3000/#/user/${this.userInfo._id}`);
       this.$swal({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        icon: 'success',
-        title: 'Share info has been copied to clipboard!',
+        title: 'Share Certificate Info',
+        icon: 'info',
+        html:`
+        <div class="text-left">
+          <div>User Profile: <a class="text-blue-600 hover:text-blue-400" href="${this.baseUrl}/user/${this.userInfo._id}" target="_blank" />${this.baseUrl}/user/${this.userInfo._id}</a></div>
+          <div>Certificate Number: ${certObj.certinumber}</div>
+          <div>Certificate file: <a class="text-blue-600 hover:text-blue-400" href="${certObj.certSrc}" target="_blank" />${certObj.certSrc}</a></div>
+          <div>Verify Certificate at this link: <a class="text-blue-600 hover:text-blue-400" href="${this.baseUrl}/verify-certificate" target="_blank" />${this.baseUrl}/verify-certificate</a></div>
+        </div>
+        `,
+        showCloseButton: true,
+        showCancelButton: false,
+        focusConfirm: false,
+        confirmButtonText:
+          'Copy to Clipboard',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        cancelButtonAriaLabel: 'Thumbs down'
+      }).then(res => {
+        if (res.isConfirmed) {
+          navigator.clipboard.writeText(`User Profile: ${this.baseUrl}/user/${this.userInfo._id}\nCertificate Number: ${certObj.certinumber}\nCertificate file: ${certObj.certSrc}\nVerify Certificate at this link: ${this.baseUrl}/verify-certificate`);
+          this.$swal({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            icon: 'success',
+            title: 'Share info has been copied to clipboard!',
+          })
+        }
       })
     },
     async getCerts() {

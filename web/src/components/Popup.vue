@@ -3,7 +3,7 @@
     <div v-if="modelValue" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
       <div class="`relative my-6 mx-auto" :style="`width: ${width}`">
         <!--content-->
-        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <div class="border-0 rounded-md shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
           <!--header-->
           <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
             <h3 class="text-3xl font-semibold">
@@ -16,7 +16,7 @@
             </button>
           </div>
           <!--body-->
-          <div class="relative p-6 flex-auto">
+          <div class="relative p-6 flex-auto max-h-[75vh] overflow-y-auto">
             <slot />
           </div>
           <!--footer-->
@@ -24,7 +24,7 @@
             <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="hide()">
               Close
             </button>
-            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="onClickSave()">
+            <button class="text-green-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="onClickSave()">
               Save Changes
             </button>
           </div>

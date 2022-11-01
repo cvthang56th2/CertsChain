@@ -1,38 +1,31 @@
 <template>
   <Popup v-model="modelValue" @hide="hide" :title="certObj._id ? 'Edit Cert' : 'Add Cert'" width="60%" :save="saveCertificate" :closeOnSave="false" ref="popup">
     <div class="text-gray-700 popup-cert">
-      <!-- <div class="flex items-center">
+      <div class="flex items-center">
         <div class="px-4 py-2 font-semibold w-1/3">Is Generate for Cource?</div>
         <div>
-          <toggle v-model="isGenerateForCource" :trueValue="true" :falseValue="false" offLabel="Yes" onLabel="No" />
+          <toggle v-model="isGenerateForCource" :trueValue="true" :falseValue="false" offLabel="Yes" onLabel="No"  @update:modelValue="onChangeToggle" />
         </div>
-      </div> -->
+      </div>
       <div v-if="!isGenerateForCource" class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">User</div>
-        <select v-model="formData.userId" class="border-2 p-2 m w-full" @change="onChangeUser">
-          <!-- <option :value="undefined">Select User</option> -->
-          <option v-for="(userObj, uIndex) in users" :key="`user-option-${uIndex}`" :value="userObj._id" :disabled="userObj.disabled" :class="userObj.disabled ? 'bg-gray-200' : ''">
-            {{ [userObj.username, [userObj.firstName, userObj.lastName].filter(Boolean).join(' ')].join(' - ') }}
-          </option>
-        </select>
+        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.userId" :options="users" :reduce="e => e._id" class="w-full" @update:modelValue="onChangeUser" />
       </div>
       <div v-if="isGenerateForCource || (!isGenerateForCource && formData.userId)" class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">School</div>
-        <select v-model="formData.schoolId" class="border-2 p-2 m w-full">
-          <!-- <option :value="undefined">Select school</option> -->
-          <option v-for="(schoolObj, sIndex) in schools" :key="`school-option-${sIndex}`" :value="schoolObj._id" :disabled="schoolObj.disabled" :class="schoolObj.disabled ? 'bg-gray-200' : ''">
-            {{ schoolObj.name }}
-          </option>
-        </select>
+        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.schoolId" :options="schools" :reduce="e => e._id" class="w-full" @update:modelValue="onChangeSchool">
+          <template #no-options>
+            User not join any School
+          </template>
+        </v-select>
       </div>
       <div v-if="(isGenerateForCource || (!isGenerateForCource && formData.userId)) && formData.schoolId" class="flex mt-4">
         <div class="px-4 py-2 font-semibold w-1/3">Cource</div>
-        <select v-model="formData.courceId" class="border-2 p-2 m w-full">
-          <!-- <option :value="undefined">Select cource</option> -->
-          <option v-for="(courceObj, cIndex) in cources" :key="`cource-option-${cIndex}`" :value="courceObj._id" :disabled="courceObj.disabled" :class="courceObj.disabled ? 'bg-gray-200' : ''">
-            {{ [courceObj.name, courceObj.time].filter(Boolean).join(' - ') }}
-          </option>
-        </select>
+        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.courceId" :options="cources" :reduce="e => e._id" class="w-full">
+          <template #no-options>
+            User not join any cources at this School.
+          </template>
+        </v-select>
       </div>
     </div>
   </Popup>
@@ -42,10 +35,13 @@
 <script>
 import Axios from 'axios'
 import Toggle from '@vueform/toggle'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
 
 export default {
   components: {
-    Toggle
+    Toggle,
+    vSelect
   },
   props: {
     modelValue: {
@@ -80,25 +76,62 @@ export default {
         const selectedUserObj = this.users.find(e => e._id === this.formData.userId) || {}
         result = (selectedUserObj.dropdownSchools || [])
       }
-      return result
+      return result.map(e => ({
+        ...e,
+        label: e.name
+      }))
+    },
+    availabelSchools () {
+      return this.schools.filter(e => !e.disabled)
     },
     cources () {
-      return (this.schools.find(e => e._id === this.formData.schoolId) || {}).cources || []
+      return ((this.schools.find(e => e._id === this.formData.schoolId) || {}).cources || []).map(courceObj => ({
+        ...courceObj,
+        label: [courceObj.name, courceObj.time].filter(Boolean).join(' - ')
+      }))
+    },
+    availabelCources () {
+      return this.cources.filter(e => !e.disabled)
     }
   },
   methods: {
+    onChangeToggle () {
+      this.formData = {}
+    },
     hide() {
       this.$emit('update:modelValue', false)
     },
-    onChangeUser () {
+    async onChangeUser () {
       this.formData.schoolId = null
       this.formData.courceId = null
+      await this.$nextTick(() => {
+        if (this.availabelSchools.length === 1) {
+          this.formData.schoolId = this.availabelSchools[0]._id
+        }
+      })
+      await this.$nextTick(() => {
+        if (this.availabelCources.length === 1) {
+          this.formData.courceId = this.availabelCources[0]._id
+        }
+      })
+      this.formData = { ...this.formData }
+    },
+    async onChangeSchool () {
+      this.formData.courceId = null
+      await this.$nextTick(() => {
+        if (this.availabelCources.length === 1) {
+          this.formData.courceId = this.availabelCources[0]._id
+        }
+      })
       this.formData = { ...this.formData }
     },
     async getDataCreate() {
       try {
         const { data } = await Axios.get(`${this.apiUrl}/certificate/get-data-create`)
-        this.users = (data.users || [])
+        this.users = (data.users || []).map(userObj => ({
+          ...userObj,
+          label: `${[userObj.firstName, userObj.lastName].filter(Boolean).join(' ')} (${userObj.username})`
+        }))
         this.listSchool = data.schools || []
       } catch (error) {
         this.$swal(
@@ -109,6 +142,7 @@ export default {
       }
     },
     async saveCertificate () {
+      this.setLoading()
       try {
         const payload = {
           ...JSON.parse(JSON.stringify(this.formData)),
@@ -141,6 +175,7 @@ export default {
           'error'
         );
       }
+      this.setLoading(false)
     }
   }
 }

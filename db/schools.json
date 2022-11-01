@@ -1,0 +1,28 @@
+{ 
+    "_id" : ObjectId("62f85ba8d94b351d000b1547"), 
+    "status" : "active", 
+    "cources" : [
+        {
+            "_id" : ObjectId("62f85ba8d94b351d000b1548"), 
+            "name" : "Thạc sĩ Công nghệ Thông tin", 
+            "teacherName" : "TS. Phạm Thị Thu Thúy", 
+            "time" : "2020 - 2022", 
+            "description" : "Tiền thân của Khoa Công nghệ Thông tin Trường Đại Học Nha Trang là bộ môn Tin học. Năm 1993, ngành Công nghệ Thông tin được đào tạo tại Trường Đại Học Nha Trang với sự liên kết đào tạo giữa Trường Đại Học Nha Trang và Trường Đại Học Bách Khoa Hà Nội. Sự liên kết này đã tạo điều kiện thúc đẩy công tác đào tạo ngành Công nghệ thông tin Trường Đại Học Nha Trang phát triển."
+        }, 
+        {
+            "_id" : ObjectId("62f85ba8d94b351d000b1549"), 
+            "name" : "Thạc sĩ Quản trị kinh doanh", 
+            "description" : "Năm 1996, Khoa Kinh tế chính thức mở chuyên ngành đào tạo Quản trị kinh doanh và Bộ môn Quản trị kinh doanh chính thức được thành lập. Năm 2008, bắt đầu đào tạo bậc Thạc sĩ chuyên ngành Quản trị kinh doanh.", 
+            "teacherName" : "PGS.TS Hồ Huy Tựu", 
+            "time" : "2020 - 2022"
+        }
+    ], 
+    "name" : "Đại học Nha Trang", 
+    "directorName" : "PSG.TS Trang Sĩ Trung", 
+    "address" : "2 Nguyễn Đình Chiểu, Vĩnh Thọ, Nha Trang, Khánh Hòa 650000", 
+    "contact" : "0258 3831 149", 
+    "description" : "Trường Đại học Nha Trang là một trong ba trường đại học đa ngành đứng đầu về đào tạo tại miền Trung Việt Nam, trường đã được hệ thống Đại học Quốc gia kiểm định và chứng nhận về chất lượng đào tạo của mình vào năm 2017. Theo bảng xếp hạng của Webometrics, trường đứng thứ 30 Việt Nam.", 
+    "createdAt" : ISODate("2022-08-14T02:19:20.501+0000"), 
+    "updatedAt" : ISODate("2022-08-14T02:19:20.501+0000"), 
+    "__v" : NumberInt(0)
+}

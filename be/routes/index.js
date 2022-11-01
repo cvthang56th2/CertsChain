@@ -89,8 +89,29 @@ router.get('/account-chain', async function (req, res, next) {
 })
 router.get('/certificate-chain', async function (req, res, next) {
   try {
+    const certificates = await Certi.find({}).lean()
+    const schools = await School.find({}).lean()
+    const users = await User.find({}).lean()
+    for (const block of certificate.chain) {
+      if (block.hash === '#') {
+        block.createdAt = new Date('2022/06/16')
+      } else {
+        const { userId, courceId, schoolId } = block.certiData || {}
+        const cert = certificates.find(e => String(e.certinumber) === String(block.certiNo))
+        const user = users.find(e => String(e._id) === String(userId))
+        const school = schools.find(e => String(e._id) === String(schoolId))
+        if (school) {
+          const cource = (school.cources || []).find(e => String(e._id) === String(courceId))
+          block.schoolName = school.name
+          block.courceName = cource && cource.name
+        }
+        block.createdAt = cert && cert.createdAt
+        block.ownerName = user && `${[user.firstName, user.lastName].filter(Boolean).join(' ')} (${user.username})`
+      }
+    }
     res.send(certificate.chain)
   } catch (error) {
+    console.log('error', error)
     next(error)
   }
 })
@@ -118,7 +139,131 @@ router.get('/user/:_id', async function (req, res, next) {
   }
 })
 
-router.post('/user/signup', (req, res, next) => {
+router.get('/user/:_id/get-joined-cources/', async function (req, res, next) {
+  try {
+    const schools = await School.find({}).lean()
+    const { _id } = req.params
+    const joinedCources = schools.reduce((resultArr, schoolObj) => {
+      for (const courceObj of (schoolObj.cources || [])) {
+        if ((courceObj.students || []).includes(String(_id))) {
+          resultArr.push({
+            schoolId: schoolObj._id,
+            schoolName: schoolObj.name,
+            courceId: courceObj._id,
+            courceName: courceObj.name,
+            courceTime: courceObj.time
+          })
+        }
+      }
+      return resultArr
+    }, [])
+    res.send({
+      joinedCources
+    })
+  } catch (error) {
+    console.log('error', error)
+    next(error)
+  }
+})
+
+router.get('/user/:_id/get-data-update-cources/', async function (req, res, next) {
+  try {
+    const schools = await School.find({}).lean()
+    const { _id } = req.params
+    const joinedCources = []
+    for (const schoolObj of schools) {
+      const joinedCourceIds = (schoolObj.cources || []).reduce((resultArr, courceObj) => {
+        if ((courceObj.students || []).includes(String(_id))) {
+          resultArr.push(String(courceObj._id))
+        }
+        return resultArr
+      }, [])
+      if (joinedCourceIds.length) {
+        joinedCources.push({
+          schoolId: String(schoolObj._id),
+          courceIds: joinedCourceIds
+        })
+      }
+    }
+    res.send({
+      joinedCources,
+      schools
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+router.post('/user/update-cources', async (req, res, next) => {
+  try {
+    const {
+      userId,
+      data,
+      oldJoined
+    } = req.body
+    const user = await User.findOne({ _id: userId }).select('-password').lean()
+    if (!user) {
+      res.status(404)
+      return res.send({
+        status: 'User not found',
+      })
+    }
+    const schools = await School.find({}).lean()
+    //reset
+    for (const itemObj of (oldJoined || [])) {
+      const { schoolId, courceIds = [] } = itemObj || {}
+      const schoolObj = schools.find(e => String(e._id) === schoolId)
+      
+      if (!schoolObj) {
+        res.status(404)
+        return res.send({
+          status: 'School not found',
+        })
+      }
+      for (const courceId of courceIds) {
+        const courceObj = (schoolObj.cources || []).find(e => String(e._id) === courceId)
+        if (courceObj) {
+          const studentIndex = (courceObj.students || []).findIndex(id => String(id) === userId)
+          if (studentIndex !== -1) {
+            courceObj.students.splice(studentIndex, 1)
+          }
+        }
+      }
+      await School.findByIdAndUpdate(schoolObj._id, {
+        cources: schoolObj.cources
+      })
+    }
+    //pick again
+    for (const itemObj of (data || [])) {
+      const { schoolId, courceIds = [] } = itemObj || {}
+      const schoolObj = schools.find(e => String(e._id) === schoolId)
+      if (!schoolObj) {
+        res.status(404)
+        return res.send({
+          status: 'School not found',
+        })
+      }
+      for (const courceId of courceIds) {
+        const courceObj = (schoolObj.cources || []).find(e => String(e._id) === courceId)
+        if (courceObj) {
+          courceObj.students = courceObj.students || []
+          courceObj.students.push(userId)
+        }
+      }
+      await School.findByIdAndUpdate(schoolObj._id, {
+        cources: schoolObj.cources
+      })
+    }
+    return res.send({
+      success: true
+    })
+  } catch (err) {
+    console.log(err)
+    return res.send({
+      status: 'error try again!!!',
+    })
+  }
+})
+router.post('/user/create', (req, res, next) => {
   const {
     username,
     password,
@@ -453,6 +598,20 @@ router.get('/certificate/list', async function (req, res, next) {
   }
 })
 
+router.get('/exec-query-test', async function (req, res, next) {
+  try {
+    const certs = await Certi.find({})
+    for (const cert of certs) {
+      await Certi.findByIdAndRemove(cert._id)
+    }
+    res.send({
+      success: true
+    })
+  } catch (error) {
+    console.log('error', error)
+    next(error)
+  }
+})
 router.get('/certificate/get-data-create', async function (req, res, next) {
   try {
     const certs = await Certi.find({}).lean()
@@ -474,17 +633,24 @@ router.get('/certificate/get-data-create', async function (req, res, next) {
       }
       userObj.dropdownSchools = JSON.parse(JSON.stringify(schools)).reduce((resultArr, schoolObj) => {
         let countDisableCources = 0
-        schoolObj.cources = (schoolObj.cources || []).map(courceObj => {
-          if (userCertSchoolCourceIds.includes(`${schoolObj._id}-${courceObj._id}`)) {
-            courceObj.disabled = true
-            countDisableCources++
+        schoolObj.cources = (schoolObj.cources || []).reduce((_resultArr, courceObj) => {
+          if ((courceObj.students || []).includes(String(userObj._id))) {
+            if (userCertSchoolCourceIds.includes(`${schoolObj._id}-${courceObj._id}`)) {
+              courceObj.disable = true
+              courceObj.name = `${courceObj.name} (passed)`
+              countDisableCources++
+            }
+            _resultArr.push(courceObj)
           }
-          return courceObj
-        })
-        if (countDisableCources === schoolObj.cources.length) {
-          schoolObj.disabled = true
+          return _resultArr
+        }, [])
+        if (schoolObj.cources.length) {
+          if (countDisableCources === schoolObj.cources.length) {
+            schoolObj.disabled = true
+            schoolObj.name = `${schoolObj.name} (all passed)`
+          }
+          resultArr.push(schoolObj)
         }
-        resultArr.push(schoolObj)
         return resultArr
       }, [])
     }
@@ -538,6 +704,15 @@ const generateCertificate = async (data = {}) => {
       }
     }
   }
+  if (!(cource.students || []).includes(userId)) {
+    return {
+      error: true,
+      statusCode: 404,
+      data: {
+        status: 'Student not join this Cource'
+      }
+    }
+  }
   const certiData = {
     userId,
     schoolId,
@@ -556,7 +731,7 @@ const generateCertificate = async (data = {}) => {
   }
   const certSrc = await generateCertPdf({ user, school, cource })
   certiData.certSrc = certSrc
-  certificate.createNewcertificate(certiNo, certiData)
+  certificate.addPendingCertificate(certiNo, certiData)
   const blockdata = certificate.pendingcertificate[0].block
   const prehash = certificate.getLastBlock()['hash']
 
@@ -600,18 +775,49 @@ router.post('/certificate/create', async (req, res) => {
     const {
       userId,
       schoolId,
-      courceId
+      courceId,
+      isGenerateForCource
     } = req.body
-    const generateResult = await generateCertificate({
-      userId,
-      schoolId,
-      courceId
-    })
-    const { error, data, statusCode } = generateResult
-    if (error) {
-      res.status(statusCode)
+    if (isGenerateForCource) {
+      const school = await School.findOne({ _id: schoolId })
+      if (!school) {
+        return res.send({
+          status: 'School not found',
+        })
+      }
+      const cource = (school.cources || []).find(e => String(e._id) === courceId)
+      if (!cource) {
+        return res.send({
+          status: 'Cource not found',
+        })
+      }
+      for (const studentId of (cource.students || [])) {
+        const generateResult = await generateCertificate({
+          userId: studentId,
+          schoolId,
+          courceId
+        })
+        const { error, data, statusCode } = generateResult
+        if (error && data && data.status !== 'Certificate Number Has been generated Already') {
+          res.status(statusCode)
+          return res.send(data)
+        }
+      }
+    } else {
+      const generateResult = await generateCertificate({
+        userId,
+        schoolId,
+        courceId
+      })
+      const { error, data, statusCode } = generateResult
+      if (error) {
+        res.status(statusCode)
+        return res.send(data)
+      }
     }
-    return res.send(data)
+    return res.send({
+      success: true
+    })
   } catch (error) {
     console.log('error', error)
     res.status(500)
