@@ -157,7 +157,7 @@
 
           <!-- Experience, education and Cources -->
           <div class="bg-white p-3 shadow-md rounded-sm flex-1">
-            <div class="grid grid-cols-3 gap-x-10">
+            <div class="xl:grid xl:grid-cols-3 gap-x-10">
               <div>
                 <div
                   class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"

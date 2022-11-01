@@ -1,16 +1,16 @@
 <template>
   <div>
     <h2 class="text-center text-2xl font-extrabold mb-4">List Certs</h2>
-    <div class="flex justify-between items-center">
-      <div>
+    <div class="flex justify-between items-center flex-col xl:flex-row">
+      <div class="flex flex-col xl:flex-row">
         <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="isShowPopupCert = true">Add Cert</button>
-        <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
+        <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="mt-2 xl:mt-0 xl:ml-4 border-2 px-2 rounded-md">
       </div>
-      <div class="flex">
-        <div>
+      <div class="flex flex-col xl:flex-row">
+        <div class="mt-2 xl:mt-0">
           <v-select :selectable="e => e && !e.disabled" appendToBody v-model="schoolId" :options="schools" label="name" :reduce="e => e._id" class="w-[300px]" @update:modelValue="courceId = null" placeholder="School" />
         </div>
-        <div class="ml-2">
+        <div class="mt-2 xl:mt-0 xl:ml-2">
           <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courceId" :options="cources" label="name" :reduce="e => e._id" class="w-[300px]" placeholder="Cource" :disabled="!schoolId" />
         </div>
       </div> 

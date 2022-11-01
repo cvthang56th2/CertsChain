@@ -1,15 +1,15 @@
 <template>
   <div>
     <h2 class="text-center text-2xl font-extrabold mb-4">List Certificate Requests</h2>
-    <div class="flex justify-between items-center">
+    <div class="flex flex-col xl:flex-row justify-between items-center">
       <div>
         <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="ml-4 border-2 px-2 rounded-md">
       </div>
-      <div class="flex">
-        <div>
+      <div class="flex flex-col xl:flex-row">
+        <div class="mt-2 xl:mt-0">
           <v-select :selectable="e => e && !e.disabled" appendToBody v-model="schoolId" :options="schools" label="name" :reduce="e => e._id" class="w-[300px]" @update:modelValue="courceId = null" placeholder="School" />
         </div>
-        <div class="ml-2">
+        <div class="mt-2 xl:mt-0 xl:ml-2">
           <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courceId" :options="cources" label="name" :reduce="e => e._id" class="w-[300px]" placeholder="Cource" :disabled="!schoolId" />
         </div>
       </div>
@@ -31,11 +31,13 @@
           <div class="xl:w-1/5 px-2 capitalize"><b class="xl:hidden">Status:</b> {{ certRequestObj.status }}</div>
           <div class="mb-10 xl:mb-0 xl:w-1/5 px-2">
             <b class="xl:hidden">Actions:</b>
-            <template v-if="!certRequestObj.status || certRequestObj.status === 'pending'">
-              <button class="px-2 py-1 rounded-md cursor-pointer bg-green-600 text-white" @click="changeStatus(certRequestObj._id, 'approved')">Approve</button>
-              <button class="px-2 py-1 ml-4 rounded-md cursor-pointer bg-red-600 text-white" @click="changeStatus(certRequestObj._id, 'denied')">Deny</button>
-            </template>
-            <span v-else class="capitalize px-2 py-1 rounded-sm text-white" :class="certRequestObj.status === 'approved' ? 'bg-green-600' : 'bg-red-600'">{{ certRequestObj.status }}</span>
+            <div>
+              <template v-if="!certRequestObj.status || certRequestObj.status === 'pending'">
+                <button class="px-2 py-1 rounded-md cursor-pointer bg-green-600 text-white" @click="changeStatus(certRequestObj._id, 'approved')">Approve</button>
+                <button class="px-2 py-1 ml-4 rounded-md cursor-pointer bg-red-600 text-white" @click="changeStatus(certRequestObj._id, 'denied')">Deny</button>
+              </template>
+              <span v-else class="capitalize px-2 py-1 rounded-sm text-white" :class="certRequestObj.status === 'approved' ? 'bg-green-600' : 'bg-red-600'">{{ certRequestObj.status }}</span>
+            </div>
           </div>
         </div>
       </template>
