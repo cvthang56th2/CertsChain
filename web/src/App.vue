@@ -62,6 +62,11 @@ input.vs__search {
   padding-top: 7px !important;
   padding-bottom: 7px !important;
 }
+.vs__dropdown-option.vs__dropdown-option--selected:hover,
+.vs__dropdown-option:hover {
+  background-color: rgb(26, 96, 236);
+  color: #fff;
+}
 .vs__dropdown-option.vs__dropdown-option--selected {
   background-color: rgb(26, 166, 236);
   color: #fff

@@ -38,7 +38,10 @@
           <div class="xl:mt-0 xl:w-1/12 whitespace-pre-wrap px-2">
             <b class="xl:hidden">Actions: </b>
             <div>
-              <button class="border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
+              <button class="border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400 w-full" @click="editSchool(schoolObj)">Edit</button>
+            </div>
+            <div>
+              <button class="mt-2 px-2 py-1 rounded-md cursor-pointer bg-blue-400 text-white w-full" @click="editSchoolCources(schoolObj)">Cources Manager</button>
             </div>
           </div>
         </div>
@@ -49,28 +52,37 @@
     </div>
 
     <PopupSchool v-model="isShowPopupSchool" @saved="getSchools()" :schoolObj="selectedSchool" />
+    <PopupSchoolCources v-model="isShowPopupSchoolCources" @saved="getSchools()" :schoolObj="selectedSchool" />
   </div>
 </template>
 <style src="@vueform/toggle/themes/default.css"></style>
 
 <script>
 import PopupSchool from './PopupSchool.vue'
+import PopupSchoolCources from './PopupSchoolCources.vue'
 import Axios from 'axios'
 import Toggle from '@vueform/toggle'
 
 export default {
   components: {
     PopupSchool,
+    PopupSchoolCources,
     Toggle
   },
   data: () => ({
     isShowPopupSchool: false,
+    isShowPopupSchoolCources: false,
     schools: [],
     keyword: null,
     selectedSchool: {},
   }),
   watch: {
     isShowPopupSchool (v) {
+      if (!v) {
+        this.selectedSchool = {}
+      }
+    },
+    isShowPopupSchoolCources (v) {
       if (!v) {
         this.selectedSchool = {}
       }
@@ -128,6 +140,10 @@ export default {
     editSchool(schoolObj) {
       this.selectedSchool = schoolObj
       this.isShowPopupSchool = true
+    },
+    editSchoolCources(schoolObj) {
+      this.selectedSchool = schoolObj
+      this.isShowPopupSchoolCources = true
     }
   }
 }
