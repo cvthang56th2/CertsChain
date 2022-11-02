@@ -5,9 +5,10 @@
         <div class="font-bold text-2xl mb-4">List Cources in {{ formData.name }}</div>
       </div>
       <div v-for="(courceObj, cIndex) in formData.cources" :key="`user-cource-${cIndex}`" class="shadow-md border-t-[1px] mb-4 p-4 relative">
-        <div class="py-2 font-semibold text-center border-b-2 mb-4">Cource #{{cIndex + 1}}</div>
-        <button class="p-1 bg-red-500 hover:bg-red-300 text-white rounded-md absolute top-4 right-4" @click="removeCource(cIndex)">Remove</button>
-        <div>
+        <div class="py-2 font-semibold text-center border-b-2 mb-4 cursor-pointer">Cource #{{cIndex + 1}}</div>
+        <button class="px-5 py-1 bg-red-500 hover:bg-red-300 text-white rounded-md absolute top-4 right-4" @click="removeCource(cIndex)">Remove</button>
+        <button class="px-5 py-1 bg-blue-500 hover:bg-blue-300 text-white rounded-md absolute top-4 right-[130px]" @click="courceObj.isHide = !courceObj.isHide">{{courceObj.isHide ? 'Show' : 'Hide'}}</button>
+        <div v-if="!courceObj.isHide">
           <div class="flex items-stretch">
             <div class="w-1/2 pr-2 flex flex-col justify-between">
               <label class="font-semibold">Name</label>
