@@ -14,7 +14,7 @@
         <input ref="certificateFile" type="file" accept="application/pdf">
       </div>
       <div class="mt-10 text-center">
-        <button @click="verifyCertificate" class="shadow-sm px-4 py-2 bg-blue-200">Verify Certificate</button>
+        <button @click="verifyCertificate" class="shadow-sm px-4 py-2 bg-blue-200 hover:bg-blue-300">Verify Certificate</button>
       </div>
     </div>
   </div>
