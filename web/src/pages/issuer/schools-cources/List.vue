@@ -13,7 +13,7 @@
         <div class="xl:w-2/12 whitespace-pre-wrap px-2">Cources</div>
         <div class="xl:w-2/12 whitespace-pre-wrap px-2">Created At</div>
         <div class="xl:w-1/12 whitespace-pre-wrap px-2">Status</div>
-        <div class="xl:w-1/12 whitespace-pre-wrap px-2">Actions</div>
+        <div class="xl:flex-[0_0_280px] whitespace-pre-wrap px-2 text-center">Actions</div>
       </div>
       <template v-if="computedSchools.length">
         <div v-for="(schoolObj, sIndex) in computedSchools" :key="`school-${sIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
@@ -35,13 +35,11 @@
             <b class="xl:hidden">Status: </b>
             <toggle v-model="schoolObj.status" trueValue="active" falseValue="archived" offLabel="Archived" onLabel="Active" @click="changeStatus(schoolObj._id)" />
           </div>
-          <div class="xl:mt-0 xl:w-1/12 whitespace-pre-wrap px-2">
+          <div class="xl:mt-0 xl:flex-[0_0_280px] whitespace-pre-wrap px-2">
             <b class="xl:hidden">Actions: </b>
             <div>
-              <button class="border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400 w-full" @click="editSchool(schoolObj)">Edit</button>
-            </div>
-            <div>
-              <button class="mt-2 px-2 py-1 rounded-md cursor-pointer bg-blue-400 text-white w-full" @click="editSchoolCources(schoolObj)">Cources Manager</button>
+              <button class="block xl:inline-block border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
+              <button class="block xl:inline-block xl:ml-4 mt-2 px-2 py-1 rounded-md cursor-pointer bg-blue-400 text-white" @click="editSchoolCources(schoolObj)">Cources Manager</button>
             </div>
           </div>
         </div>

@@ -16,3 +16,8 @@ mongoimport --db certschain --collection users --legacy --drop --file ./db/users
 == update report: học sinh sinh, viên => học sinh, sinh viên
 == update report: update hình ảnh profile issuer, holder, user detail
 == update report: update môi trường phát triển: local => aws
+
+## update report + instruction:
+- cources manager
+- cert chain
+- add certificate by school: exclude students

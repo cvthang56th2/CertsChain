@@ -9,13 +9,13 @@
         <button class="p-1 bg-red-500 hover:bg-red-300 text-white rounded-md absolute top-4 right-4" @click="removeCource(cIndex)">Remove</button>
         <div>
           <div class="flex items-stretch">
-            <div class="w-1/2 flex flex-col justify-between">
+            <div class="w-1/2 pr-2 flex flex-col justify-between">
               <label class="font-semibold">Name</label>
               <div>
                 <input v-model="courceObj.name" class="border-b-2 p-1 w-full" type="text" name="name" placeholder="Name...">
               </div>
             </div>
-            <div class="w-1/2 flex flex-col justify-between">
+            <div class="w-1/2 pl-2 flex flex-col justify-between">
               <label class="font-semibold">Teacher Name</label>
               <div>
                 <input v-model="courceObj.teacherName" class="border-b-2 p-1 w-full" type="text" name="teacherName" placeholder="Teacher Name...">
@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="flex items-end mt-4">
-            <div class="w-1/2 flex flex-col justify-between pl-2">
+            <div class="w-1/2 pr-2 flex flex-col justify-between pl-2">
               <label class="font-semibold">Time</label>
               <div>
                 <input v-model="courceObj.time" class="border-b-2 p-1 w-full" type="text" name="time" placeholder="Time...">
@@ -33,7 +33,7 @@
           <div class="mt-4">
             <label class="font-semibold">Description</label>
             <div>
-              <textarea v-model="courceObj.description" class="border-b-2 p-1 w-full" name="Description" placeholder="Description..."></textarea>
+              <textarea v-model="courceObj.description" class="border-b-2 p-1 w-full" name="Description" placeholder="Description..." rows="4"></textarea>
             </div>
           </div>
           <div class="flex items-end mt-4">
