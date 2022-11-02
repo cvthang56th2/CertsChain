@@ -3,7 +3,7 @@
     <h2 class="text-center text-2xl font-extrabold mb-4">List Certificate Requests</h2>
     <div class="flex justify-between items-center flex-col xl:flex-row">
       <div class="flex flex-col xl:flex-row">
-        <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="isShowPopupCertRequest = true">New Certificate Request</button>
+        <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400 hover:bg-green-400 hover:text-white" @click="isShowPopupCertRequest = true">New Certificate Request</button>
         <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="mt-2 x:mt-0 xl:ml-4 border-2 px-2 rounded-md">
       </div>
       <div class="flex flex-col xl:flex-row">

@@ -2,7 +2,7 @@
   <div>
     <h2 class="text-center text-2xl font-extrabold mb-4">List Users</h2>
     <div class="flex flex-col xl:flex-row">
-      <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="isShowPopupUser = true">Add User</button>
+      <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400 hover:bg-green-400 hover:text-white" @click="isShowPopupUser = true">Add User</button>
       <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="mt-2 xl:mt-0 xl:ml-4 border-2 px-2 rounded-md">
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md mb-4">
@@ -31,8 +31,8 @@
           <div class="xl:mt-0 xl:w-1/6 whitespace-pre-wrap px-2">
             <b class="xl:hidden">Actions: </b>
             <div class="flex">
-              <button class="border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400" @click="editUser(userObj)">Edit</button>
-              <button class="ml-2 border-2 px-5 py-1 rounded-md cursor-pointer border-orange-400" @click="addCource(userObj)">Update Cources</button>
+              <button class="border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400 hover:bg-blue-400 hover:text-white" @click="editUser(userObj)">Edit</button>
+              <button class="ml-2 border-2 px-5 py-1 rounded-md cursor-pointer border-orange-400 hover:bg-orange-400 hover:text-white" @click="addCource(userObj)">Update Cources</button>
             </div>
           </div>
         </div>

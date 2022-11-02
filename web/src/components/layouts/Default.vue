@@ -6,7 +6,7 @@
         <h1 class="text-center text-3xl font-extrabold uppercase">{{ userType }}</h1>
         <div v-if="['Issuer', 'Holder'].includes(userType) && isLogin" class="relative xl:top-2 xl:right-0 xl:absolute">
           Hello, <span class="font-bold text-lg">{{userInfo && userInfo.username}}</span>!
-          <button class="ml-4 underline" @click="logout">
+          <button class="ml-4 underline hover:text-purple-500" @click="logout">
             Logout
           </button>
         </div>

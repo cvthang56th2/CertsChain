@@ -3,8 +3,8 @@
     <h2 class="text-center text-2xl font-extrabold mb-4">List Certs</h2>
     <div class="flex justify-between items-center flex-col xl:flex-row">
       <div class="flex flex-col xl:flex-row">
-        <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="goTo('/verify-certificate')">Verify Certificate</button>
-        <!-- <button class="ml-4 border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400" @click="goTo('/certificate-chain')">Certificate Chain</button> -->
+        <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400 hover:bg-green-400 hover:text-white" @click="goTo('/verify-certificate')">Verify Certificate</button>
+        <!-- <button class="ml-4 border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400 hover:bg-blue-400 hover:text-white" @click="goTo('/certificate-chain')">Certificate Chain</button> -->
         <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="mt-2 xl:mt-0 xl:ml-4 border-2 px-2 rounded-md">
       </div>
       <div class="flex flex-col xl:flex-row">

@@ -2,7 +2,7 @@
   <div>
     <h2 class="text-center text-2xl font-extrabold mb-4">List Schools</h2>
     <div class="flex flex-col xl:flex-row">
-      <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="isShowPopupSchool = true">Add School</button>
+      <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400 hover:bg-green-400 hover:text-white" @click="isShowPopupSchool = true">Add School</button>
       <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="mt-2 xl:mt-0 xl:ml-4 border-2 px-2 rounded-md">
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md mb-4">
@@ -38,7 +38,7 @@
           <div class="xl:mt-0 xl:flex-[0_0_280px] whitespace-pre-wrap px-2">
             <b class="xl:hidden">Actions: </b>
             <div>
-              <button class="block xl:inline-block border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400" @click="editSchool(schoolObj)">Edit</button>
+              <button class="block xl:inline-block border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400 hover:bg-blue-400 hover:text-white" @click="editSchool(schoolObj)">Edit</button>
               <button class="block xl:inline-block xl:ml-4 mt-2 px-2 py-1 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-300 text-white" @click="editSchoolCources(schoolObj)">Cources Manager</button>
             </div>
           </div>

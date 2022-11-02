@@ -21,3 +21,4 @@ mongoimport --db certschain --collection users --legacy --drop --file ./db/users
 - cources manager
 - cert chain
 - add certificate by school: exclude students
+- image issuer certificate request
