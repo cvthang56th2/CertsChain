@@ -5,7 +5,7 @@
       <button class="border-2 px-5 py-2 rounded-md cursor-pointer border-green-400" @click="isShowPopupUser = true">Add User</button>
       <input v-model="keyword" type="text" name="keyword" autocomplete="off" placeholder="Search..." class="mt-2 xl:mt-0 xl:ml-4 border-2 px-2 rounded-md">
     </div>
-    <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mb-4">
+    <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md mb-4">
       <div class="hidden xl:flex border-b-2 py-2 font-bold">
         <div class="xl:w-1/6 whitespace-pre-wrap px-2">Username</div>
         <div class="xl:w-1/6 whitespace-pre-wrap px-2">Name</div>

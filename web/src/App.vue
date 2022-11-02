@@ -2,9 +2,9 @@
   <div class="p-10 h-screen overflow-auto">
     <div>
       <h1 class="text-2xl font-bold block w-full text-center mb-4 xl:w-[unset] xl:absolute top-3 left-10 cursor-pointer" @click="goTo('/')">CERTSCHAIN</h1>
-      <button class="block w-full mb-4 xl:mt-0 xl:w-[unset] xl:absolute top-1 right-10 px-4 py-1 text-xl shadow-lg bg-cyan-500 text-white font-semibold" @click="goTo('/verify-certificate')">Verify Certificate</button>
-      <button class="block w-full mb-4 xl:mt-0 xl:w-[unset] xl:absolute top-1 right-[240px] px-4 py-1 text-xl shadow-lg bg-cyan-500 text-white font-semibold" @click="goTo('/instruction')">Instruction</button>
-      <button class="block w-full mb-4 xl:mt-0 xl:w-[unset] xl:absolute top-1 right-[388px] px-4 py-1 text-xl shadow-lg bg-cyan-500 text-white font-semibold" @click="goTo('/introduction')">Introduction</button>
+      <button class="block w-full mb-4 xl:mt-0 xl:w-[unset] xl:absolute top-1 right-10 px-4 py-1 text-xl shadow-lg bg-cyan-500 hover:bg-purple-500 text-white font-semibold" @click="goTo('/verify-certificate')">Verify Certificate</button>
+      <button class="block w-full mb-4 xl:mt-0 xl:w-[unset] xl:absolute top-1 right-[240px] px-4 py-1 text-xl shadow-lg bg-cyan-500 hover:bg-purple-500 text-white font-semibold" @click="goTo('/instruction')">Instruction</button>
+      <button class="block w-full mb-4 xl:mt-0 xl:w-[unset] xl:absolute top-1 right-[388px] px-4 py-1 text-xl shadow-lg bg-cyan-500 hover:bg-purple-500 text-white font-semibold" @click="goTo('/introduction')">Introduction</button>
     </div>
     <router-view />
     

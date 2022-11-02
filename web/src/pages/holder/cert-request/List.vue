@@ -15,7 +15,7 @@
         </div>
       </div> 
     </div>
-    <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mb-4">
+    <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md mb-4">
       <div class="hidden xl:flex border-b-2 py-2 font-bold">
         <div class="xl:w-1/4 px-2">User</div>
         <div class="xl:w-1/4 px-2">School and Cource</div>
