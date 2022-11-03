@@ -143,7 +143,7 @@ export default {
       }).then(async ({ isConfirmed }) => {
         if (isConfirmed) {
           await Axios.post(`${this.apiUrl}/certiRequest/${certRequestId}/change-status`, {
-            status: 'denied'
+            status: 'canceled'
           })
           this.$swal({
             toast: true,
