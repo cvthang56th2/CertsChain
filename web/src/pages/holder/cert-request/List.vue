@@ -29,7 +29,8 @@
           <div class="xl:w-1/4 px-2"><b class="xl:hidden">School and Cource:</b> {{ certRequestObj.schoolAndCource }}</div>
           <div class="xl:w-1/4 px-2"><b class="xl:hidden">Created At:</b> {{ formatDate(certRequestObj.createdAt) }}</div>
           <div class="xl:w-1/4 px-2 capitalize"><b class="xl:hidden">Status:</b> 
-            <span class="capitalize px-2 py-1 rounded-sm text-white" :class="certRequestObj.status === 'pending' ? 'bg-blue-600' : (certRequestObj.status === 'approved' ? 'bg-green-600' : 'bg-red-600')">{{ certRequestObj.status }}</span>
+            <span class="capitalize px-2 py-1 rounded-sm" :class="certRequestObj.status === 'pending' ? 'text-blue-600' : (certRequestObj.status === 'approved' ? 'text-green-600' : 'text-red-600')">{{ certRequestObj.status }}</span>
+            <button v-if="certRequestObj.status === 'pending'" @click="cancelRequest(certRequestObj._id, 'denied')" class="ml-2 px-4 py-1 bg-red-500 text-white rounded hover:bg-red-300">Cancel</button>
           </div>
         </div>
       </template>
@@ -131,6 +132,31 @@ export default {
           'error'
         );
       }
+    },
+    async cancelRequest(certRequestId) {
+      this.$swal({
+        title: `Are you sure when to cancel this request?`,
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+      }).then(async ({ isConfirmed }) => {
+        if (isConfirmed) {
+          await Axios.post(`${this.apiUrl}/certiRequest/${certRequestId}/change-status`, {
+            status: 'denied'
+          })
+          this.$swal({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            icon: 'success',
+            title: `Successfully!`,
+          })
+          this.getCertRequests()
+        }
+      })
     },
   }
 }
