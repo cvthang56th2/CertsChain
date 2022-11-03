@@ -2,7 +2,9 @@
   <div>
     <h2 class="text-center text-2xl font-extrabold mb-4">Certificate Chain</h2>
     <div>
-      <div v-for="(blockObj, bIndex) in certificateChain" :key="`block-certificate-${bIndex}`" class="w-full max-w-[800px] rounded-md shadow-md p-3 mb-5 mx-auto bg-slate-50 text-gray-800"> 
+      <div v-for="(blockObj, bIndex) in certificateChain" :key="`block-certificate-${bIndex}`" class="w-full max-w-[800px] rounded-md shadow-md p-3 mb-5 mx-auto bg-slate-50 text-gray-800 relative"> 
+        <div v-if="bIndex !== 0" class="h-[20px] w-[10px] absolute top-[-20px] left-1/2 -translate-1/2 bg-black">
+        </div>
         <div><strong>Block #:</strong>  {{ bIndex }}</div>
         <div><strong>Nonce #:</strong>  {{ blockObj.nonce }}</div>
         <div><strong>Time #:</strong>  {{ formatDate(blockObj.createdAt) }}</div>
