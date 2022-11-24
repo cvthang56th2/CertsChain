@@ -21,9 +21,9 @@
             <b class="xl:hidden">Name: </b>{{ schoolObj.name }}</div>
           <div class="xl:w-2/12 whitespace-pre-wrap px-2">
             <b class="xl:hidden">Director Name: </b>{{ schoolObj.directorName }}</div>
-          <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+          <div class="xl:w-2/12 whitespace-pre-wrap px-2 max-h-[250px] overflow-y-auto">
             <b class="xl:hidden">Description: </b>{{ schoolObj.description }}</div>
-          <div class="xl:w-2/12 whitespace-pre-wrap px-2">
+          <div class="xl:w-2/12 whitespace-pre-wrap px-2 max-h-[250px] overflow-y-auto">
             <b class="xl:hidden">Cources: </b>
             <div v-for="(courceObj, cIndex) in schoolObj.cources" :key="`school-${sIndex}-cource-${cIndex}`">
               {{ [courceObj.name, courceObj.time].filter(Boolean).join(' - ') }} 
