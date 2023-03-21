@@ -29,6 +29,13 @@ const Schoolschema = new Schema({
     time: String,
     students: [String]
   }],
+  courses: [{
+    name: String,
+    teacherName: String,
+    description: String,
+    time: String,
+    students: [String]
+  }],
   status: {
     type: String,
     required: false,

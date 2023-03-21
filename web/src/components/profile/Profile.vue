@@ -155,7 +155,7 @@
 
           <div class="my-4"></div>
 
-          <!-- Experience, education and Cources -->
+          <!-- Experience, education and Courses -->
           <div class="bg-white p-3 shadow-md rounded-sm flex-1">
             <div class="xl:grid xl:grid-cols-3 gap-x-10">
               <div>
@@ -274,22 +274,22 @@
                       />
                     </svg>
                   </span>
-                  <span class="tracking-wide">Joined Cources</span>
+                  <span class="tracking-wide">Joined Courses</span>
                 </div>
                 <ul class="list-inside space-y-2">
-                  <li v-for="(courcesObj, cIndex) in joinedCources" :key="`user-cource-${cIndex}`">
+                  <li v-for="(coursesObj, cIndex) in joinedCourses" :key="`user-course-${cIndex}`">
                     <div class="flex justify-between">
                       <div class="flex-1 pr-10">
-                        <div class="text-blue-600">{{ courcesObj.schoolName }}</div>
-                        <div class="text-teal-600">{{ courcesObj.courceName }}</div>
-                        <div class="text-gray-500 text-xs">{{ courcesObj.courceTime }}</div>
+                        <div class="text-blue-600">{{ coursesObj.schoolName }}</div>
+                        <div class="text-teal-600">{{ coursesObj.courseName }}</div>
+                        <div class="text-gray-500 text-xs">{{ coursesObj.courseTime }}</div>
                       </div>
                     </div>
                   </li>
                 </ul>
               </div>
             </div>
-            <!-- End of Experience, Education and Cources grid -->
+            <!-- End of Experience, Education and Courses grid -->
           </div>
           <!-- End of profile tab -->
         </div>
@@ -318,7 +318,7 @@ export default {
       experiences: [{}],
       educations: [{}]
     },
-    joinedCources: [],
+    joinedCourses: [],
     formData: {},
     isEditting: false
   }),
@@ -338,13 +338,13 @@ export default {
     }
   },
   mounted () {
-    this.getJoinedCources()
+    this.getJoinedCourses()
   },
   methods: {
-    async getJoinedCources() {
+    async getJoinedCourses() {
       try {
-        const { data } = await Axios.get(`${this.apiUrl}/user/${this.userData._id}/get-joined-cources`)
-        this.joinedCources = data.joinedCources || []
+        const { data } = await Axios.get(`${this.apiUrl}/user/${this.userData._id}/get-joined-courses`)
+        this.joinedCourses = data.joinedCourses || []
       } catch (error) {
         this.$swal(
           'Error',

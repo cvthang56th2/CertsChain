@@ -13,7 +13,7 @@
         <template v-if="blockObj.hash !== '#'">
           <div><strong>Owner:</strong> {{ blockObj.ownerName }}</div>
           <div><strong>School:</strong> {{ blockObj.schoolName }}</div>
-          <div><strong>Cource:</strong> {{ blockObj.courceName }}</div>
+          <div><strong>Course:</strong> {{ blockObj.courseName }}</div>
           <div><strong>Certificate link:</strong> <a :href="blockObj.certSrc" target="_blank" class="text-blue-500 hover:text-purple-500 underline">{{ blockObj.certSrc }}</a></div>
         </template>
       </div>

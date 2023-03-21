@@ -7,17 +7,17 @@
       </div>
       <div class="flex flex-col xl:flex-row">
         <div class="mt-2 xl:mt-0">
-          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="schoolId" :options="schools" label="name" :reduce="e => e._id" class="w-[300px]" @update:modelValue="courceId = null" placeholder="School" />
+          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="schoolId" :options="schools" label="name" :reduce="e => e._id" class="w-[300px]" @update:modelValue="courseId = null" placeholder="School" />
         </div>
         <div class="mt-2 xl:mt-0 xl:ml-2">
-          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courceId" :options="cources" label="name" :reduce="e => e._id" class="w-[300px]" placeholder="Cource" :disabled="!schoolId" />
+          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courseId" :options="courses" label="name" :reduce="e => e._id" class="w-[300px]" placeholder="Course" :disabled="!schoolId" />
         </div>
       </div>
     </div>
     <div class="px-8 py-4 mx-auto bg-white rounded-md shadow-md mb-4">
       <div class="hidden xl:flex border-b-2 py-2 font-bold">
         <div class="xl:w-1/5 px-2">User</div>
-        <div class="xl:w-1/5 px-2">School and Cource</div>
+        <div class="xl:w-1/5 px-2">School and Course</div>
         <div class="xl:w-1/5 px-2">Created At</div>
         <div class="xl:w-1/5 px-2">Status</div>
         <div class="xl:w-1/5 px-2">Actions</div>
@@ -26,7 +26,7 @@
       <template v-if="computedCertRequests.length">
         <div v-for="(certRequestObj, cIndex) in computedCertRequests" :key="`cert-${cIndex}`" class="xl:flex border-b-2 last:border-b-0 py-2">
           <div class="xl:w-1/5 px-2"><b class="xl:hidden">User:</b> {{ certRequestObj.userName }}</div>
-          <div class="xl:w-1/5 px-2"><b class="xl:hidden">School and Cource:</b> {{ certRequestObj.schoolAndCource }}</div>
+          <div class="xl:w-1/5 px-2"><b class="xl:hidden">School and Course:</b> {{ certRequestObj.schoolAndCourse }}</div>
           <div class="xl:w-1/5 px-2"><b class="xl:hidden">Created At:</b> {{ formatDate(certRequestObj.createdAt) }}</div>
           <div class="xl:w-1/5 px-2 capitalize"><b class="xl:hidden">Status:</b> {{ certRequestObj.status }}</div>
           <div class="mb-10 xl:mb-0 xl:w-1/5 px-2">
@@ -63,20 +63,20 @@ export default {
     certRequests: [],
     schools: [],
     schoolId: null,
-    courceId: null,
+    courseId: null,
     keyword: null
   }),
   computed: {
     computedCertRequests () {
       let result = JSON.parse(JSON.stringify(this.certRequests)).map(certRequestObj => {
-        const courceObj = (certRequestObj.schoolId?.cources || []).find(e => e._id === certRequestObj.courceId) || {}
+        const courseObj = (certRequestObj.schoolId?.courses || []).find(e => e._id === certRequestObj.courseId) || {}
         const splitted = (certRequestObj.certRequestSrc || '').split('/')
         const fileName = splitted[splitted.length - 1]
         return {
           ...certRequestObj,
           fileName,
           userName: [certRequestObj.userId?.username, [certRequestObj.userId?.firstName, certRequestObj.userId?.lastName].filter(Boolean).join(' ')].filter(Boolean).join('-'),
-          schoolAndCource: [certRequestObj.school?.name, courceObj.name, courceObj.time].filter(Boolean).join(' - '),
+          schoolAndCourse: [certRequestObj.school?.name, courseObj.name, courseObj.time].filter(Boolean).join(' - '),
         }
       })
       if (this.keyword) {
@@ -84,21 +84,21 @@ export default {
         result = result.filter(item => (
           (item.certinumber && item.certinumber.match(reg)) ||
           (item.userName && item.userName.match(reg)) ||
-          (item.schoolAndCource && item.schoolAndCource.match(reg))
+          (item.schoolAndCourse && item.schoolAndCourse.match(reg))
         ))
       }
       if (this.schoolId) {
         result = result.filter(e => (e.schoolId?._id || e.schoolId) === this.schoolId)
-        if (this.courceId) {
-          result = result.filter(e => (e.courceId?._id || e.courceId) === this.courceId)
+        if (this.courseId) {
+          result = result.filter(e => (e.courseId?._id || e.courseId) === this.courseId)
         }
       }
       return result
     },
-    cources () {
-      return ((this.schools.find(e => e._id === this.schoolId) || {}).cources || []).map(courceObj => ({
-        ...courceObj,
-        label: [courceObj.name, courceObj.time].filter(Boolean).join(' - ')
+    courses () {
+      return ((this.schools.find(e => e._id === this.schoolId) || {}).courses || []).map(courseObj => ({
+        ...courseObj,
+        label: [courseObj.name, courseObj.time].filter(Boolean).join(' - ')
       }))
     }
   },

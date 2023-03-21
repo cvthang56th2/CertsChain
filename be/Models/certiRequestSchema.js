@@ -13,9 +13,12 @@ const Schoolschema = new Schema({
     required: true,
     ref: 'School'
   },
-  courceId: {
+  courseId: {
     type: ObjectId,
     required: true
+  },
+  courceId: {
+    type: ObjectId
   },
   status: {
     type: String,

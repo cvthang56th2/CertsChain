@@ -19,6 +19,9 @@ const Certischema = new Schema({
   },
   courceId: {
     type: ObjectId,
+  },
+  courseId: {
+    type: ObjectId,
     required: true
   },
   certSrc: {

@@ -10,10 +10,10 @@
         </v-select>
       </div>
       <div v-if="formData.schoolId" class="flex mt-4">
-        <div class="px-4 py-2 font-semibold w-1/3">Cource</div>
-        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.courceId" class="w-full" :options="cources" :reduce="e => e._id">
+        <div class="px-4 py-2 font-semibold w-1/3">Course</div>
+        <v-select :selectable="e => e && !e.disabled" appendToBody v-model="formData.courseId" class="w-full" :options="courses" :reduce="e => e._id">
           <template #no-options>
-            User not join any cources at this School.
+            User not join any courses at this School.
           </template>
         </v-select>
       </div>
@@ -69,22 +69,22 @@ export default {
       }
       return result
     },
-    cources () {
-      return ((this.schools.find(e => e._id === this.formData.schoolId) || {}).cources || []).map(courceObj => ({
-        ...courceObj,
-        label: [courceObj.name, courceObj.time].filter(Boolean).join(' - ')
+    courses () {
+      return ((this.schools.find(e => e._id === this.formData.schoolId) || {}).courses || []).map(courseObj => ({
+        ...courseObj,
+        label: [courseObj.name, courseObj.time].filter(Boolean).join(' - ')
       }))
     },
-    availabelCources () {
-      return this.cources.filter(e => !e.disabled)
+    availabelCourses () {
+      return this.courses.filter(e => !e.disabled)
     }
   },
   methods: {
     async onChangeSchool () {
-      this.formData.courceId = null
+      this.formData.courseId = null
       await this.$nextTick(() => {
-        if (this.availabelCources.length === 1) {
-          this.formData.courceId = this.availabelCources[0]._id
+        if (this.availabelCourses.length === 1) {
+          this.formData.courseId = this.availabelCourses[0]._id
         }
       })
       this.formData = { ...this.formData }
@@ -94,7 +94,7 @@ export default {
     },
     onChangeUser () {
       this.formData.schoolId = null
-      this.formData.courceId = null
+      this.formData.courseId = null
       this.formData = { ...this.formData }
     },
     async getDataCreate() {

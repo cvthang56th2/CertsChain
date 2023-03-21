@@ -8,10 +8,10 @@
       </div>
       <div class="flex flex-col xl:flex-row">
         <div class="mt-2 xl:mt-0">
-          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="schoolId" :options="schools" label="name" :reduce="e => e._id" class="w-[300px]" @update:modelValue="courceId = null" placeholder="School" />
+          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="schoolId" :options="schools" label="name" :reduce="e => e._id" class="w-[300px]" @update:modelValue="courseId = null" placeholder="School" />
         </div>
         <div class="mt-2 xl:mt-0 xl:ml-2">
-          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courceId" :options="cources" label="name" :reduce="e => e._id" class="w-[300px]" placeholder="Cource" :disabled="!schoolId" />
+          <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courseId" :options="courses" label="name" :reduce="e => e._id" class="w-[300px]" placeholder="Course" :disabled="!schoolId" />
         </div>
       </div> 
     </div>
@@ -19,7 +19,7 @@
       <div class="hidden xl:flex border-b-2 py-2 font-bold">
         <div class="xl:w-1/6 px-2">Certificate Number</div>
         <div class="xl:w-1/6 px-2">User</div>
-        <div class="xl:w-1/6 px-2">School and Cource</div>
+        <div class="xl:w-1/6 px-2">School and Course</div>
         <div class="xl:w-1/6 px-2">Created At</div>
         <div class="xl:w-1/6 px-2">Link</div>
         <div class="xl:w-1/6 px-2">Status</div>
@@ -29,7 +29,7 @@
         <div v-for="(certObj, cIndex) in computedCerts" :key="`cert-${cIndex}`" class="xl:flex items-center border-b-2 last:border-b-0 py-2">
           <div class="xl:w-1/6 px-2"><b class="xl:hidden">Certificate Number:</b> {{ certObj.certinumber }}</div>
           <div class="xl:w-1/6 px-2"><b class="xl:hidden">User:</b> {{ certObj.userName }}</div>
-          <div class="xl:w-1/6 px-2"><b class="xl:hidden">School and Cource:</b> {{ certObj.schoolAndCource }}</div>
+          <div class="xl:w-1/6 px-2"><b class="xl:hidden">School and Course:</b> {{ certObj.schoolAndCourse }}</div>
           <div class="xl:w-1/6 px-2"><b class="xl:hidden">Created At:</b> {{ formatDate(certObj.createdAt) }}</div>
           <div class="xl:w-1/6 px-2">
             <b class="xl:hidden">Link:</b> <a :href="certObj.certSrc" target="_blank" class="underline text-blue-600 hover:text-blue-400">{{ certObj.fileName }}</a>
@@ -68,20 +68,20 @@ export default {
     certs: [],
     schools: [],
     schoolId: null,
-    courceId: null,
+    courseId: null,
     keyword: null
   }),
   computed: {
     computedCerts () {
       let result = JSON.parse(JSON.stringify(this.certs)).map(certObj => {
-        const courceObj = (certObj.schoolId?.cources || []).find(e => e._id === certObj.courceId) || {}
+        const courseObj = (certObj.schoolId?.courses || []).find(e => e._id === certObj.courseId) || {}
         const splitted = (certObj.certSrc || '').split('/')
         const fileName = splitted[splitted.length - 1]
         return {
           ...certObj,
           fileName,
           userName: [certObj.userId?.username, [certObj.userId?.firstName, certObj.userId?.lastName].filter(Boolean).join(' ')].filter(Boolean).join('-'),
-          schoolAndCource: [certObj.school?.name, courceObj.name, courceObj.time].filter(Boolean).join(' - '),
+          schoolAndCourse: [certObj.school?.name, courseObj.name, courseObj.time].filter(Boolean).join(' - '),
         }
       })
       if (this.keyword) {
@@ -89,19 +89,19 @@ export default {
         result = result.filter(item => (
           (item.certinumber && item.certinumber.match(reg)) ||
           (item.userName && item.userName.match(reg)) ||
-          (item.schoolAndCource && item.schoolAndCource.match(reg))
+          (item.schoolAndCourse && item.schoolAndCourse.match(reg))
         ))
       }
       if (this.schoolId) {
         result = result.filter(e => (e.schoolId?._id || e.schoolId) === this.schoolId)
-        if (this.courceId) {
-          result = result.filter(e => (e.courceId?._id || e.courceId) === this.courceId)
+        if (this.courseId) {
+          result = result.filter(e => (e.courseId?._id || e.courseId) === this.courseId)
         }
       }
       return result
     },
-    cources () {
-      return (this.schools.find(e => e._id === this.schoolId) || {}).cources || []
+    courses () {
+      return (this.schools.find(e => e._id === this.schoolId) || {}).courses || []
     }
   },
   mounted () {

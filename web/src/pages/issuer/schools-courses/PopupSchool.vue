@@ -60,8 +60,8 @@ export default {
       if (v) {
         this.getUsers()
         this.formData = JSON.parse(JSON.stringify(this.schoolObj))
-        if (!this.formData?.cources) {
-          this.formData.cources = [{}]
+        if (!this.formData?.courses) {
+          this.formData.courses = [{}]
         }
       }
     },
@@ -94,13 +94,13 @@ export default {
     hide() {
       this.$emit('update:modelValue', false)
     },
-    addCource () {
-      this.formData.cources.push({})
-      this.formData.cources = [...this.formData.cources]
+    addCourse () {
+      this.formData.courses.push({})
+      this.formData.courses = [...this.formData.courses]
     },
-    removeCource (eIndex) {
-      this.formData.cources.splice(eIndex, 1)
-      this.formData.cources = [...this.formData.cources]
+    removeCourse (eIndex) {
+      this.formData.courses.splice(eIndex, 1)
+      this.formData.courses = [...this.formData.courses]
     },
     async saveSchool () {
       this.setLoading()

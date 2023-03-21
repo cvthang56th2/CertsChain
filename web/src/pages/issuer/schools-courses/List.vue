@@ -10,7 +10,7 @@
         <div class="xl:w-2/12 whitespace-pre-wrap px-2">Name</div>
         <div class="xl:w-2/12 whitespace-pre-wrap px-2">Director Name</div>
         <div class="xl:w-2/12 whitespace-pre-wrap px-2">Description</div>
-        <div class="xl:w-2/12 whitespace-pre-wrap px-2">Cources</div>
+        <div class="xl:w-2/12 whitespace-pre-wrap px-2">Courses</div>
         <div class="xl:w-2/12 whitespace-pre-wrap px-2">Created At</div>
         <div class="xl:w-1/12 whitespace-pre-wrap px-2">Status</div>
         <div class="xl:flex-[0_0_280px] whitespace-pre-wrap px-2 text-center">Actions</div>
@@ -24,9 +24,9 @@
           <div class="xl:w-2/12 whitespace-pre-wrap px-2 max-h-[250px] overflow-y-auto">
             <b class="xl:hidden">Description: </b>{{ schoolObj.description }}</div>
           <div class="xl:w-2/12 whitespace-pre-wrap px-2 max-h-[250px] overflow-y-auto">
-            <b class="xl:hidden">Cources: </b>
-            <div v-for="(courceObj, cIndex) in schoolObj.cources" :key="`school-${sIndex}-cource-${cIndex}`">
-              {{ [courceObj.name, courceObj.time].filter(Boolean).join(' - ') }} 
+            <b class="xl:hidden">Courses: </b>
+            <div v-for="(courseObj, cIndex) in schoolObj.courses" :key="`school-${sIndex}-course-${cIndex}`">
+              {{ [courseObj.name, courseObj.time].filter(Boolean).join(' - ') }} 
             </div>
           </div>
           <div class="xl:w-2/12 whitespace-pre-wrap px-2">
@@ -39,7 +39,7 @@
             <b class="xl:hidden">Actions: </b>
             <div>
               <button class="block xl:inline-block border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400 hover:bg-blue-400 hover:text-white" @click="editSchool(schoolObj)">Edit</button>
-              <button class="block xl:inline-block xl:ml-4 mt-2 px-2 py-1 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-300 text-white" @click="editSchoolCources(schoolObj)">Cources Manager</button>
+              <button class="block xl:inline-block xl:ml-4 mt-2 px-2 py-1 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-300 text-white" @click="editSchoolCourses(schoolObj)">Courses Manager</button>
             </div>
           </div>
         </div>
@@ -50,26 +50,26 @@
     </div>
 
     <PopupSchool v-model="isShowPopupSchool" @saved="getSchools()" :schoolObj="selectedSchool" />
-    <PopupSchoolCources v-model="isShowPopupSchoolCources" @saved="getSchools()" :schoolObj="selectedSchool" />
+    <PopupSchoolCourses v-model="isShowPopupSchoolCourses" @saved="getSchools()" :schoolObj="selectedSchool" />
   </div>
 </template>
 <style src="@vueform/toggle/themes/default.css"></style>
 
 <script>
 import PopupSchool from './PopupSchool.vue'
-import PopupSchoolCources from './PopupSchoolCources.vue'
+import PopupSchoolCourses from './PopupSchoolCourses.vue'
 import Axios from 'axios'
 import Toggle from '@vueform/toggle'
 
 export default {
   components: {
     PopupSchool,
-    PopupSchoolCources,
+    PopupSchoolCourses,
     Toggle
   },
   data: () => ({
     isShowPopupSchool: false,
-    isShowPopupSchoolCources: false,
+    isShowPopupSchoolCourses: false,
     schools: [],
     keyword: null,
     selectedSchool: {},
@@ -80,7 +80,7 @@ export default {
         this.selectedSchool = {}
       }
     },
-    isShowPopupSchoolCources (v) {
+    isShowPopupSchoolCourses (v) {
       if (!v) {
         this.selectedSchool = {}
       }
@@ -88,19 +88,19 @@ export default {
   },
   computed: {
     computedSchools () {
-      let result = JSON.parse(JSON.stringify(this.schools)).reduce((resultArr, courceObj) => {
+      let result = JSON.parse(JSON.stringify(this.schools)).reduce((resultArr, courseObj) => {
         resultArr.push({
-          ...courceObj,
-          courcesText: [courceObj.name, courceObj.time].filter(Boolean).join(' - ')
+          ...courseObj,
+          coursesText: [courseObj.name, courseObj.time].filter(Boolean).join(' - ')
         })
         return resultArr
       }, [])
       if (this.keyword) {
         let reg = new RegExp(this.keyword, 'gi')
-        result = result.filter(courceObj => (
-          (courceObj.name && courceObj.name.match(reg)) ||
-          (courceObj.courcesText && courceObj.courcesText.match(reg)) ||
-          (courceObj.description && courceObj.description.match(reg))
+        result = result.filter(courseObj => (
+          (courseObj.name && courseObj.name.match(reg)) ||
+          (courseObj.coursesText && courseObj.coursesText.match(reg)) ||
+          (courseObj.description && courseObj.description.match(reg))
         ))
       }
       return result
@@ -139,9 +139,9 @@ export default {
       this.selectedSchool = schoolObj
       this.isShowPopupSchool = true
     },
-    editSchoolCources(schoolObj) {
+    editSchoolCourses(schoolObj) {
       this.selectedSchool = schoolObj
-      this.isShowPopupSchoolCources = true
+      this.isShowPopupSchoolCourses = true
     }
   }
 }

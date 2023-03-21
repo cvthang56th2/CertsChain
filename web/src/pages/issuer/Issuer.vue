@@ -29,7 +29,7 @@
 import Dashboard from './dashboard/Dashboard.vue'
 import CertificateList from './certs/List.vue'
 import UserList from './users/List.vue'
-import SchoolList from './schools-cources/List.vue'
+import SchoolList from './schools-courses/List.vue'
 import CertificateRequestList from './cert-request/List.vue'
 import Profile from '../../components/profile/Profile.vue'
 import DefaultLayout from '../../components/layouts/Default.vue'
@@ -123,7 +123,7 @@ export default {
         </svg>`
       },
       {
-        label: 'Schools and Cources',
+        label: 'Schools and Courses',
         value: 'SchoolList',
         icon: `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="35px" height="35px">
         <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>

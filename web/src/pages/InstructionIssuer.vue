@@ -34,9 +34,9 @@
         </div>
         
         <div class="mt-3">
-          Issuer có thể cập nhật danh sách Cources của User bằng cách click vào button Update Cources:
-          <img src="../assets/image/issuer/user-update-cources.png" class="mx-auto border-2 mt-4 mb-2">
-          <div class="text-center text-sm italic">Popup Cập nhật danh sách danh sách Cources của User tham gia</div>
+          Issuer có thể cập nhật danh sách Courses của User bằng cách click vào button Update Courses:
+          <img src="../assets/image/issuer/user-update-courses.png" class="mx-auto border-2 mt-4 mb-2">
+          <div class="text-center text-sm italic">Popup Cập nhật danh sách danh sách Courses của User tham gia</div>
         </div>
         
         <div class="mt-3">
@@ -44,30 +44,30 @@
         </div>
   
       </template>
-      <template v-if="currentPage === 'Schools and Cources'">
+      <template v-if="currentPage === 'Schools and Courses'">
         <div class="mt-3">
           Giúp Issuer có thể quản lý trường học và khóa học trong hệ thống:
-          <img src="../assets/image/issuer/school-cource-list.png" class="mx-auto border-2 mt-4 mb-2">
+          <img src="../assets/image/issuer/school-course-list.png" class="mx-auto border-2 mt-4 mb-2">
           <div class="text-center text-sm italic">
-            Trang Schools and Cources của Issuer
+            Trang Schools and Courses của Issuer
           </div>
         </div>
         <div class="mt-3">
           Issuer có thể tạo mới thông tin trường học, khóa học  bằng cách click vào button Add School 
-          <img src="../assets/image/issuer/school-cource-add.png" class="mx-auto border-2 mt-4 mb-2">
+          <img src="../assets/image/issuer/school-course-add.png" class="mx-auto border-2 mt-4 mb-2">
           <div class="text-center text-sm italic">
-            Popup tạo mới School and Cource
+            Popup tạo mới School and Course
           </div>
         </div>
         <div class="mt-3">
           Issuer có thể cập nhật thông tin trường học, khóa học  bằng cách click vào button Edit
-          <img src="../assets/image/issuer/school-cource-edit.png" class="mx-auto border-2 mt-4 mb-2">
+          <img src="../assets/image/issuer/school-course-edit.png" class="mx-auto border-2 mt-4 mb-2">
           <div class="text-center text-sm italic">
-            Popup cập nhật School and Cource
+            Popup cập nhật School and Course
           </div>
         </div>
         <div class="mt-3">
-          Issuer có thể cập nhật trạng thái hoạt động của trường học, khóa học bằng cách click vào switch button Active/Archived trên trang danh sách Schools and Cources
+          Issuer có thể cập nhật trạng thái hoạt động của trường học, khóa học bằng cách click vào switch button Active/Archived trên trang danh sách Schools and Courses
         </div>
         
       </template>
@@ -89,8 +89,8 @@
         </div>
         
         <div class="mt-3">
-          Tại Popup tạo mới Certificate có thể tạo mới một chứng chỉ cho 1 User duy nhất bằng cách chọn User, trường và khóa học của User có tham gia và nhấn Save Changes. Ngoài ra, Issuer có thể cấp phát cho tất cả học viên trong khóa học bằng cách click vào switch button Is Generate for Cource?, chọn khóa học muốn cấp phát và click Save Changes.
-          <img src="../assets/image/issuer/certificate-add-for-cource.png" class="mx-auto border-2 mt-4 mb-2">
+          Tại Popup tạo mới Certificate có thể tạo mới một chứng chỉ cho 1 User duy nhất bằng cách chọn User, trường và khóa học của User có tham gia và nhấn Save Changes. Ngoài ra, Issuer có thể cấp phát cho tất cả học viên trong khóa học bằng cách click vào switch button Is Generate for Course?, chọn khóa học muốn cấp phát và click Save Changes.
+          <img src="../assets/image/issuer/certificate-add-for-course.png" class="mx-auto border-2 mt-4 mb-2">
           <div class="text-center text-sm italic">
             Cấp nhát VBCC cho học viên trong khóa học
           </div>
@@ -139,7 +139,7 @@ export default {
     pages: [
       'Profile',
       'Users',
-      'Schools and Cources',
+      'Schools and Courses',
       'Certificates',
       'Certificate Requests',
     ]

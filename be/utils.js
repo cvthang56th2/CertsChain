@@ -6,7 +6,7 @@ const certsPath = 'public/certs'
 
 // https://github.com/eduqg/pdfkit-node-certificate-template
 const generateCertPdf = async (certiData = {}) => {
-  const { user, school, cource} = certiData
+  const { user, school, course} = certiData
   const doc = new PDFDocument({
     layout: 'landscape',
     size: 'A4',
@@ -24,7 +24,7 @@ const generateCertPdf = async (certiData = {}) => {
   }
   const userName = [user.firstName, user.lastName].filter(Boolean).join(' ')
 
-  const certFileName = `certificate-${userName}-${school.name}-${cource.name}-${cource.time}-${new Date().getTime()}.pdf`.trim().replace(/ /g, '_')
+  const certFileName = `certificate-${userName}-${school.name}-${course.name}-${course.time}-${new Date().getTime()}.pdf`.trim().replace(/ /g, '_')
 
   doc.pipe(fs.createWriteStream(`${certsPath}/${certFileName}`));
 
@@ -103,7 +103,7 @@ const generateCertPdf = async (certiData = {}) => {
     .font('./public/fonts/NotoSansJP-Light.otf')
     .fontSize(10)
     .fill('#021c27')
-    .text(`Has been successfully completed the Course: ${cource.name} - ${cource.time}`, {
+    .text(`Has been successfully completed the Course: ${course.name} - ${course.time}`, {
       align: 'center',
     });
 
@@ -143,7 +143,7 @@ const generateCertPdf = async (certiData = {}) => {
     .font('./public/fonts/NotoSansJP-Bold.otf')
     .fontSize(10)
     .fill('#021c27')
-    .text(cource.teacherName, startLine1, signatureHeight + 10, {
+    .text(course.teacherName, startLine1, signatureHeight + 10, {
       columns: 1,
       columnGap: 0,
       height: 40,

@@ -20,10 +20,10 @@
                 {{ certObj.schoolId?.description }}
               </p>
               <h4 class="text-xl font-bold text-gray-700">
-                {{ certObj.courceText }}
+                {{ certObj.courseText }}
               </h4>
               <div class="flex items-center mt-4">
-                Teacher: <span class="ml-2 font-bold text-gray-700">{{ certObj.courceObj?.teacherName }}</span>
+                Teacher: <span class="ml-2 font-bold text-gray-700">{{ certObj.courseObj?.teacherName }}</span>
               </div>
             </div> 
             <div class="xl:flex items-center justify-between mt-4">
@@ -55,11 +55,11 @@ export default {
     }),
     computedCerts () {
       let result = JSON.parse(JSON.stringify(this.certs)).map(certObj => {
-        const courceObj = (certObj.schoolId?.cources || []).find(e => e._id === certObj.courceId) || {}
+        const courseObj = (certObj.schoolId?.courses || []).find(e => e._id === certObj.courseId) || {}
         return {
           ...certObj,
-          courceObj,
-          courceText: [courceObj.name, courceObj.time].filter(Boolean).join(' - '),
+          courseObj,
+          courseText: [courseObj.name, courseObj.time].filter(Boolean).join(' - '),
         }
       })
       return result

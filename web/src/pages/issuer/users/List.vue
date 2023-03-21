@@ -32,7 +32,7 @@
             <b class="xl:hidden">Actions: </b>
             <div class="flex">
               <button class="border-2 px-5 py-1 rounded-md cursor-pointer border-blue-400 hover:bg-blue-400 hover:text-white" @click="editUser(userObj)">Edit</button>
-              <button class="ml-2 border-2 px-5 py-1 rounded-md cursor-pointer border-orange-400 hover:bg-orange-400 hover:text-white" @click="addCource(userObj)">Update Cources</button>
+              <button class="ml-2 border-2 px-5 py-1 rounded-md cursor-pointer border-orange-400 hover:bg-orange-400 hover:text-white" @click="addCourse(userObj)">Update Courses</button>
             </div>
           </div>
         </div>
@@ -43,26 +43,26 @@
     </div>
 
     <PopupUser v-model="isShowPopupUser" @saved="getUsers()" :userObj="selectedUser" />
-    <PopupAddCources v-model="isShowPopupAddCources" @saved="getUsers()" :userObj="selectedUser" />
+    <PopupAddCourses v-model="isShowPopupAddCourses" @saved="getUsers()" :userObj="selectedUser" />
   </div>
 </template>
 <style src="@vueform/toggle/themes/default.css"></style>
 
 <script>
 import PopupUser from './PopupUser.vue'
-import PopupAddCources from './PopupAddCources.vue'
+import PopupAddCourses from './PopupAddCourses.vue'
 import Axios from 'axios'
 import Toggle from '@vueform/toggle'
 
 export default {
   components: {
     PopupUser,
-    PopupAddCources,
+    PopupAddCourses,
     Toggle
   },
   data: () => ({
     isShowPopupUser: false,
-    isShowPopupAddCources: false,
+    isShowPopupAddCourses: false,
     users: [],
     keyword: null,
     selectedUser: {},
@@ -73,7 +73,7 @@ export default {
         this.selectedUser = {}
       }
     },
-    isShowPopupAddCources (v) {
+    isShowPopupAddCourses (v) {
       if (!v) {
         this.selectedUser = {}
       }
@@ -130,9 +130,9 @@ export default {
       this.selectedUser = userObj
       this.isShowPopupUser = true
     },
-    addCource (userObj) {
+    addCourse (userObj) {
       this.selectedUser = userObj
-      this.isShowPopupAddCources = true
+      this.isShowPopupAddCourses = true
     }
   }
 }

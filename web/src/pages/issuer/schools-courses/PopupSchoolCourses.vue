@@ -1,25 +1,25 @@
 <template>
-  <Popup v-model="modelValue" @hide="hide" :save="saveSchool" :title="'Cources Management'">
+  <Popup v-model="modelValue" @hide="hide" :save="saveSchool" :title="'Courses Management'">
     <div class="text-gray-700">
       <div class="text-center">
-        <div class="font-bold text-2xl mb-4">List Cources in {{ formData.name }}</div>
+        <div class="font-bold text-2xl mb-4">List Courses in {{ formData.name }}</div>
       </div>
-      <div v-for="(courceObj, cIndex) in formData.cources" :key="`user-cource-${cIndex}`" class="shadow-md border-t-[1px] mb-4 p-4 relative">
-        <div class="py-2 font-semibold text-center border-b-2 mb-4 cursor-pointer">Cource #{{cIndex + 1}}</div>
-        <button class="px-5 py-1 bg-red-500 hover:bg-red-300 text-white rounded-md absolute top-4 right-4" @click="removeCource(cIndex)">Remove</button>
-        <button class="px-5 py-1 bg-blue-500 hover:bg-blue-300 text-white rounded-md absolute top-4 right-[130px]" @click="courceObj.isHide = !courceObj.isHide">{{courceObj.isHide ? 'Show' : 'Hide'}}</button>
-        <div v-if="!courceObj.isHide">
+      <div v-for="(courseObj, cIndex) in formData.courses" :key="`user-course-${cIndex}`" class="shadow-md border-t-[1px] mb-4 p-4 relative">
+        <div class="py-2 font-semibold text-center border-b-2 mb-4 cursor-pointer">Course #{{cIndex + 1}}</div>
+        <button class="px-5 py-1 bg-red-500 hover:bg-red-300 text-white rounded-md absolute top-4 right-4" @click="removeCourse(cIndex)">Remove</button>
+        <button class="px-5 py-1 bg-blue-500 hover:bg-blue-300 text-white rounded-md absolute top-4 right-[130px]" @click="courseObj.isHide = !courseObj.isHide">{{courseObj.isHide ? 'Show' : 'Hide'}}</button>
+        <div v-if="!courseObj.isHide">
           <div class="flex items-stretch">
             <div class="w-1/2 pr-2 flex flex-col justify-between">
               <label class="font-semibold">Name</label>
               <div>
-                <input v-model="courceObj.name" class="border-b-2 p-1 w-full" type="text" name="name" placeholder="Name...">
+                <input v-model="courseObj.name" class="border-b-2 p-1 w-full" type="text" name="name" placeholder="Name...">
               </div>
             </div>
             <div class="w-1/2 pl-2 flex flex-col justify-between">
               <label class="font-semibold">Teacher Name</label>
               <div>
-                <input v-model="courceObj.teacherName" class="border-b-2 p-1 w-full" type="text" name="teacherName" placeholder="Teacher Name...">
+                <input v-model="courseObj.teacherName" class="border-b-2 p-1 w-full" type="text" name="teacherName" placeholder="Teacher Name...">
               </div>
             </div>
           </div>
@@ -27,21 +27,21 @@
             <div class="w-1/2 pr-2 flex flex-col justify-between pl-2">
               <label class="font-semibold">Time</label>
               <div>
-                <input v-model="courceObj.time" class="border-b-2 p-1 w-full" type="text" name="time" placeholder="Time...">
+                <input v-model="courseObj.time" class="border-b-2 p-1 w-full" type="text" name="time" placeholder="Time...">
               </div>
             </div>
           </div>
           <div class="mt-4">
             <label class="font-semibold">Description</label>
             <div>
-              <textarea v-model="courceObj.description" class="border-b-2 p-1 w-full" name="Description" placeholder="Description..." rows="4"></textarea>
+              <textarea v-model="courseObj.description" class="border-b-2 p-1 w-full" name="Description" placeholder="Description..." rows="4"></textarea>
             </div>
           </div>
           <div class="flex items-end mt-4">
             <div class="w-full flex flex-col justify-between pl-2">
               <label class="font-semibold">Students</label>
               <div>
-                <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courceObj.students" multiple :options="formattedUsers" :reduce="e => e._id" :closeOnSelect="false" deselectFromDropdown />
+                <v-select :selectable="e => e && !e.disabled" appendToBody v-model="courseObj.students" multiple :options="formattedUsers" :reduce="e => e._id" :closeOnSelect="false" deselectFromDropdown />
               </div>
             </div>
           </div>
@@ -50,9 +50,9 @@
       <div class="flex justify-center">
         <button
             class="block text-green-800 text-sm font-semibold rounded-md border-2 border-gray-300 hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs px-5 py-2 mb-4"
-            @click="addCource"
+            @click="addCourse"
           >
-            Add Cource
+            Add Course
         </button>
       </div>
     </div>
@@ -83,8 +83,8 @@ export default {
       if (v) {
         this.getUsers()
         this.formData = JSON.parse(JSON.stringify(this.schoolObj))
-        if (!this.formData?.cources) {
-          this.formData.cources = [{}]
+        if (!this.formData?.courses) {
+          this.formData.courses = [{}]
         }
       }
     },
@@ -117,13 +117,13 @@ export default {
     hide() {
       this.$emit('update:modelValue', false)
     },
-    addCource () {
-      this.formData.cources.push({})
-      this.formData.cources = [...this.formData.cources]
+    addCourse () {
+      this.formData.courses.push({})
+      this.formData.courses = [...this.formData.courses]
     },
-    removeCource (eIndex) {
-      this.formData.cources.splice(eIndex, 1)
-      this.formData.cources = [...this.formData.cources]
+    removeCourse (eIndex) {
+      this.formData.courses.splice(eIndex, 1)
+      this.formData.courses = [...this.formData.courses]
     },
     async saveSchool () {
       this.setLoading()

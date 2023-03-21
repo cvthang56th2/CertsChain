@@ -18,7 +18,10 @@ mongoimport --db certschain --collection users --legacy --drop --file ./db/users
 == update report: update môi trường phát triển: local => aws
 
 ## update report + instruction:
-- cources manager
+- courses manager
 - cert chain
 - add certificate by school: exclude students
 - image issuer certificate request
+
+
+## UPDATE COURCE => COURSE
