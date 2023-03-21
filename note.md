@@ -1,4 +1,6 @@
 sudo su
+## Start apache
+systemctl start httpd
 
 REPLACE ENV DEV IN BE + FE
 
